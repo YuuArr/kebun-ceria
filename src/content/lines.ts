@@ -73,6 +73,10 @@ export const LINES: readonly Line[] = [
   })),
   { id: 'tulis_ajak', text: 'Ayo kita tulis…', note: 'nada menggantung, disusul nama huruf' },
   { id: 'tulis_ikuti', text: 'Mulai dari titik hijau, lalu ikuti garisnya, ya!' },
+  { id: 'angka_0', text: 'Nol!' },
+  { id: 'tulis_angka_ajak', text: 'Ayo kita tulis angka…', note: 'nada menggantung, disusul angka' },
+  { id: 'pola_ajak', text: 'Apa yang selanjutnya?' },
+  { id: 'jumlah_ajak', text: 'Geser angka ke kelompok yang jumlahnya sama!' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   // Phase 2–4

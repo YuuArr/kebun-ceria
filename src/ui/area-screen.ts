@@ -15,7 +15,7 @@ export const areaScreen: Screen = (root, params) => {
   root.append(
     h('div', { class: `screen area-screen bg-${area}` }, [
       h('div', { class: 'corner-tl' }, [homeButton(() => go('map'))]),
-      h('div', { class: 'tile-row' }, tiles),
+      h('div', { class: `tile-row${tiles.length > 4 ? ' many' : ''}` }, tiles),
     ]),
   );
   void audio.play('umum_pilih_game');

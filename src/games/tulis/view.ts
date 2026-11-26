@@ -1,38 +1,49 @@
 import { earIcon } from '../../art/areas';
 import { h, s } from '../../art/svg';
 import * as celebrate from '../../core/celebrate';
-import { getSeen, markSeen } from '../../core/seen';
-import { STROKES, type Stroke } from '../../content/strokes';
+import { type Stroke } from '../../content/strokes';
 import { PRAISE_IDS } from '../../content/lines';
-import type { Letter } from '../../content/letters';
 import type { GameContext } from '../types';
 import { createTracer, makeTraceRound } from './logic';
+import { STROKES } from '../../content/strokes';
+import type { Letter } from '../../content/letters';
+import { getSeen, markSeen } from '../../core/seen';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const COLORS = ['#E53935', '#1E88E5', '#43A047', '#FFA94D', '#AB47BC'];
 const pathD = (st: Stroke) => st.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ');
 
-/** Menulis Huruf: trace each letter with a finger, stroke by stroke, starting at the green dot. */
-export function startTulis(ctx: GameContext): () => void {
+export interface TraceConfig {
+  /** Glyphs to trace this round (letters or digits). */
+  items: string[];
+  strokes: (item: string) => Stroke[];
+  /** "Ayo kita tulis…" */
+  introLine: string;
+  nameLine: (item: string) => string;
+  /** Spoken after the name when finished (e.g. the letter sound). */
+  afterLine?: (item: string) => string;
+}
+
+/** Trace glyphs with a finger, stroke by stroke, starting at the green dot. Shared by letters and digits. */
+export function runTrace(ctx: GameContext, cfg: TraceConfig): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const letters = makeTraceRound(ctx.settings.age, rng, ctx.level, { all: ctx.settings.letters === 'semua', seen: getSeen('tulis') });
-  markSeen('tulis', letters);
+  const letters = cfg.items;
   const svg = s('svg', { viewBox: '-12 -12 124 164', class: 'trace-board', 'data-testid': 'trace-board' });
   const ear = h('button', { class: 'ear-button', type: 'button', 'aria-label': 'Dengar lagi' }, [earIcon()]);
   const dots = h('div', { class: 'card-dots' }, letters.map(() => h('span')));
-  let current: Letter = letters[0];
+  let current = letters[0];
   ear.addEventListener('click', () => void (async () => {
-    await audio.play('tulis_ajak');
-    await audio.play(`huruf_nama_${current.toLowerCase()}`);
+    await audio.play(cfg.introLine);
+    await audio.play(cfg.nameLine(current));
   })());
   root.append(h('div', { class: 'tulis-layout' }, [svg, dots]), h('div', { class: 'corner-tr' }, [ear]));
 
-  const traceLetter = (letter: Letter, index: number) =>
+  const traceLetter = (letter: string, index: number) =>
     new Promise<void>((resolve) => {
       current = letter;
       dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('on', i <= index));
-      const strokes = STROKES[letter];
+      const strokes = cfg.strokes(letter);
       const tracer = createTracer(strokes);
       const color = COLORS[index % COLORS.length];
       svg.dataset.strokes = JSON.stringify(strokes);
@@ -93,8 +104,8 @@ export function startTulis(ctx: GameContext): () => void {
           const b = svg.getBoundingClientRect();
           celebrate.stars({ x: b.left + b.width / 2, y: b.top + b.height / 2 });
           void (async () => {
-            await audio.play(`huruf_nama_${letter.toLowerCase()}`);
-            await audio.play(`huruf_bunyi_${letter.toLowerCase()}`);
+            await audio.play(cfg.nameLine(letter));
+            if (cfg.afterLine) await audio.play(cfg.afterLine(letter));
             await audio.play(rng.pick(PRAISE_IDS));
             await wait(500);
             svg.classList.remove('letter-done');
@@ -119,9 +130,9 @@ export function startTulis(ctx: GameContext): () => void {
         trail.setAttribute('points', '');
       };
       void (async () => {
-        await audio.play('tulis_ajak');
+        await audio.play(cfg.introLine);
         if (!alive) return;
-        await audio.play(`huruf_nama_${letter.toLowerCase()}`);
+        await audio.play(cfg.nameLine(letter));
         if (index === 0 && alive) await audio.play('tulis_ikuti');
       })();
     });
@@ -136,4 +147,17 @@ export function startTulis(ctx: GameContext): () => void {
   return () => {
     alive = false;
   };
+}
+
+/** Menulis Huruf. */
+export function startTulis(ctx: GameContext): () => void {
+  const items = makeTraceRound(ctx.settings.age, ctx.rng, ctx.level, { all: ctx.settings.letters === 'semua', seen: getSeen('tulis') });
+  markSeen('tulis', items);
+  return runTrace(ctx, {
+    items,
+    strokes: (l) => STROKES[l as Letter],
+    introLine: 'tulis_ajak',
+    nameLine: (l) => `huruf_nama_${l.toLowerCase()}`,
+    afterLine: (l) => `huruf_bunyi_${l.toLowerCase()}`,
+  });
 }

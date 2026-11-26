@@ -416,3 +416,34 @@ svg { display: block; }
 .trace-board.letter-done .trace-done path { animation: hop .5s ease-out; }
 .card-word.long { font-size: clamp(22px, 6.5vmin, 40px); letter-spacing: 1px; }
 .garden .spin-slow { animation: spin 8s linear infinite; transform-origin: 0 0; }
+
+/* shared choice buttons */
+.choice-row { display: flex; gap: clamp(12px, 4vw, 32px); justify-content: center; flex-wrap: wrap; }
+.choice { width: clamp(76px, 22vmin, 120px); height: clamp(76px, 22vmin, 120px); background: #fff; border-radius: 22px; box-shadow: var(--shadow); padding: 10px; border: 4px solid #fff; }
+.choice svg { width: 100%; height: 100%; }
+.choice.chosen { border-color: var(--hijau); background: #E8F5E9; }
+.icon-row { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 2%; }
+.icon-row svg { width: 24%; height: auto; }
+.icon-row span { font-size: clamp(22px, 7vmin, 40px); font-weight: 700; color: var(--merah); }
+
+/* Pola */
+.pola-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.pattern-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pattern-card { width: clamp(52px, 13vmin, 84px); height: clamp(52px, 13vmin, 84px); background: #fff9; border-radius: 16px; padding: 6px; display: grid; place-items: center; font-size: 36px; font-weight: 700; color: var(--orange); }
+.pattern-card svg { width: 100%; height: 100%; }
+.pattern-card.hole { border: 4px dashed var(--orange); background: #fff; animation: pulse 1.4s ease-in-out infinite; }
+
+/* Angka & Jumlah */
+.jumlah-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.amount-groups { display: flex; gap: clamp(10px, 3vw, 28px); flex-wrap: wrap; justify-content: center; }
+.amount-group { display: grid; grid-template-columns: repeat(var(--cols), clamp(30px, 9vmin, 50px)); gap: 4px; padding: 12px; background: #fff; border-radius: 20px; border: 4px dashed #90CAF9; min-width: 96px; min-height: 84px; place-content: center; }
+.amount-group svg { width: 100%; height: auto; }
+.amount-group.matched { border-style: solid; border-color: var(--hijau); background: #E8F5E9; }
+.numeral-tray { display: flex; gap: 16px; }
+.numeral-tile { width: clamp(64px, 17vmin, 88px); height: clamp(64px, 17vmin, 88px); border-radius: 18px; background: var(--orange); color: #fff; font-size: clamp(36px, 11vmin, 56px); font-weight: 700; display: grid; place-items: center; box-shadow: 0 6px 0 #d9822b; touch-action: none; cursor: grab; }
+.numeral-tile.placed { opacity: 0; }
+.icon-amount { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.icon-amount .num { font-size: clamp(36px, 12vmin, 70px); font-weight: 700; color: var(--merah); line-height: 1; }
+.icon-amount .dots { font-size: clamp(14px, 4vmin, 24px); color: var(--biru); }
+.tile-row.many { gap: 14px; padding-top: 84px; }
+.tile-row.many .game-tile { --s: clamp(84px, 23vmin, 170px); }
