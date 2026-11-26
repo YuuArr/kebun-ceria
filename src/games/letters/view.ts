@@ -1,6 +1,7 @@
 import { earIcon } from '../../art/areas';
 import { h } from '../../art/svg';
 import * as celebrate from '../../core/celebrate';
+import { getSeen, markSeen } from '../../core/seen';
 import { onTap } from '../../core/tap';
 import { PRAISE_IDS } from '../../content/lines';
 import type { GameContext } from '../types';
@@ -15,7 +16,8 @@ export function startLetters(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
   let frame = 0;
-  const steps = makeLetterRound(ctx.settings.age, rng, ctx.level);
+  const steps = makeLetterRound(ctx.settings.age, rng, ctx.level, { all: ctx.settings.letters === 'semua', seen: getSeen('huruf') });
+  markSeen('huruf', steps.filter((s) => s.kind === 'huruf').map((s) => s.target));
   const field = h('div', { class: 'bubble-field', 'data-testid': 'bubble-field' });
   const ear = h('button', { class: 'ear-button', type: 'button', 'aria-label': 'Dengar lagi' }, [earIcon()]);
   let current: LetterStep | null = null;

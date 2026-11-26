@@ -2,6 +2,7 @@ import { earIcon } from '../../art/areas';
 import { h } from '../../art/svg';
 import { thing } from '../../art/things';
 import * as celebrate from '../../core/celebrate';
+import { getSeen, markSeen } from '../../core/seen';
 import { makeDraggable } from '../../core/drag';
 import { PRAISE_IDS } from '../../content/lines';
 import type { GameContext } from '../types';
@@ -14,7 +15,8 @@ export function startAwal(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
   let cleanups: (() => void)[] = [];
-  const steps = makeInitialRound(ctx.settings.age, rng, ctx.level);
+  const steps = makeInitialRound(ctx.settings.age, rng, ctx.level, { all: ctx.settings.letters === 'semua', seen: getSeen('awal') });
+  markSeen('awal', steps.flatMap((s) => s.letters));
   const boxes = h('div', { class: 'letter-boxes' });
   const tray = h('div', { class: 'picture-tray' });
   const ear = h('button', { class: 'ear-button', type: 'button', 'aria-label': 'Dengar lagi' }, [earIcon()]);

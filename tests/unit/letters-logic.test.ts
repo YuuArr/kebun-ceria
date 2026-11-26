@@ -55,3 +55,22 @@ describe('Gelembung Huruf syllable stage', () => {
     }
   });
 });
+
+describe('Gelembung Huruf variety', () => {
+  it('five different letters per round', () => {
+    for (let seed = 0; seed < 300; seed++) {
+      const r = makeLetterRound('4-5', createRng(seed), 0);
+      expect(new Set(r.map((s) => s.target)).size).toBe(5);
+    }
+  });
+  it('"semua" shows letters beyond the level pool from the start', () => {
+    const targets = new Set<string>();
+    for (let seed = 0; seed < 200; seed++) for (const s of makeLetterRound('2-3', createRng(seed), 0, { all: true })) targets.add(s.target);
+    expect(targets.size).toBe(26);
+  });
+  it('rarely seen letters come first', () => {
+    const seen = { A: 9, I: 9, U: 9, E: 9, O: 9 };
+    const r = makeLetterRound('4-5', createRng(3), 1, { seen }); // 14 letters: 9 unseen
+    for (const s of r) expect('AIUEO').not.toContain(s.target);
+  });
+});

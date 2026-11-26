@@ -5,7 +5,7 @@ beforeEach(() => localStorage.clear());
 
 describe('settings', () => {
   it('has defaults when storage is empty', () => {
-    expect(getSettings()).toEqual({ age: '4-5', music: 0.4, voice: 1, sfx: 0.8 });
+    expect(getSettings()).toEqual({ age: '4-5', letters: 'bertahap', music: 0.4, voice: 1, sfx: 0.8 });
   });
   it('persists updates', () => {
     updateSettings({ age: '2-3' });

@@ -11,7 +11,8 @@ export const LETTER_ORDER = [
 export const LETTER_STAGES = [5, 9, 14, 26] as const;
 
 /** Letters in play for an age group and level (0–3). Opens gradually: vowels, common consonants, then A–Z. */
-export function letterPool(age: '2-3' | '4-5', level = 0): Letter[] {
+export function letterPool(age: '2-3' | '4-5', level = 0, all = false): Letter[] {
+  if (all) return [...LETTER_ORDER];
   if (age === '2-3') return LETTER_ORDER.slice(0, level >= 2 ? 7 : 5);
   return LETTER_ORDER.slice(0, [9, 14, 26, 26][Math.min(3, level)]);
 }

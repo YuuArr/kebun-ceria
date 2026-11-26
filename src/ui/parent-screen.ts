@@ -1,7 +1,7 @@
 import { h } from '../art/svg';
 import { getGrowth, GARDEN_STAGES } from '../core/garden';
 import { go, type Screen } from '../core/router';
-import { getSettings, updateSettings, type AgeGroup, type Settings } from '../core/settings';
+import { getSettings, updateSettings, type AgeGroup, type LetterMode, type Settings } from '../core/settings';
 import { GAMES } from '../games/registry';
 import { APP_VERSION } from '../config';
 import { getLevel, MAX_LEVEL } from '../core/progress';
@@ -15,6 +15,15 @@ export const parentScreen: Screen = (root) => {
     b.addEventListener('click', () => {
       updateSettings({ age });
       ageButtons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    });
+    return b;
+  });
+
+  const letterButtons = ([['bertahap', 'Bertahap'], ['semua', 'Semua A–Z']] as [LetterMode, string][]).map(([mode, label]) => {
+    const b = h('button', { type: 'button', class: 'seg', 'aria-pressed': String(settings.letters === mode), 'data-testid': `letters-${mode}` }, [label]);
+    b.addEventListener('click', () => {
+      updateSettings({ letters: mode });
+      letterButtons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     });
     return b;
   });
@@ -36,6 +45,11 @@ export const parentScreen: Screen = (root) => {
           h('h3', {}, ['Usia anak']),
           h('p', {}, ['Mengatur jumlah benda, rentang angka, dan banyaknya pilihan.']),
           h('div', { class: 'seg-row' }, ageButtons),
+        ]),
+        h('section', {}, [
+          h('h3', {}, ['Huruf']),
+          h('p', {}, ['Bertahap: huruf dibuka sedikit demi sedikit (vokal dulu) seiring anak bermain. Semua A–Z: semua huruf langsung muncul, cocok untuk anak yang sudah mengenal huruf.']),
+          h('div', { class: 'seg-row' }, letterButtons),
         ]),
         h('section', {}, [h('h3', {}, ['Suara']), slider('voice', 'Suara narator'), slider('sfx', 'Efek suara')]),
         h('section', {}, [

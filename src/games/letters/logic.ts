@@ -1,5 +1,6 @@
 import { letterPool } from '../../content/letters';
 import type { Rng } from '../../core/rng';
+import { pickFresh } from '../../core/seen';
 import type { AgeGroup } from '../../core/settings';
 
 export interface LetterStep {
@@ -19,8 +20,18 @@ const BUBBLES: Record<AgeGroup, number> = { '2-3': 3, '4-5': 4 };
  * Five "find it" steps. Letters come from the pool for this age/level.
  * At the top level for 4–5, three steps are syllables (BA/BI/BU…): same consonant, different vowel.
  */
-export function makeLetterRound(age: AgeGroup, rng: Rng, level = 0): LetterStep[] {
-  const pool = letterPool(age, level);
+export interface PoolOptions {
+  /** Show A–Z regardless of level (parent setting). */
+  all?: boolean;
+  /** How often each letter was shown before; rarely seen letters come first. */
+  seen?: Record<string, number>;
+}
+
+export function makeLetterRound(age: AgeGroup, rng: Rng, level = 0, opts: PoolOptions = {}): LetterStep[] {
+  const pool = letterPool(age, level, opts.all);
+  // Five different letters per round, least-seen first, in random order.
+  const fresh = rng.shuffle(pickFresh(pool, STEPS_PER_ROUND, rng, opts.seen));
+  let next = 0;
   const syllableSteps = age === '4-5' && level >= 3 ? new Set(rng.shuffle([0, 1, 2, 3, 4]).slice(0, 3)) : new Set<number>();
   const steps: LetterStep[] = [];
   for (let i = 0; i < STEPS_PER_ROUND; i++) {
@@ -30,7 +41,7 @@ export function makeLetterRound(age: AgeGroup, rng: Rng, level = 0): LetterStep[
       const others = rng.shuffle(VOWELS.filter((v) => v !== target[1])).slice(0, 3).map((v) => target[0] + v);
       steps.push({ kind: 'suku', target, bubbles: rng.shuffle([target, ...others]) });
     } else {
-      const target = rng.pick(pool.filter((l) => l !== prev));
+      const target = fresh[next++ % fresh.length];
       const others = rng.shuffle(pool.filter((l) => l !== target)).slice(0, BUBBLES[age] - 1);
       steps.push({ kind: 'huruf', target, bubbles: rng.shuffle([target, ...others]) });
     }

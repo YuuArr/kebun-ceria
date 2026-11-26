@@ -2,6 +2,7 @@ import { earIcon } from '../../art/areas';
 import { h, s, svgRoot } from '../../art/svg';
 import { thing } from '../../art/things';
 import * as celebrate from '../../core/celebrate';
+import { getSeen, markSeen } from '../../core/seen';
 import { onTap } from '../../core/tap';
 import type { GameContext } from '../types';
 import { makeCardDeck } from './logic';
@@ -10,7 +11,8 @@ import { makeCardDeck } from './logic';
 export function startKartu(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const deck = makeCardDeck(ctx.settings.age, rng, ctx.level);
+  const deck = makeCardDeck(ctx.settings.age, rng, ctx.level, { all: ctx.settings.letters === 'semua', seen: getSeen('kartu') });
+  markSeen('kartu', deck.map((w) => w.word));
   let index = 0;
   const card = h('div', { class: 'word-card' });
   const next = h('button', { class: 'next-button', type: 'button', 'aria-label': 'Kartu berikutnya', 'data-testid': 'card-next' }, [

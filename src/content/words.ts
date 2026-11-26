@@ -41,8 +41,8 @@ export const WORD_LETTERS = WORDS.map((w) => w.letter);
 
 export const wordFor = (l: Letter): Word | undefined => WORDS.find((w) => w.letter === l);
 /** Picture words whose letter is in play for this age/level. */
-export function wordPool(age: '2-3' | '4-5', level = 0): Word[] {
-  const letters = letterPool(age, level);
+export function wordPool(age: '2-3' | '4-5', level = 0, all = false): Word[] {
+  const letters = letterPool(age, level, all);
   return WORDS.filter((w) => letters.includes(w.letter));
 }
 
