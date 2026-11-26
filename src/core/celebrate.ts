@@ -90,3 +90,9 @@ export function bounce(el: Element): void {
     { duration: 450, easing: 'ease-out', composite: 'add' },
   );
 }
+
+/** Little squash when an item lands back home. */
+export function bounceBack(el: Element): void {
+  if (typeof (el as HTMLElement).animate !== 'function') return;
+  (el as HTMLElement).animate([{ scale: '1' }, { scale: '0.9' }, { scale: '1' }], { duration: 300, delay: 300 });
+}

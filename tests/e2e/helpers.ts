@@ -30,3 +30,13 @@ export async function fastVoice(page: Page) {
     Object.defineProperty(window, 'speechSynthesis', { value: fake, configurable: true });
   });
 }
+
+/** Drags the centre of `source` onto the centre of `target` with a real pointer. */
+export async function dragTo(page: Page, source: import('@playwright/test').Locator, target: import('@playwright/test').Locator) {
+  const a = (await source.boundingBox())!;
+  const b = (await target.boundingBox())!;
+  await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 8 });
+  await page.mouse.up();
+}
