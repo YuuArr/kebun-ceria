@@ -17,7 +17,7 @@ describe('levels make games gradually harder, within the age limits', () => {
     expect([0, 1, 2, 3].map((l) => letterPool('4-5', l).length)).toEqual([9, 14, 26, 26]);
     expect(letterPool('2-3', 0)).toEqual(['A', 'I', 'U', 'E', 'O']);
     expect(letterPool('2-3', 3)).toHaveLength(7);
-    expect(wordPool('4-5', 3).length).toBe(25); // Q has no picture word
+    expect(new Set(wordPool('4-5', 3).map((w) => w.letter)).size).toBe(25); // Q has no picture word
     const used = new Set(many((s) => makeLetterRound('4-5', createRng(s), 2)).map((st) => st.target));
     expect(used.size).toBeGreaterThan(20);
   });

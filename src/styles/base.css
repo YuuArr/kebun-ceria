@@ -414,3 +414,4 @@ svg { display: block; }
 .trace-start text { font-size: 10px; font-weight: 700; fill: #fff; pointer-events: none; }
 .trace-start { animation: pulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; pointer-events: none; }
 .trace-board.letter-done .trace-done path { animation: hop .5s ease-out; }
+.card-word.long { font-size: clamp(22px, 6.5vmin, 40px); letter-spacing: 1px; }

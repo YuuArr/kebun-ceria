@@ -34,7 +34,42 @@ export const WORDS: readonly Word[] = [
   { word: 'zebra', letter: 'Z', art: 'zebra' },
   { word: 'vas', letter: 'V', art: 'vas' },
   { word: 'xilofon', letter: 'X', art: 'xilofon' },
+  // Second and third words, so each letter has variety.
+  { word: 'ayam', letter: 'A', art: 'ayam' },
+  { word: 'anggur', letter: 'A', art: 'anggur' },
+  { word: 'itik', letter: 'I', art: 'bebek' },
+  { word: 'udang', letter: 'U', art: 'udang' },
+  { word: 'es krim', letter: 'E', art: 'es-krim' },
+  { word: 'obeng', letter: 'O', art: 'obeng' },
+  { word: 'monyet', letter: 'M', art: 'monyet' },
+  { word: 'mangga', letter: 'M', art: 'mangga' },
+  { word: 'buku', letter: 'B', art: 'buku' },
+  { word: 'balon', letter: 'B', art: 'balon' },
+  { word: 'payung', letter: 'P', art: 'payung' },
+  { word: 'pizza', letter: 'P', art: 'pizza' },
+  { word: 'sapi', letter: 'S', art: 'sapi' },
+  { word: 'stroberi', letter: 'S', art: 'stroberi' },
+  { word: 'tomat', letter: 'T', art: 'tomat' },
+  { word: 'telur', letter: 'T', art: 'telur' },
+  { word: 'katak', letter: 'K', art: 'katak' },
+  { word: 'kado', letter: 'K', art: 'kado' },
+  { word: 'nasi', letter: 'N', art: 'nasi' },
+  { word: 'layang-layang', letter: 'L', art: 'layang-layang' },
+  { word: 'donat', letter: 'D', art: 'donat' },
+  { word: 'domba', letter: 'D', art: 'domba' },
+  { word: 'gitar', letter: 'G', art: 'gitar' },
+  { word: 'roket', letter: 'R', art: 'roket' },
+  { word: 'roda', letter: 'R', art: 'roda' },
+  { word: 'hujan', letter: 'H', art: 'hujan' },
+  { word: 'jagung', letter: 'J', art: 'jagung' },
+  { word: 'jendela', letter: 'J', art: 'jendela' },
+  { word: 'ceri', letter: 'C', art: 'ceri' },
+  { word: 'wafer', letter: 'W', art: 'wafer' },
+  { word: 'yogurt', letter: 'Y', art: 'yogurt' },
 ];
+
+/** Voice line id for a word ("es krim" → "kata_es_krim"). */
+export const wordLine = (w: Word): string => `kata_${w.word.replace(/[^a-z]+/g, '_')}`;
 
 /** Letters that have a picture word (Q has none: no common child word starts with Q). */
 export const WORD_LETTERS = WORDS.map((w) => w.letter);

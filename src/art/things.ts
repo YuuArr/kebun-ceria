@@ -1,5 +1,6 @@
 import { COUNT_OBJECTS, type CountObject } from '../content/lines';
 import { countObject } from './objects';
+import { monyet } from './monyet';
 import { s, svgRoot } from './svg';
 
 const o = { stroke: '#4A3B3B', 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' } as const;
@@ -211,13 +212,135 @@ const DRAW = {
     ),
     s('path', { d: 'M70 20 L90 6 M88 4 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0', ...o, 'stroke-width': 3, fill: '#A0673D' }),
   ],
+  ayam: () => [
+    s('ellipse', { cx: 50, cy: 62, rx: 30, ry: 24, fill: '#fff', ...o }),
+    s('circle', { cx: 70, cy: 36, r: 14, fill: '#fff', ...o }),
+    s('path', { d: 'M64 22 Q66 12 72 18 Q76 10 80 20 Q78 26 72 24 Z', fill: '#E53935', ...o, 'stroke-width': 2.5 }),
+    s('path', { d: 'M84 36 l10 3 l-10 4 z', fill: '#FFA94D', ...o, 'stroke-width': 2.5 }),
+    s('path', { d: 'M76 46 q4 8 -2 10', fill: '#E53935' }),
+    s('path', { d: 'M20 56 Q8 44 14 34 Q24 44 28 50', fill: '#fff', ...o }),
+    s('path', { d: 'M44 86 v8 M58 86 v8', ...o, stroke: '#FFA94D' }),
+    eye(73, 33, 3),
+  ],
+  anggur: () => [
+    s('path', { d: 'M50 18 Q54 6 64 8', fill: 'none', ...o, stroke: '#6D4C41' }),
+    s('path', { d: 'M54 14 Q72 6 76 20 Q62 24 54 14 Z', fill: '#43A047', ...o, 'stroke-width': 3 }),
+    ...[[38, 30], [54, 30], [70, 32], [44, 46], [60, 46], [36, 60], [52, 62], [68, 58], [44, 76], [60, 76], [52, 90]].map(([x, y]) => s('circle', { cx: x, cy: y, r: 9, fill: '#8E24AA', ...o, 'stroke-width': 2.5 })),
+  ],
+  udang: () => [
+    s('path', { d: 'M80 40 Q78 14 50 16 Q20 18 18 46 Q18 70 40 74 Q56 76 58 62 Q60 50 46 50', fill: 'none', stroke: '#FF8A65', 'stroke-width': 18, 'stroke-linecap': 'round' }),
+    s('path', { d: 'M46 50 L32 40 L34 58 Z', fill: '#FF7043', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M80 40 L92 30 M80 40 L94 44', ...o, 'stroke-width': 2.5 }),
+    s('path', { d: 'M44 18 v14 M30 26 l8 10 M22 42 h12', stroke: '#E64A19', 'stroke-width': 3 }),
+    eye(78, 34, 3),
+  ],
+  'es-krim': () => [
+    s('path', { d: 'M32 50 L50 94 L68 50 Z', fill: '#E0A96D', ...o }),
+    s('path', { d: 'M38 58 L60 58 M42 68 L58 68', stroke: '#B5793E', 'stroke-width': 2.5 }),
+    s('circle', { cx: 40, cy: 42, r: 14, fill: '#FF8FB1', ...o }),
+    s('circle', { cx: 60, cy: 42, r: 14, fill: '#FFF59D', ...o }),
+    s('circle', { cx: 50, cy: 26, r: 14, fill: '#8D6E63', ...o }),
+    s('circle', { cx: 50, cy: 10, r: 5, fill: '#E53935', ...o, 'stroke-width': 2 }),
+  ],
+  obeng: () => [
+    s('rect', { x: 18, y: 14, width: 26, height: 44, rx: 10, fill: '#E53935', ...o, transform: 'rotate(-40 31 36)' }),
+    s('path', { d: 'M44 50 L82 84', stroke: '#90A4AE', 'stroke-width': 8, 'stroke-linecap': 'round' }),
+    s('path', { d: 'M78 80 L88 90', stroke: '#546E7A', 'stroke-width': 10 }),
+  ],
+  mangga: () => [
+    s('path', { d: 'M30 30 Q60 6 82 36 Q96 70 64 88 Q30 98 20 70 Q14 46 30 30 Z', fill: '#FFB300', ...o }),
+    s('path', { d: 'M30 30 Q40 50 64 88', fill: 'none', stroke: '#FFA000', 'stroke-width': 3 }),
+    s('ellipse', { cx: 70, cy: 20, rx: 14, ry: 6, fill: '#43A047', transform: 'rotate(-30 70 20)', ...o, 'stroke-width': 3 }),
+  ],
+  buku: () => [
+    s('path', { d: 'M50 24 Q30 14 10 20 V82 Q30 76 50 86 Q70 76 90 82 V20 Q70 14 50 24 Z', fill: '#fff', ...o }),
+    s('path', { d: 'M50 24 V86', ...o }),
+    s('path', { d: 'M18 34 Q30 30 42 36 M18 46 Q30 42 42 48 M58 36 Q70 30 82 34 M58 48 Q70 42 82 46', fill: 'none', stroke: '#90CAF9', 'stroke-width': 3 }),
+    s('path', { d: 'M10 82 Q30 76 50 86 Q70 76 90 82 V88 Q70 82 50 92 Q30 82 10 88 Z', fill: '#1E88E5', ...o, 'stroke-width': 3 }),
+  ],
+  payung: () => [
+    s('path', { d: 'M8 54 Q12 12 50 10 Q88 12 92 54 Q80 46 70 54 Q60 46 50 54 Q40 46 30 54 Q20 46 8 54 Z', fill: '#AB47BC', ...o }),
+    s('path', { d: 'M50 10 Q36 30 30 54 M50 10 Q64 30 70 54', fill: 'none', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M50 54 V84 Q50 94 40 94 Q32 94 32 86', fill: 'none', ...o }),
+  ],
+  sapi: () => [
+    s('ellipse', { cx: 50, cy: 58, rx: 34, ry: 28, fill: '#fff', ...o }),
+    s('path', { d: 'M24 46 Q30 36 40 44 Q36 56 26 54 Z M62 64 Q72 56 80 66 Q72 76 64 72 Z', fill: '#4A3B3B' }),
+    s('path', { d: 'M22 38 l-10 -10 M78 38 l10 -10', ...o, 'stroke-width': 6 }),
+    s('ellipse', { cx: 50, cy: 74, rx: 18, ry: 11, fill: '#FFB3C7', ...o, 'stroke-width': 3 }),
+    s('circle', { cx: 44, cy: 74, r: 2.5, fill: '#4A3B3B' }), s('circle', { cx: 56, cy: 74, r: 2.5, fill: '#4A3B3B' }),
+    eye(38, 52), eye(62, 52),
+  ],
+  telur: () => [
+    s('ellipse', { cx: 50, cy: 56, rx: 42, ry: 32, fill: '#fff', ...o }),
+    s('circle', { cx: 50, cy: 54, r: 16, fill: '#FDD835', ...o, 'stroke-width': 3 }),
+    s('ellipse', { cx: 45, cy: 49, rx: 4, ry: 3, fill: '#fff', opacity: 0.7 }),
+  ],
+  nasi: () => [
+    s('path', { d: 'M12 50 Q50 64 88 50 Q84 88 50 90 Q16 88 12 50 Z', fill: '#4FC3F7', ...o }),
+    s('path', { d: 'M14 50 Q20 24 50 22 Q80 24 86 50 Q50 62 14 50 Z', fill: '#fff', ...o }),
+    ...[[34, 38], [50, 32], [64, 40], [42, 48], [58, 50]].map(([x, y]) => s('ellipse', { cx: x, cy: y, rx: 3, ry: 1.6, fill: '#E0E0E0' })),
+  ],
+  'layang-layang': () => [
+    s('path', { d: 'M50 6 L84 40 L50 80 L16 40 Z', fill: '#FDD835', ...o }),
+    s('path', { d: 'M50 6 V80 M16 40 H84', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M50 6 L84 40 L50 40 Z M16 40 L50 80 L50 40 Z', fill: '#E53935' }),
+    s('path', { d: 'M50 80 Q40 88 50 92 Q60 96 52 100', fill: 'none', ...o, 'stroke-width': 2.5 }),
+  ],
+  domba: () => [
+    s('path', { d: 'M24 62 Q14 50 26 40 Q28 26 44 30 Q54 20 66 30 Q82 28 82 44 Q92 56 80 66 Q76 80 60 76 Q48 84 38 76 Q22 78 24 62 Z', fill: '#fff', ...o }),
+    s('ellipse', { cx: 24, cy: 50, rx: 12, ry: 14, fill: '#4A3B3B' }),
+    s('circle', { cx: 21, cy: 47, r: 2.5, fill: '#fff' }),
+    s('path', { d: 'M40 76 v14 M64 76 v14', ...o, 'stroke-width': 6 }),
+  ],
+  gitar: () => [
+    s('path', { d: 'M40 44 Q22 40 20 60 Q18 86 42 88 Q58 90 62 76 Q74 76 74 62 Q74 46 58 50 Q56 44 40 44 Z', fill: '#D7A36B', ...o }),
+    s('circle', { cx: 46, cy: 66, r: 8, fill: '#4A3B3B' }),
+    s('path', { d: 'M54 58 L86 18', stroke: '#8D5A33', 'stroke-width': 8, 'stroke-linecap': 'round' }),
+    s('rect', { x: 80, y: 6, width: 12, height: 18, rx: 3, fill: '#8D5A33', transform: 'rotate(40 86 15)', ...o, 'stroke-width': 2.5 }),
+  ],
+  roket: () => [
+    s('path', { d: 'M50 6 Q72 24 70 62 H30 Q28 24 50 6 Z', fill: '#ECEFF1', ...o }),
+    s('circle', { cx: 50, cy: 34, r: 9, fill: '#64B5F6', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M30 50 L16 72 H30 Z M70 50 L84 72 H70 Z', fill: '#E53935', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M38 62 Q50 98 62 62 Z', fill: '#FFA94D', ...o, 'stroke-width': 3 }),
+  ],
+  hujan: () => [
+    s('path', { d: 'M20 50 Q8 50 10 38 Q12 26 26 28 Q30 12 48 14 Q62 8 70 22 Q90 20 90 36 Q92 50 76 50 Z', fill: '#B0BEC5', ...o }),
+    ...[[26, 62], [46, 66], [66, 62], [36, 82], [58, 84], [78, 78]].map(([x, y]) => s('path', { d: `M${x} ${y} q-5 8 0 10 q5 -2 0 -10 z`, fill: '#1E88E5' })),
+  ],
+  jagung: () => [
+    s('path', { d: 'M50 10 Q68 30 64 70 Q60 88 50 90 Q40 88 36 70 Q32 30 50 10 Z', fill: '#FDD835', ...o }),
+    ...[22, 34, 46, 58, 70].map((y) => s('path', { d: `M40 ${y} H60`, stroke: '#E0A800', 'stroke-width': 2.5 })),
+    s('path', { d: 'M50 40 V86 M43 30 V80 M57 30 V80', stroke: '#E0A800', 'stroke-width': 2 }),
+    s('path', { d: 'M36 70 Q20 60 22 40 Q40 50 46 88 Z M64 70 Q80 60 78 40 Q60 50 54 88 Z', fill: '#43A047', ...o, 'stroke-width': 3 }),
+  ],
+  ceri: () => [
+    s('path', { d: 'M34 64 Q40 30 62 12 Q66 30 70 62', fill: 'none', ...o, stroke: '#43A047' }),
+    s('ellipse', { cx: 70, cy: 14, rx: 10, ry: 5, fill: '#43A047', transform: 'rotate(-20 70 14)' }),
+    s('circle', { cx: 32, cy: 72, r: 16, fill: '#C62828', ...o }),
+    s('circle', { cx: 70, cy: 72, r: 16, fill: '#C62828', ...o }),
+    s('circle', { cx: 26, cy: 66, r: 4, fill: '#fff', opacity: 0.5 }), s('circle', { cx: 64, cy: 66, r: 4, fill: '#fff', opacity: 0.5 }),
+  ],
+  wafer: () => [
+    s('rect', { x: 12, y: 30, width: 76, height: 40, rx: 4, fill: '#E0A96D', ...o }),
+    s('path', { d: 'M12 44 H88 M12 56 H88', stroke: '#8D6E63', 'stroke-width': 4 }),
+    s('path', { d: 'M24 30 V70 M38 30 V70 M52 30 V70 M66 30 V70 M80 30 V70', stroke: '#C68B52', 'stroke-width': 2 }),
+  ],
+  yogurt: () => [
+    s('path', { d: 'M24 30 H76 L68 90 H32 Z', fill: '#fff', ...o }),
+    s('rect', { x: 20, y: 20, width: 60, height: 12, rx: 4, fill: '#FF8FB1', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M30 52 H70 L66 76 H34 Z', fill: '#FF8FB1' }),
+    s('circle', { cx: 50, cy: 64, r: 6, fill: '#E53935' }),
+  ],
 } satisfies Record<string, () => SVGElement[]>;
 
-export type ArtId = CountObject | keyof typeof DRAW;
-export const ART_IDS: readonly ArtId[] = [...COUNT_OBJECTS, ...(Object.keys(DRAW) as (keyof typeof DRAW)[])];
+export type ArtId = CountObject | keyof typeof DRAW | 'monyet';
+export const ART_IDS: readonly ArtId[] = [...COUNT_OBJECTS, ...(Object.keys(DRAW) as (keyof typeof DRAW)[]), 'monyet'];
 
 /** Any drawable thing by id (count objects included). */
 export function thing(id: ArtId): SVGSVGElement {
+  if (id === 'monyet') return monyet();
   if ((COUNT_OBJECTS as readonly string[]).includes(id)) return countObject(id as CountObject);
   return svgRoot('0 0 100 100', DRAW[id as keyof typeof DRAW](), { class: `obj obj-${id}` });
 }

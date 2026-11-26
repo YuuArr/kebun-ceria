@@ -1,5 +1,5 @@
 import { LETTER_NAMES, LETTER_ORDER, LETTER_SOUNDS } from './letters';
-import { WORDS } from './words';
+import { WORDS, wordLine } from './words';
 import { STORIES } from './stories';
 
 /** One narrator line. The owner records `text` as public/audio/<id>.mp3. */
@@ -77,7 +77,7 @@ export const LINES: readonly Line[] = [
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   // Phase 2–4
   { id: 'kata_untuk', text: 'untuk', note: 'datar, penghubung: "A… untuk apel"' },
-  ...WORDS.map((w) => ({ id: `kata_${w.word}`, text: cap(w.word) + '!' })),
+  ...WORDS.map((w) => ({ id: wordLine(w), text: cap(w.word) + '!' })),
   ...SHAPES.map((sh) => ({ id: `bentuk_${sh.replace('-', '_')}`, text: SHAPE_WORDS[sh] + '!' })),
   ...NUMBER_WORDS.slice(0, 6).map((w, i) => ({ id: `monyet_ajak_${i + 1}`, text: `Monyet mau ${w} pisang!` })),
   { id: 'monyet_kenyang', text: 'Nyam, nyam… kenyang!', note: 'puas, lucu' },

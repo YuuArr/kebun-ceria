@@ -1,6 +1,7 @@
 import { earIcon } from '../../art/areas';
 import { h, s, svgRoot } from '../../art/svg';
 import { thing } from '../../art/things';
+import { wordLine } from '../../content/words';
 import * as celebrate from '../../core/celebrate';
 import { getSeen, markSeen } from '../../core/seen';
 import { onTap } from '../../core/tap';
@@ -29,7 +30,7 @@ export function startKartu(ctx: GameContext): () => void {
     dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('on', i <= index));
     const pic = h('button', { class: 'card-picture', type: 'button', 'aria-label': w.word, 'data-testid': 'card-picture' }, [thing(w.art)]);
     const first = h('button', { class: 'card-letter', type: 'button', 'aria-label': `Huruf ${w.letter}`, 'data-testid': 'card-letter' }, [w.word[0].toUpperCase()]);
-    card.replaceChildren(pic, h('div', { class: 'card-word' }, [first, h('span', {}, [w.word.slice(1).toUpperCase()])]));
+    card.replaceChildren(pic, h('div', { class: `card-word${w.word.length > 7 ? ' long' : ''}` }, [first, h('span', {}, [w.word.slice(1).toUpperCase()])]));
     const ready = () => next.classList.add('ready');
     onTap(pic, async () => {
       pic.classList.remove('wiggle');
@@ -37,7 +38,7 @@ export function startKartu(ctx: GameContext): () => void {
       pic.classList.add('wiggle');
       audio.sfx('pop');
       ready();
-      await audio.play(`kata_${w.word}`);
+      await audio.play(wordLine(w));
     });
     onTap(first, async () => {
       const r = first.getBoundingClientRect();
@@ -47,7 +48,7 @@ export function startKartu(ctx: GameContext): () => void {
       if (!alive) return;
       await audio.play('kata_untuk');
       if (!alive) return;
-      await audio.play(`kata_${w.word}`);
+      await audio.play(wordLine(w));
     });
   };
   next.addEventListener('click', () => {

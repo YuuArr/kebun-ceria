@@ -1,6 +1,7 @@
 import { earIcon } from '../../art/areas';
 import { h } from '../../art/svg';
 import { thing } from '../../art/things';
+import { wordLine } from '../../content/words';
 import * as celebrate from '../../core/celebrate';
 import { getSeen, markSeen } from '../../core/seen';
 import { makeDraggable } from '../../core/drag';
@@ -39,7 +40,7 @@ export function startAwal(ctx: GameContext): () => void {
         cleanups.push(
           makeDraggable(el, {
             targets: () => boxEls,
-            onStart: () => void audio.play(`kata_${w.word}`),
+            onStart: () => void audio.play(wordLine(w)),
             onReject: () => audio.sfx('boing'),
             onDrop: (t) => {
               if (!alive || (t as HTMLElement).dataset.letter !== w.letter) return false;
@@ -51,7 +52,7 @@ export function startAwal(ctx: GameContext): () => void {
               void (async () => {
                 await audio.play(`huruf_bunyi_${w.letter.toLowerCase()}`);
                 await audio.play('kata_untuk');
-                await audio.play(`kata_${w.word}`);
+                await audio.play(wordLine(w));
                 if (done === step.pictures.length && alive) {
                   await audio.play(rng.pick(PRAISE_IDS));
                   await wait(600);

@@ -19,7 +19,7 @@ Bisa dipasang ke layar utama HP seperti aplikasi dan dimainkan tanpa internet.
 
 ## Isi
 
-Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area, masing-masing berisi 4 permainan (12 total):
+Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area (13 permainan):
 
 **Kolam Angka**
 - **Sentuh & Hitung**: ketuk benda satu per satu, narator ikut menghitung; benda yang sudah dihitung tidak terhitung dua kali.
@@ -37,11 +37,12 @@ Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area, masing-masi
 - **Gelembung Huruf**: dengar bunyi huruf, ketuk gelembung yang cocok.
 - **Cocokkan Huruf Awal**: geser gambar ke kotak huruf depannya ("/b/… untuk bola").
 - **Kartu Kata Berbicara**: ketuk gambar untuk mendengar kata, ketuk huruf depan untuk mendengar bunyinya.
+- **Menulis Huruf**: telusuri huruf A–Z dengan jari, garis demi garis, mulai dari titik hijau.
 - **Cerita Bergambar**: cerita pendek yang katanya menyala mengikuti narator; benda di gambar bisa diketuk.
 
-Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia di Pojok Orang Tua (bawaan 4–5 tahun; bisa diganti ke 2–3 tahun), dan punya **level otomatis**: setiap 3 ronde selesai, permainan itu naik satu level (maksimal 4) dan tidak pernah turun. Contohnya: angka hitung naik sampai 10, huruf dibuka bertahap dari vokal sampai A–Z, dan di level tertinggi Gelembung Huruf mulai memakai suku kata (BA, BI, BU…).
+Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia di Pojok Orang Tua (bawaan 4–5 tahun; bisa diganti ke 2–3 tahun), dan punya **level otomatis**: setiap 3 ronde selesai, permainan itu naik satu level (maksimal 4) dan tidak pernah turun. Contohnya: angka hitung naik sampai 10, huruf dibuka bertahap dari vokal sampai A–Z, dan di level tertinggi Gelembung Huruf mulai memakai suku kata (BA, BI, BU…). Huruf tidak berulang dalam satu ronde dan huruf yang jarang muncul didahulukan; orang tua juga bisa langsung membuka semua huruf A–Z.
 
-Isi saat ini: 26 huruf dengan 25 kata bergambar, 15 benda hitung, 10 gambar mewarnai, 5 bangunan untuk dirakit, dan 3 cerita bergambar.
+Isi saat ini: 26 huruf dengan 56 kata bergambar (2–3 kata untuk sebagian besar huruf), 15 benda hitung, 10 gambar mewarnai, 5 bangunan untuk dirakit, dan 3 cerita bergambar.
 Setiap ronde yang selesai membuat kebun di peta bertambah satu tahap (40 tahap): bunga mekar, pohon berbuah, hewan berdatangan. Kebun tidak pernah layu.
 
 ## Prinsip desain
