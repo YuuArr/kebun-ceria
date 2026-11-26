@@ -1,6 +1,7 @@
 import { LETTER_NAMES, LETTER_ORDER, LETTER_SOUNDS } from './letters';
 import { WORDS, wordLine } from './words';
 import { STORIES } from './stories';
+import { ALL_SYLLABLE_WORDS } from './syllables';
 
 /** One narrator line. The owner records `text` as public/audio/<id>.mp3. */
 export interface Line {
@@ -90,6 +91,11 @@ export const LINES: readonly Line[] = [
   { id: 'gambar_selesai', text: 'Wah, gambarmu bagus sekali!' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
+  ...[...new Set(ALL_SYLLABLE_WORDS.flatMap((w) => w.parts.map((x) => x.toLowerCase())))]
+    .filter((x) => !(x.length === 2 && 'mbpstknld'.includes(x[0]) && 'aiueo'.includes(x[1])))
+    .map((x) => ({ id: `suku_${x}`, text: x, note: 'ucapkan jelas sebagai satu suku kata' })),
+  { id: 'besarkecil_ajak', text: 'Pasangkan huruf besar dengan huruf kecilnya!' },
+  { id: 'susun_ajak', text: 'Susun suku katanya jadi kata!' },
   // Phase 2–4
   { id: 'kata_untuk', text: 'untuk', note: 'datar, penghubung: "A… untuk apel"' },
   ...WORDS.map((w) => ({ id: wordLine(w), text: cap(w.word) + '!' })),

@@ -17,5 +17,7 @@ import './gambar';
 import './letters';
 import './awal';
 import './kartu';
+import './besarkecil';
+import './susun';
 import './tulis';
 import './cerita';
