@@ -2,15 +2,24 @@
   "name": "kebun-ceria",
   "private": true,
   "version": "0.1.0",
+  "description": "Game edukatif web (PWA) untuk anak 2–5 tahun: membaca, berhitung, warna & bentuk.",
+  "author": "YuuArr",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --port 4173",
     "test": "vitest run",
     "e2e": "playwright test --trace off",
+    "check": "npm test && npm run build",
     "naskah": "tsx scripts/naskah.ts",
-    "kode": "node scripts/kode.mjs"
+    "kode": "node scripts/kode.mjs",
+    "icons": "node scripts/icons.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@fontsource/andika": "^5.3.0",

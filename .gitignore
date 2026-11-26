@@ -1,6 +1,14 @@
+# dependencies & build output
 node_modules
 dist
-.superpowers
+
+# test output
 test-results
 playwright-report
+
+# local notes, never published
+catatan-internal
+.superpowers
+
 *.log
+.DS_Store

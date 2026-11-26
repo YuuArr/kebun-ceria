@@ -3,6 +3,8 @@
 Permainan belajar berbasis web untuk anak usia 2–5 tahun: membaca, berhitung, serta warna dan bentuk.
 Bisa dipasang ke layar utama HP seperti aplikasi dan dimainkan tanpa internet.
 
+**Demo:** https://yuuarr.github.io/kebun-ceria/ (kode akses pengembangan: `CERIA-2026`)
+
 > **English summary.** Kebun Ceria is an installable, offline-first PWA of educational mini-games for
 > children aged 2–5, in Indonesian. Vanilla TypeScript + Vite + SVG, no UI framework, ~28 KB gzipped
 > JS+CSS. Voice-first UX (children can't read yet), no fail states, and a garden that grows as the child
@@ -39,16 +41,30 @@ Aturan yang berlaku di semua permainan:
 - Tidak ada iklan, pelacakan, atau link keluar. Data hanya di perangkat.
 - Pojok Orang Tua dibuka dengan menahan tombol 3 detik (pengaturan usia 2–3 / 4–5, volume, penjelasan metode).
 
-## Arsitektur
+## Struktur folder
 
 ```
-src/
-  core/      logika murni & layanan: storage, access, settings, garden, rng, audio, router, tap, celebrate
-  content/   naskah suara (lines.ts) dan urutan huruf fonik
-  art/       semua gambar sebagai fungsi SVG (maskot, benda, kebun, sketsa)
-  ui/        layar: mulai, kode akses, peta, area, permainan, Pojok Orang Tua
-  games/     satu folder per permainan: logic.ts (murni, diuji) + view.ts (DOM/SVG)
+kebun-ceria/
+├─ src/
+│  ├─ core/       logika murni & layanan: storage, access, settings, garden, rng, audio, router, tap, celebrate
+│  ├─ content/    naskah suara (lines.ts) dan urutan huruf fonik (letters.ts)
+│  ├─ art/        semua gambar sebagai fungsi SVG: maskot, benda, kebun, sketsa, ikon area
+│  ├─ ui/         layar: mulai, kode akses, peta, area, permainan, Pojok Orang Tua
+│  ├─ games/      satu folder per permainan: logic.ts (murni, diuji) + view.ts (DOM/SVG) + index.ts (pendaftaran)
+│  ├─ styles/     CSS dan design token
+│  ├─ config.ts   hash kode akses dan versi
+│  └─ main.ts     titik masuk aplikasi
+├─ public/        ikon aplikasi dan file suara (public/audio/<id>.mp3)
+├─ audio/         naskah.csv: daftar kalimat narator yang perlu direkam
+├─ scripts/       alat bantu: kode akses, naskah, ikon, screenshot
+├─ tests/
+│  ├─ unit/       Vitest (logika, suara, akses, kebun)
+│  └─ e2e/        Playwright (alur nyata di viewport HP tidur & berdiri, offline)
+├─ docs/          panduan pemilik dan screenshot
+└─ .github/       CI: tes, build, deploy ke GitHub Pages
 ```
+
+## Arsitektur
 
 - Setiap layar adalah fungsi `(root, params) => cleanup`; router kecil menukar layar.
 - Logika permainan terpisah dari tampilan sehingga bisa diuji tanpa browser.
@@ -66,7 +82,11 @@ npm run e2e        # end-to-end (Playwright, viewport HP tidur & berdiri)
 npm run build      # build produksi ke dist/
 npm run naskah     # tulis ulang audio/naskah.csv dari src/content/lines.ts
 npm run kode -- KODE-BARU   # buat hash untuk kode akses baru
+npm run icons      # buat ulang ikon dari maskot (perlu npm run dev berjalan)
+npm run screenshots   # buat ulang screenshot README (perlu npm run preview berjalan)
 ```
+
+Butuh Node.js 20 atau lebih baru (lihat `.nvmrc`).
 
 Kode akses untuk pengembangan: `CERIA-2026` (ganti sebelum dijual, lihat panduan).
 
