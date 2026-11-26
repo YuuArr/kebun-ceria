@@ -30,3 +30,13 @@ describe('Sentuh & Hitung logic', () => {
     expect(c.tap(2)).toEqual({ counted: 3, isNew: true, done: true });
   });
 });
+
+describe('Sentuh & Hitung content', () => {
+  it('uses at least 15 different objects over many rounds', async () => {
+    const { COUNTABLES } = await import('../../src/content/lines');
+    expect(Object.keys(COUNTABLES).length).toBeGreaterThanOrEqual(15);
+    const seen = new Set<string>();
+    for (let seed = 0; seed < 300; seed++) for (const q of makeCountRound('4-5', createRng(seed))) seen.add(q.object);
+    expect(seen.size).toBe(Object.keys(COUNTABLES).length);
+  });
+});

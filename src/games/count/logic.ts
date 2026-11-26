@@ -1,9 +1,11 @@
-import { COUNT_OBJECTS, type CountObject } from '../../content/lines';
+import { COUNTABLES, type Countable } from '../../content/lines';
+
+const ALL = Object.keys(COUNTABLES) as Countable[];
 import type { Rng } from '../../core/rng';
 import type { AgeGroup } from '../../core/settings';
 
 export interface CountQuestion {
-  object: CountObject;
+  object: Countable;
   n: number;
 }
 
@@ -15,7 +17,7 @@ export function makeCountRound(age: AgeGroup, rng: Rng): CountQuestion[] {
   const [min, max] = RANGE[age];
   const out: CountQuestion[] = [];
   for (let i = 0; i < QUESTIONS_PER_ROUND; i++) {
-    const choices = COUNT_OBJECTS.filter((o) => o !== out[i - 1]?.object);
+    const choices = ALL.filter((o) => o !== out[i - 1]?.object);
     let n = rng.int(min, max);
     if (n === out[i - 1]?.n && max > min) n = n === max ? n - 1 : n + 1;
     out.push({ object: rng.pick(choices), n });

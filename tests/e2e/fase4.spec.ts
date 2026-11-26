@@ -50,14 +50,17 @@ test('Rakit: pieces only fit matching slots; finished build grows the garden', a
   await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '1', { timeout: 20_000 });
 });
 
-test('Cerita: words light up, 6 pages grow the garden', async ({ page }) => {
+test('Cerita: words light up, finishing the story grows the garden', async ({ page }) => {
   await openGame(page, 'huruf', 'cerita');
-  for (let i = 0; i < 6; i++) {
-    await expect(page.getByTestId('story-next')).toHaveClass(/ready/, { timeout: 10_000 });
-    const words = page.locator('.story-text span');
-    await expect(words.last()).toHaveClass(/lit/);
+  const garden = page.getByTestId('garden');
+  const next = page.getByTestId('story-next');
+  for (let i = 0; i < 8; i++) {
+    // Either the next page is ready, or the story ended and we are back on the map.
+    await expect.poll(async () => (await garden.isVisible()) || /ready/.test((await next.getAttribute('class').catch(() => '')) ?? ''), { timeout: 15_000 }).toBe(true);
+    if (await garden.isVisible()) break;
+    await expect(page.locator('.story-text span').last()).toHaveClass(/lit/);
     await page.locator('.story-thing').first().dispatchEvent('pointerdown');
-    await page.getByTestId('story-next').click();
+    await next.click();
   }
-  await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '1', { timeout: 15_000 });
+  await expect(garden).toHaveAttribute('data-growth', '1', { timeout: 15_000 });
 });

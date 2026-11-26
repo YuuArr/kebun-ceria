@@ -5,8 +5,9 @@ import { SKETCHES } from '../../src/art/sketches';
 const sketch = { id: 't', outline: '', regions: [{ id: 'a', d: '' }, { id: 'b', d: '' }] };
 
 describe('Kuas Ajaib logic', () => {
-  it('ships 4 sketches with 4–8 regions each', () => {
-    expect(SKETCHES.map((s) => s.id)).toEqual(['rumah', 'mobil', 'kupu', 'ikan']);
+  it('ships 10 sketches with 4–8 regions each', () => {
+    expect(SKETCHES).toHaveLength(10);
+    expect(new Set(SKETCHES.map((s) => s.id)).size).toBe(10);
     for (const s of SKETCHES) {
       expect(s.regions.length).toBeGreaterThanOrEqual(4);
       expect(s.regions.length).toBeLessThanOrEqual(8);

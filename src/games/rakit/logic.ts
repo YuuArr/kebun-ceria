@@ -12,7 +12,7 @@ export interface Slot {
 }
 
 export interface Build {
-  id: 'roket' | 'kereta' | 'rumah';
+  id: 'roket' | 'kereta' | 'rumah' | 'perahu' | 'robot';
   slots: Slot[];
 }
 
@@ -45,6 +45,27 @@ export const BUILDS: readonly Build[] = [
       { id: 'atap', shape: 'segitiga', x: 90, y: 40, w: 210, h: 92, color: '#E57373' },
       { id: 'pintu', shape: 'persegi-panjang', x: 176, y: 196, w: 40, h: 84, color: '#A0673D' },
       { id: 'matahari', shape: 'lingkaran', x: 320, y: 14, w: 64, h: 64, color: '#FDD835' },
+    ],
+  },
+  {
+    id: 'perahu',
+    slots: [
+      { id: 'lambung', shape: 'persegi-panjang', x: 70, y: 200, w: 260, h: 60, color: '#A0673D' },
+      { id: 'layar', shape: 'segitiga', x: 150, y: 60, w: 130, h: 136, color: '#FFFFFF' },
+      { id: 'bendera', shape: 'segitiga', x: 200, y: 20, w: 40, h: 36, color: '#E53935' },
+      { id: 'matahari', shape: 'lingkaran', x: 20, y: 20, w: 70, h: 70, color: '#FDD835' },
+    ],
+  },
+  {
+    id: 'robot',
+    slots: [
+      { id: 'badan', shape: 'persegi', x: 140, y: 120, w: 120, h: 110, color: '#90A4AE' },
+      { id: 'kepala', shape: 'persegi', x: 160, y: 30, w: 80, h: 80, color: '#B0BEC5' },
+      { id: 'mata-kiri', shape: 'lingkaran', x: 172, y: 50, w: 22, h: 22, color: '#1E88E5' },
+      { id: 'mata-kanan', shape: 'lingkaran', x: 206, y: 50, w: 22, h: 22, color: '#1E88E5' },
+      { id: 'kaki-kiri', shape: 'persegi-panjang', x: 160, y: 232, w: 30, h: 60, color: '#607D8B' },
+      { id: 'kaki-kanan', shape: 'persegi-panjang', x: 210, y: 232, w: 30, h: 60, color: '#607D8B' },
+      { id: 'tombol', shape: 'hati', x: 182, y: 150, w: 36, h: 32, color: '#E53935' },
     ],
   },
 ];

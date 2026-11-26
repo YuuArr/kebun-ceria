@@ -14,9 +14,14 @@ export interface Line {
 
 export const COUNT_OBJECTS = ['bebek', 'apel', 'ikan', 'bintang', 'bola', 'kupu'] as const;
 export type CountObject = (typeof COUNT_OBJECTS)[number];
-const OBJECT_WORDS: Record<CountObject, string> = {
+
+/** Things children count in Sentuh & Hitung (ids are art ids), with the spoken word. */
+export const COUNTABLES = {
   bebek: 'bebek', apel: 'apel', ikan: 'ikan', bintang: 'bintang', bola: 'bola', kupu: 'kupu-kupu',
-};
+  stroberi: 'stroberi', tomat: 'tomat', pisang: 'pisang', balon: 'balon', donat: 'donat', katak: 'katak',
+  wortel: 'wortel', kucing: 'kucing', mobil: 'mobil',
+} as const;
+export type Countable = keyof typeof COUNTABLES;
 
 export const COLORS = ['merah', 'kuning', 'biru', 'hijau'] as const;
 export type ColorId = (typeof COLORS)[number];
@@ -48,7 +53,7 @@ export const LINES: readonly Line[] = [
   { id: 'pujian_4', text: 'Bagus sekali!' },
   { id: 'pujian_5', text: 'Kamu berhasil!' },
   { id: 'pujian_6', text: 'Hore!' },
-  ...COUNT_OBJECTS.map((o) => ({ id: `hitung_ajak_${o}`, text: `Ayo hitung, ada berapa ${OBJECT_WORDS[o]}?` })),
+  ...(Object.keys(COUNTABLES) as Countable[]).map((o) => ({ id: `hitung_ajak_${o}`, text: `Ayo hitung, ada berapa ${COUNTABLES[o]}?` })),
   { id: 'hitung_semua', text: 'Semuanya ada…', note: 'nada menggantung, disusul angka' },
   ...NUMBER_WORDS.map((w, i) => ({ id: `angka_${i + 1}`, text: cap(w) + '!' })),
   { id: 'kuas_ajak', text: 'Pilih warna, lalu ketuk gambarnya!' },

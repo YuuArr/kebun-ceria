@@ -1,5 +1,5 @@
 import { earIcon } from '../../art/areas';
-import { countObject } from '../../art/objects';
+import { thing } from '../../art/things';
 import { h } from '../../art/svg';
 import * as celebrate from '../../core/celebrate';
 import { onTapOnce } from '../../core/tap';
@@ -32,7 +32,7 @@ export function startCount(ctx: GameContext): () => void {
       bigNumber.classList.remove('show');
       for (let i = 0; i < q.n; i++) {
         const badge = h('span', { class: 'count-badge' });
-        const item = h('button', { class: 'count-item', type: 'button', 'aria-label': q.object, 'data-testid': 'count-item' }, [badge, countObject(q.object)]);
+        const item = h('button', { class: 'count-item', type: 'button', 'aria-label': q.object, 'data-testid': 'count-item' }, [badge, thing(q.object)]);
         item.style.animationDelay = `${i * 80}ms`;
         onTapOnce(item, async () => {
           const r = counter.tap(i);

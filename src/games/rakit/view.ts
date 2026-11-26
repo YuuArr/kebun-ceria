@@ -1,4 +1,5 @@
 import { earIcon } from '../../art/areas';
+import { SHAPE_PATHS } from '../../art/shapes';
 import { h, s, svgRoot } from '../../art/svg';
 import * as celebrate from '../../core/celebrate';
 import { makeDraggable } from '../../core/drag';
@@ -14,7 +15,10 @@ function piece(shape: Shape, fill: string, dashed = false): SVGSVGElement {
     ? { fill: 'rgba(255,255,255,.55)', stroke: '#8d7f7f', 'stroke-width': 3, 'stroke-dasharray': '8 6', 'vector-effect': 'non-scaling-stroke' }
     : { fill, stroke: '#4A3B3B', 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' };
   const d =
-    shape === 'lingkaran' ? 'M50 2 A48 48 0 1 1 49.9 2 Z' : shape === 'segitiga' ? 'M50 2 L98 98 H2 Z' : 'M2 2 H98 V98 H2 Z';
+    shape === 'lingkaran' ? 'M50 2 A48 48 0 1 1 49.9 2 Z'
+      : shape === 'segitiga' ? 'M50 2 L98 98 H2 Z'
+        : shape === 'persegi' || shape === 'persegi-panjang' ? 'M2 2 H98 V98 H2 Z'
+          : SHAPE_PATHS[shape];
   return svgRoot('0 0 100 100', [s('path', { d, ...st, 'stroke-linejoin': 'round' })], { preserveAspectRatio: 'none' });
 }
 
