@@ -447,3 +447,69 @@ svg { display: block; }
 .icon-amount .dots { font-size: clamp(14px, 4vmin, 24px); color: var(--biru); }
 .tile-row.many { gap: 14px; padding-top: 84px; }
 .tile-row.many .game-tile { --s: clamp(84px, 23vmin, 170px); }
+
+/* Cari Bayangan */
+.bayangan-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.shadow-subject { width: clamp(100px, 32vmin, 180px); height: clamp(100px, 32vmin, 180px); background: #fff; border-radius: 28px; padding: 12px; box-shadow: var(--shadow); }
+.shadow-subject svg { width: 100%; height: 100%; }
+.shadow-choice svg, .silhouette-icon svg { filter: brightness(0); opacity: .75; }
+.shadow-choice.revealed svg { filter: none; opacity: 1; transition: filter .4s; }
+.silhouette-icon { display: block; }
+
+/* Campur Warna */
+.campur-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.mix-goal { display: flex; align-items: center; gap: 10px; font-size: 40px; font-weight: 700; color: #8d7f7f; min-height: 56px; }
+.goal-dot { width: 56px; height: 56px; border-radius: 50%; background: var(--c); border: 4px solid #fff; box-shadow: var(--shadow); }
+.mix-bowl { width: clamp(150px, 42vmin, 260px); }
+.mix-bowl svg { width: 100%; height: auto; }
+.mix-bowl .bowl-paint { transition: fill .5s; }
+.mix-bowl.swirl svg { animation: shake .6s ease-in-out; }
+.pot-row { display: flex; gap: clamp(16px, 5vw, 40px); }
+.paint-pot { width: clamp(70px, 20vmin, 100px); height: clamp(70px, 20vmin, 100px); border-radius: 50% 50% 40% 40%; background: radial-gradient(circle at 35% 30%, #fff8 0 14%, transparent 15%), var(--c); border: 5px solid #4A3B3B; box-shadow: var(--shadow); transition: transform .2s; }
+.paint-pot.poured { transform: rotate(-25deg) translateY(-8px); }
+.icon-mix { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 4%; }
+.icon-mix span { width: 28%; aspect-ratio: 1; border-radius: 50%; background: var(--c); border: 3px solid #4A3B3B; }
+
+/* Puzzle */
+.puzzle-layout { position: absolute; inset: 80px 12px 12px; display: flex; align-items: center; justify-content: space-around; gap: 12px; }
+.puzzle-board { position: relative; height: 100%; max-width: 58%; aspect-ratio: 424 / 324; display: grid; grid-template: repeat(var(--rows), 1fr) / repeat(var(--cols), 1fr); background: #fff; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.puzzle-ghost { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .18; filter: grayscale(1); }
+.puzzle-slot { position: relative; border: 1px dashed #0002; }
+.puzzle-slot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.puzzle-board.complete .puzzle-slot { border-color: transparent; }
+.puzzle-tray { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-content: center; max-width: 40%; }
+.puzzle-piece { width: clamp(64px, 17vmin, 110px); background: #fff; border-radius: 6px; box-shadow: var(--shadow); overflow: hidden; touch-action: none; cursor: grab; }
+.puzzle-piece svg { width: 100%; height: 100%; display: block; pointer-events: none; }
+.puzzle-piece.used { opacity: 0; }
+.icon-puzzle { width: 100%; height: 100%; display: grid; grid-template: 1fr 1fr / 1fr 1fr; gap: 6%; }
+.icon-puzzle span { border-radius: 10px; background: var(--c); border: 3px solid #4A3B3B; }
+.icon-puzzle .missing { background: #fff; border-style: dashed; }
+@media (orientation: portrait) {
+  .puzzle-layout { flex-direction: column; }
+  .puzzle-board { height: auto; width: 100%; max-width: 100%; }
+  .puzzle-tray { max-width: 100%; }
+}
+
+/* Gambar Bebas */
+.gambar-layout { position: absolute; inset: 12px 12px 12px 88px; display: flex; gap: 10px; }
+.draw-paper { position: relative; flex: 1; min-width: 0; background: #fff; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.draw-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+.sticker-layer { position: absolute; inset: 0; pointer-events: none; }
+.sticker { position: absolute; width: 12%; aspect-ratio: 1; translate: -50% -50%; animation: pop-in .3s cubic-bezier(.2,1.6,.4,1) both; }
+.sticker svg { width: 100%; height: 100%; }
+.draw-tools { width: clamp(150px, 36vmin, 210px); display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+.swatches, .stickers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.swatch { aspect-ratio: 1; border-radius: 50%; background: var(--c); border: 3px solid #fff; box-shadow: 0 2px 0 rgba(0,0,0,.2); }
+.swatch[aria-pressed="true"], .sticker-btn[aria-pressed="true"] { outline: 4px solid var(--ink); outline-offset: 1px; }
+.sticker-btn { aspect-ratio: 1; background: #fff; border-radius: 10px; padding: 3px; }
+.sticker-btn svg { width: 100%; height: 100%; }
+.tool-row { display: flex; gap: 8px; margin-top: auto; }
+.tool-btn { flex: 1; min-height: 56px; border-radius: 16px; background: #fff; box-shadow: var(--shadow); padding: 6px; }
+.tool-btn svg { width: 100%; height: 44px; }
+.done-btn { background: #ccc; }
+.done-btn.ready { background: var(--hijau); animation: pulse 1.4s ease-in-out infinite; }
+@media (orientation: portrait) {
+  .gambar-layout { inset: 84px 12px 12px; flex-direction: column; }
+  .draw-tools { width: 100%; flex-direction: row; flex-wrap: wrap; }
+  .swatches, .stickers { grid-template-columns: repeat(8, 1fr); width: 100%; }
+}
