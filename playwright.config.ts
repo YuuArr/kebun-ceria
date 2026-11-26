@@ -8,6 +8,8 @@ export default defineConfig({
     baseURL: 'http://localhost:4173/kebun-ceria/',
     hasTouch: true,
     isMobile: false,
+    // Infinite idle animations (bobbing, pulsing) never let elements become "stable" for clicks.
+    reducedMotion: 'reduce',
   },
   webServer: {
     command: 'npm run build && npm run preview',
