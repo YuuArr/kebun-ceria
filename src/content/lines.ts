@@ -2,6 +2,7 @@ import { LETTER_NAMES, LETTER_ORDER, LETTER_SOUNDS } from './letters';
 import { WORDS, wordLine } from './words';
 import { STORIES } from './stories';
 import { ALL_SYLLABLE_WORDS } from './syllables';
+import { ROUTINES } from './routines';
 
 /** One narrator line. The owner records `text` as public/audio/<id>.mp3. */
 export interface Line {
@@ -97,6 +98,13 @@ export const LINES: readonly Line[] = [
   { id: 'urutkan_ajak', text: 'Urutkan dari yang paling kecil sampai yang paling besar!' },
   { id: 'hilang_lihat', text: 'Lihat baik-baik, ya! Ingat semuanya.' },
   { id: 'hilang_tanya', text: 'Apa yang hilang?' },
+  ...ROUTINES.flatMap((r) => [
+    { id: `kebiasaan_${r.id}`, text: r.intro },
+    ...r.steps.map((st, i) => ({ id: `kebiasaan_${r.id}_${i + 1}`, text: st.text })),
+  ]),
+  { id: 'sehat_ajak', text: 'Cici lapar! Pilih makanan sehat untuk piringnya.' },
+  { id: 'sehat_nyam', text: 'Nyam! Makanan sehat bikin kuat!' },
+  { id: 'sehat_kurang', text: 'Itu manis sekali. Pilih yang sehat, ya!' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   ...[...new Set(ALL_SYLLABLE_WORDS.flatMap((w) => w.parts.map((x) => x.toLowerCase())))]

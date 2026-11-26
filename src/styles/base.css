@@ -582,3 +582,31 @@ svg { display: block; }
 .missing-curtain { position: absolute; inset: 0; border-radius: 24px; background: #CE93D8; display: grid; place-items: center; transform: scaleY(0); transform-origin: top; transition: transform .35s; }
 .missing-curtain svg { height: 90%; }
 .missing-curtain.closed { transform: scaleY(1); }
+
+/* Urutkan Kebiasaan */
+.routine-layout { position: absolute; inset: 80px 12px 10px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.routine-slots, .routine-tray { display: flex; gap: clamp(6px, 2vw, 14px); flex-wrap: wrap; justify-content: center; }
+.routine-slot { position: relative; width: clamp(64px, 17vmin, 104px); height: clamp(64px, 17vmin, 104px); border-radius: 18px; border: 4px dashed #FFB74D; background: #fff; display: grid; place-items: center; padding: 6px; }
+.routine-slot svg { width: 100%; height: 100%; }
+.routine-slot.filled { border-style: solid; border-color: var(--hijau); }
+.step-no { position: absolute; top: -12px; left: -12px; width: 30px; height: 30px; border-radius: 50%; background: var(--orange); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 18px; }
+.routine-card { width: clamp(64px, 17vmin, 104px); height: clamp(64px, 17vmin, 104px); border-radius: 18px; background: #fff; box-shadow: var(--shadow); padding: 6px; touch-action: none; cursor: grab; }
+.routine-card svg { width: 100%; height: 100%; pointer-events: none; }
+.routine-card.used { opacity: 0; }
+
+/* Makanan Sehat */
+.sehat-layout { position: absolute; inset: 80px 12px 10px; display: flex; align-items: center; justify-content: space-around; gap: 12px; }
+.sehat-table { display: flex; flex-direction: column; align-items: center; }
+.sehat-cici { width: clamp(90px, 28vmin, 160px); }
+.sehat-cici svg { width: 100%; height: auto; }
+.sehat-cici.chew svg { animation: chew .5s ease-in-out 2; }
+.sehat-plate { position: relative; width: clamp(150px, 42vmin, 240px); margin-top: -12px; }
+.sehat-plate > svg { width: 100%; height: auto; }
+.plate-food { position: absolute; inset: 0 14% 20%; display: flex; justify-content: center; align-items: flex-end; gap: 2px; }
+.plate-item { width: 30%; }
+.plate-item svg { width: 100%; height: auto; }
+.sehat-tray { display: grid; grid-template-columns: repeat(2, auto); gap: 10px; }
+.sehat-item { width: clamp(64px, 18vmin, 96px); height: clamp(64px, 18vmin, 96px); background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 6px; touch-action: none; cursor: grab; }
+.sehat-item svg { width: 100%; height: 100%; pointer-events: none; }
+.sehat-item.used { opacity: 0; }
+@media (orientation: portrait) { .sehat-layout { flex-direction: column; } .sehat-tray { grid-template-columns: repeat(4, auto); } }

@@ -24,3 +24,5 @@ import './cerita';
 import './memori';
 import './urutkan';
 import './hilang';
+import './kebiasaan';
+import './sehat';
