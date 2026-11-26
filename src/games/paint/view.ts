@@ -64,7 +64,7 @@ export function startPaint(ctx: GameContext): () => void {
     });
     return p;
   });
-  const picture = svgRoot('0 0 400 300', [
+  const picture = svgRoot('-12 -12 424 324', [
     s('g', { class: 'paint-regions' }, regions),
     s('path', { d: sketch.outline, class: 'paint-lines' }),
   ], { class: 'paint-picture', 'data-sketch': sketch.id, preserveAspectRatio: 'xMidYMid meet' });

@@ -13,6 +13,7 @@
     "kode": "node scripts/kode.mjs"
   },
   "dependencies": {
+    "@fontsource/andika": "^5.3.0",
     "howler": "^2.2.4"
   },
   "devDependencies": {

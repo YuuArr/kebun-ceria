@@ -1,3 +1,5 @@
+import '@fontsource/andika/latin-400.css';
+import '@fontsource/andika/latin-700.css';
 import './styles/base.css';
 import { initRouter, registerScreen, go } from './core/router';
 import { startScreen } from './ui/start-screen';
