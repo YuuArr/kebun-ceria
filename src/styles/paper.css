@@ -15,11 +15,7 @@
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Paper grain over the whole book (one cheap layer). */
-body::after {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 150;
-  background-image: var(--grain); mix-blend-mode: multiply; opacity: .9;
-}
+/* Grain lives on the paper surfaces themselves; a full-screen blended overlay was too slow on low-end phones. */
 
 /* Scenery sits behind everything on its screen without changing any layout. */
 .screen { isolation: isolate; }
@@ -63,8 +59,6 @@ button:active:not(:disabled) { box-shadow: var(--paper-shadow-press); translate:
 .letter-box, .syllable-slot, .routine-slot, .pair-target, .amount-group, .order-slot { border-color: #C9B79C; }
 .letter-box.filled, .syllable-slot.filled, .routine-slot.filled, .pair-target.matched, .amount-group.matched { border-color: var(--hijau); background-color: #F1F8E9; }
 
-/* The garden map gets cut-paper depth */
-.garden .garden-item { filter: drop-shadow(0 3px 0 rgba(93, 64, 55, .18)); }
 .area-button { border: 3px solid #fff; }
 
 /* Start screen: a book cover */
@@ -87,3 +81,6 @@ button:active:not(:disabled) { box-shadow: var(--paper-shadow-press); translate:
 .backdrop-band { position: absolute; left: 0; width: 100%; }
 .band-top { top: 0; height: min(34%, 180px); }
 .band-bottom { bottom: 0; height: min(36%, 190px); }
+@media (prefers-reduced-motion: reduce) {
+  .screen { animation: none; }
+}
