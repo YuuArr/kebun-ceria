@@ -71,6 +71,8 @@ export const LINES: readonly Line[] = [
     note: LETTER_SOUNDS[l].note,
     tts: LETTER_SOUNDS[l].tts,
   })),
+  { id: 'tulis_ajak', text: 'Ayo kita tulis…', note: 'nada menggantung, disusul nama huruf' },
+  { id: 'tulis_ikuti', text: 'Mulai dari titik hijau, lalu ikuti garisnya, ya!' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   // Phase 2–4

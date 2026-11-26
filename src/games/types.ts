@@ -2,7 +2,7 @@ import type { AudioService } from '../core/audio';
 import type { Rng } from '../core/rng';
 import type { Settings } from '../core/settings';
 
-export type GameId = 'hitung' | 'kuas' | 'huruf' | 'monyet' | 'banding' | 'sungai' | 'kotakpos' | 'sortir' | 'rakit' | 'awal' | 'kartu' | 'cerita';
+export type GameId = 'hitung' | 'kuas' | 'huruf' | 'monyet' | 'banding' | 'sungai' | 'kotakpos' | 'sortir' | 'rakit' | 'awal' | 'kartu' | 'cerita' | 'tulis';
 export type AreaId = 'angka' | 'warna' | 'huruf';
 
 export interface GameContext {

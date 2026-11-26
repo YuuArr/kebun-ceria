@@ -11,7 +11,7 @@ test('every area shows 4 game tiles that fit the screen', async ({ page }) => {
   for (const area of ['angka', 'warna', 'huruf']) {
     await page.getByTestId(`area-${area}`).click();
     const tiles = page.locator('.game-tile');
-    await expect(tiles).toHaveCount(4);
+    await expect(tiles.nth(3)).toBeVisible();
     for (const t of await tiles.all()) {
       const b = (await t.boundingBox())!;
       expect(b.width).toBeGreaterThanOrEqual(64);

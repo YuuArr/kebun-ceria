@@ -10,4 +10,5 @@ import './rakit';
 import './letters';
 import './awal';
 import './kartu';
+import './tulis';
 import './cerita';
