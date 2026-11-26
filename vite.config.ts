@@ -1,9 +1,28 @@
-import { defineConfig } from 'vite';
+import { readdirSync } from 'node:fs';
+import { defineConfig, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+
+/** Exposes the list of recorded voice files (public/audio/*.mp3) as `virtual:audio-list`. */
+function audioList(): Plugin {
+  const id = 'virtual:audio-list';
+  return {
+    name: 'audio-list',
+    resolveId: (s) => (s === id ? '\0' + id : undefined),
+    load(s) {
+      if (s !== '\0' + id) return;
+      let files: string[] = [];
+      try {
+        files = readdirSync('public/audio').filter((f) => f.endsWith('.mp3')).map((f) => f.slice(0, -4));
+      } catch { /* no folder yet */ }
+      return `export default ${JSON.stringify(files)};`;
+    },
+  };
+}
 
 export default defineConfig({
   base: '/kebun-ceria/',
   plugins: [
+    audioList(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',

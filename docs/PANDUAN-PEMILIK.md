@@ -4,6 +4,10 @@ Panduan langkah demi langkah untuk mengelola dan menjual Kebun Ceria.
 
 ## 1. Membuat suara narator
 
+Saat ini game memakai **suara bawaan HP** (bahasa Indonesia terbaik yang tersedia di HP itu, sedikit diperlambat). Rekaman bisa ditambahkan kapan saja, sekaligus atau sedikit demi sedikit: setiap kalimat yang punya file mp3 otomatis memakai rekaman, sisanya tetap suara bawaan. Setelah di-push, pembeli mendapat suara baru otomatis saat membuka aplikasi berikutnya.
+
+Catatan: suara bawaan tidak bisa mengucapkan bunyi huruf murni (misalnya "/b/"), jadi baris `huruf_bunyi_*` dan `suku_*` paling penting untuk direkam lebih dulu.
+
 1. Buka `audio/naskah.csv` (bisa dibuka di Excel atau Google Sheets). Isinya 214 baris: `id`, `teks`, dan `catatan`.
 2. Untuk setiap baris, buat atau rekam suara sesuai kolom `teks`. Gunakan **satu suara yang sama** untuk semua baris, dengan nada hangat dan ceria.
 3. Simpan setiap file sebagai **`<id>.mp3`**. Contoh: baris `angka_3` disimpan sebagai `angka_3.mp3`.

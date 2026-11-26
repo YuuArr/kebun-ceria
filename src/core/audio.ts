@@ -32,11 +32,33 @@ interface Options {
   Howl: HowlCtor;
   speech?: SpeechSynthesis | null;
   base?: string;
+  /** Ids that have a recorded mp3. When given, other ids go straight to the built-in voice. */
+  available?: ReadonlySet<string>;
+}
+
+const GOOD_VOICE = /google|damayanti|gadis|ardi/i;
+const BEST_VOICE = /natural|neural|premium|enhanced/i;
+
+/** Best Indonesian built-in voice: id-ID over other id variants, known good engines first; online-only voices only when online. */
+export function pickVoice(voices: readonly SpeechSynthesisVoice[], online: boolean): SpeechSynthesisVoice | null {
+  let best: SpeechSynthesisVoice | null = null;
+  let bestScore = -1;
+  for (const v of voices) {
+    const lang = v.lang.replace('_', '-').toLowerCase();
+    if (!lang.startsWith('id') && !lang.startsWith('in')) continue;
+    if (!online && v.localService === false) continue;
+    const score = (lang === 'id-id' ? 2 : 1) + (BEST_VOICE.test(v.name) ? 5 : GOOD_VOICE.test(v.name) ? 4 : 0);
+    if (score > bestScore) {
+      best = v;
+      bestScore = score;
+    }
+  }
+  return best;
 }
 
 const MAX_WAIT_MS = 8000;
 
-export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null, base = '/' }: Options): AudioService {
+export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null, base = '/', available }: Options): AudioService {
   const howls = new Map<string, HowlLike>();
   const missing = new Set<string>();
   /** Finisher of the voice line currently playing. */
@@ -62,7 +84,13 @@ export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null,
     }
     const u = makeUtterance(text);
     u.lang = 'id-ID';
-    u.rate = 0.9;
+    try {
+      const voice = pickVoice(speech.getVoices?.() ?? [], typeof navigator === 'undefined' || navigator.onLine !== false);
+      if (voice) (u as unknown as SpeechSynthesisUtterance).voice = voice;
+    } catch { /* keep default voice */ }
+    // A little slower and brighter: easier for small children to follow.
+    u.rate = 0.85;
+    u.pitch = 1.1;
     u.volume = getSettings().voice;
     u.onend = finish;
     u.onerror = finish;
@@ -99,6 +127,7 @@ export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null,
         void ctx.resume();
       } catch { /* no Web Audio */ }
       try {
+        speech?.getVoices?.(); // start loading the voice list early (Chrome loads it lazily)
         if (speech && typeof SpeechSynthesisUtterance !== 'undefined') speech.speak(new SpeechSynthesisUtterance(''));
       } catch { /* ignore */ }
     },
@@ -117,7 +146,7 @@ export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null,
           resolve();
         };
         finishCurrent = finish;
-        if (missing.has(id)) {
+        if (missing.has(id) || (available && !available.has(id))) {
           speak(id, finish);
           return;
         }
@@ -143,6 +172,7 @@ interface UtteranceLike {
   text: string;
   lang: string;
   rate: number;
+  pitch: number;
   volume: number;
   onend: (() => void) | null;
   onerror: (() => void) | null;
@@ -152,7 +182,7 @@ function makeUtterance(text: string): UtteranceLike {
   if (typeof SpeechSynthesisUtterance !== 'undefined') {
     return new SpeechSynthesisUtterance(text) as unknown as UtteranceLike;
   }
-  return { text, lang: '', rate: 1, volume: 1, onend: null, onerror: null };
+  return { text, lang: '', rate: 1, pitch: 1, volume: 1, onend: null, onerror: null };
 }
 
 /** Tiny synthesized effects so the game needs no sfx files. */

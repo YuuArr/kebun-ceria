@@ -85,7 +85,7 @@ kebun-ceria/
 
 - Setiap layar adalah fungsi `(root, params) => cleanup`; router kecil menukar layar.
 - Logika permainan terpisah dari tampilan sehingga bisa diuji tanpa browser.
-- **Suara:** `AudioService.play(id)` memutar `public/audio/<id>.mp3`; jika file belum ada, memakai suara browser (`id-ID`); selalu selesai dalam 8 detik sehingga permainan tidak pernah macet. Efek suara disintesis dengan Web Audio.
+- **Suara:** `AudioService.play(id)` memutar `public/audio/<id>.mp3` bila ada (daftarnya dibaca saat build lewat modul virtual `virtual:audio-list`); jika tidak, memakai suara bawaan perangkat, memilih suara bahasa Indonesia terbaik (`pickVoice`). Selalu selesai dalam 8 detik sehingga permainan tidak pernah macet. Efek suara disintesis dengan Web Audio.
 - **Kode akses:** satu kode untuk semua pembeli, hanya hash SHA-256 yang disimpan di kode. Di balik antarmuka `AccessProvider` sehingga bisa diganti ke kode unik per pembeli tanpa mengubah permainan.
 - **Geser-lepas magnetis:** `makeDraggable` di `src/core/drag.ts` dipakai 6 permainan; target dipilih dari posisi jari dengan radius tarik 90 px, benda yang salah terbang pulang dengan lembut.
 - **PWA:** `vite-plugin-pwa` (Workbox) menyimpan semua file untuk dipakai offline.
