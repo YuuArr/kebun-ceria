@@ -1,0 +1,28 @@
+{
+  "name": "kebun-ceria",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "test": "vitest run",
+    "e2e": "playwright test --trace off",
+    "naskah": "node scripts/naskah.mjs",
+    "kode": "node scripts/kode.mjs"
+  },
+  "dependencies": {
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/howler": "^2.2.13",
+    "jsdom": "^25.0.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.6",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^3.2.7"
+  }
+}
