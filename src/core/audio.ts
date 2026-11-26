@@ -1,0 +1,208 @@
+import { line } from '../content/lines';
+import { getSettings } from './settings';
+
+/** The subset of Howler's Howl we use (lets tests inject a fake). */
+export interface HowlLike {
+  play(): number;
+  stop(): unknown;
+  volume(v: number): unknown;
+}
+export type HowlCtor = new (opts: {
+  src: string[];
+  html5?: boolean;
+  preload?: boolean;
+  onend?: () => void;
+  onloaderror?: () => void;
+  onplayerror?: () => void;
+}) => HowlLike;
+
+export type Sfx = 'pop' | 'boing' | 'splash' | 'chime' | 'tap';
+
+export interface AudioService {
+  /** Call from the first user gesture (iOS needs it before any sound). */
+  unlock(): void;
+  /** Plays a voice line; resolves when it ends, falls back, or after 8 s at most. */
+  play(id: string): Promise<void>;
+  /** Short synthesized sound effect; never blocks. */
+  sfx(name: Sfx): void;
+  stop(): void;
+}
+
+interface Options {
+  Howl: HowlCtor;
+  speech?: SpeechSynthesis | null;
+  base?: string;
+}
+
+const MAX_WAIT_MS = 8000;
+
+export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null, base = '/' }: Options): AudioService {
+  const howls = new Map<string, HowlLike>();
+  const missing = new Set<string>();
+  /** Finisher of the voice line currently playing. */
+  let finishCurrent: (() => void) | null = null;
+  let currentHowl: HowlLike | null = null;
+  let ctx: AudioContext | null = null;
+
+  const stopVoice = () => {
+    currentHowl?.stop();
+    currentHowl = null;
+    speech?.cancel();
+    const f = finishCurrent;
+    finishCurrent = null;
+    f?.();
+  };
+
+  const speak = (id: string, finish: () => void) => {
+    const l = line(id);
+    const text = l.tts ?? l.text;
+    if (!speech) {
+      setTimeout(finish, Math.min(3000, text.length * 60));
+      return;
+    }
+    const u = makeUtterance(text);
+    u.lang = 'id-ID';
+    u.rate = 0.9;
+    u.volume = getSettings().voice;
+    u.onend = finish;
+    u.onerror = finish;
+    speech.speak(u as SpeechSynthesisUtterance);
+  };
+
+  const getHowl = (id: string): HowlLike => {
+    let h = howls.get(id);
+    if (!h) {
+      h = new Howl({
+        src: [`${base}audio/${id}.mp3`],
+        preload: true,
+        onend: () => { if (currentHowl === h) finishCurrent?.(); },
+        onloaderror: () => {
+          missing.add(id);
+          howls.delete(id);
+          if (currentHowl === h) {
+            currentHowl = null;
+            const f = finishCurrent;
+            if (f) speak(id, f);
+          }
+        },
+        onplayerror: () => { if (currentHowl === h) finishCurrent?.(); },
+      });
+      howls.set(id, h);
+    }
+    return h;
+  };
+
+  return {
+    unlock() {
+      try {
+        ctx ??= new AudioContext();
+        void ctx.resume();
+      } catch { /* no Web Audio */ }
+      try {
+        if (speech && typeof SpeechSynthesisUtterance !== 'undefined') speech.speak(new SpeechSynthesisUtterance(''));
+      } catch { /* ignore */ }
+    },
+
+    play(id) {
+      line(id); // fail fast on unknown ids
+      stopVoice();
+      return new Promise<void>((resolve) => {
+        let settled = false;
+        const timer = setTimeout(() => finish(), MAX_WAIT_MS);
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          if (finishCurrent === finish) { finishCurrent = null; currentHowl = null; }
+          resolve();
+        };
+        finishCurrent = finish;
+        if (missing.has(id)) {
+          speak(id, finish);
+          return;
+        }
+        const h = getHowl(id);
+        currentHowl = h;
+        h.volume(getSettings().voice);
+        h.play();
+      });
+    },
+
+    sfx(name) {
+      try {
+        ctx ??= new AudioContext();
+        playSynth(ctx, name, getSettings().sfx);
+      } catch { /* no Web Audio: stay silent */ }
+    },
+
+    stop: stopVoice,
+  };
+}
+
+interface UtteranceLike {
+  text: string;
+  lang: string;
+  rate: number;
+  volume: number;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+}
+
+function makeUtterance(text: string): UtteranceLike {
+  if (typeof SpeechSynthesisUtterance !== 'undefined') {
+    return new SpeechSynthesisUtterance(text) as unknown as UtteranceLike;
+  }
+  return { text, lang: '', rate: 1, volume: 1, onend: null, onerror: null };
+}
+
+/** Tiny synthesized effects so the game needs no sfx files. */
+function playSynth(ctx: AudioContext, name: Sfx, volume: number) {
+  if (volume <= 0) return;
+  const t = ctx.currentTime;
+  const gain = ctx.createGain();
+  gain.connect(ctx.destination);
+  const osc = ctx.createOscillator();
+  osc.connect(gain);
+  const v = 0.25 * volume;
+  const env = (attack: number, release: number) => {
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(v, t + attack);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + attack + release);
+  };
+  switch (name) {
+    case 'pop':
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(500, t);
+      osc.frequency.exponentialRampToValueAtTime(1200, t + 0.08);
+      env(0.005, 0.12);
+      break;
+    case 'boing':
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, t);
+      osc.frequency.exponentialRampToValueAtTime(330, t + 0.1);
+      osc.frequency.exponentialRampToValueAtTime(180, t + 0.3);
+      env(0.01, 0.3);
+      break;
+    case 'splash':
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(900, t);
+      osc.frequency.exponentialRampToValueAtTime(300, t + 0.2);
+      env(0.005, 0.22);
+      break;
+    case 'chime': {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(660, t);
+      osc.frequency.setValueAtTime(880, t + 0.12);
+      osc.frequency.setValueAtTime(1320, t + 0.24);
+      env(0.01, 0.5);
+      break;
+    }
+    case 'tap':
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(700, t);
+      env(0.003, 0.06);
+      break;
+  }
+  osc.start(t);
+  osc.stop(t + 0.7);
+}

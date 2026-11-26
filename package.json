@@ -9,7 +9,7 @@
     "preview": "vite preview --port 4173",
     "test": "vitest run",
     "e2e": "playwright test --trace off",
-    "naskah": "node scripts/naskah.mjs",
+    "naskah": "tsx scripts/naskah.ts",
     "kode": "node scripts/kode.mjs"
   },
   "dependencies": {
