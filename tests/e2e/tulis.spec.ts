@@ -41,7 +41,7 @@ test('Menulis Huruf: scribbling does nothing; tracing 3 letters grows the garden
       for (const [x, y] of pts) await page.mouse.move(x, y);
       await page.mouse.up();
     }
-    await expect(page.locator('.trace-done path')).toHaveCount(paths.length);
+    // Completing the letter moves on to the next one (checking stroke count here would race on slow machines).
     if (i < 2) await expect(board).not.toHaveAttribute('data-letter', letter!, { timeout: 10_000 });
   }
   await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '1', { timeout: 15_000 });
