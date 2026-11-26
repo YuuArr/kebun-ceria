@@ -290,3 +290,48 @@ svg { display: block; }
   .postbox-roof { border-left-width: 44vw; border-right-width: 44vw; }
   .post-hole { width: 24vw; height: 24vw; }
 }
+
+/* Kartu Kata */
+.kartu-layout { position: absolute; inset: 80px 16px 12px; display: flex; align-items: center; justify-content: center; gap: 20px; }
+.word-card { background: #fff; border-radius: 28px; box-shadow: var(--shadow); padding: 14px 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.card-picture { width: clamp(120px, 42vmin, 240px); height: clamp(120px, 42vmin, 240px); }
+.card-picture svg { width: 100%; height: 100%; }
+.card-picture.wiggle svg { animation: hop .45s ease-out; }
+.card-word { display: flex; align-items: baseline; font-size: clamp(34px, 10vmin, 60px); font-weight: 700; letter-spacing: 3px; }
+.card-letter { color: var(--merah); font-size: 1.2em; font-weight: 700; min-width: 64px; min-height: 64px; border-radius: 16px; background: #FFEBEE; padding: 0 8px; }
+.next-button { width: 72px; height: 72px; border-radius: 50%; background: #ccc; padding: 14px; box-shadow: var(--shadow); opacity: .4; transition: opacity .2s, background .2s; }
+.next-button.ready { background: var(--hijau); opacity: 1; animation: pulse 1.4s ease-in-out infinite; }
+.next-button svg { width: 100%; height: 100%; }
+.card-dots { position: absolute; bottom: 4px; left: 50%; translate: -50% 0; display: flex; gap: 8px; }
+.card-dots span { width: 12px; height: 12px; border-radius: 50%; background: #0002; }
+.card-dots span.on { background: var(--orange); }
+.icon-card { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.icon-card svg { width: 70%; height: auto; }
+.icon-card span { font-weight: 700; font-size: clamp(16px, 5vmin, 30px); letter-spacing: 2px; }
+
+/* Sortir */
+.sort-layout { position: absolute; inset: 80px 16px 12px; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; }
+.sort-baskets { display: flex; gap: clamp(14px, 5vw, 48px); }
+.sort-basket { width: clamp(100px, 28vmin, 160px); }
+.sort-basket svg { width: 100%; height: auto; }
+.sort-tray { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.sort-item { width: clamp(64px, 17vmin, 92px); height: clamp(64px, 17vmin, 92px); background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 6px; touch-action: none; cursor: grab; }
+.sort-item svg { width: 100%; height: 100%; pointer-events: none; }
+.sort-item.in-basket { opacity: 0; scale: .3; transition: opacity .3s, scale .3s; }
+
+/* Banyak-Sedikit */
+.compare-field { position: absolute; inset: 84px 16px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-side { background: #fff9; border-radius: 28px; border: 5px solid #fff; display: grid; place-items: center; padding: 12px; box-shadow: var(--shadow); }
+.compare-side.chosen { border-color: var(--hijau); background: #E8F5E9; }
+.compare-many { display: grid; grid-template-columns: repeat(var(--cols), auto); gap: 8px; }
+.compare-many svg { width: clamp(48px, 16vmin, 90px); height: clamp(48px, 16vmin, 90px); }
+.compare-one svg { height: auto; }
+.compare-one.size-1 svg { width: clamp(50px, 14vmin, 80px); }
+.compare-one.size-2 svg { width: clamp(120px, 40vmin, 220px); }
+.icon-compare { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1.4fr; gap: 6%; align-items: center; }
+.icon-compare > div:last-child { display: grid; grid-template-columns: 1fr 1fr; gap: 4%; }
+.icon-compare svg { width: 100%; height: auto; }
+@media (orientation: portrait) {
+  .compare-field { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .kartu-layout { flex-direction: column; }
+}

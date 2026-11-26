@@ -1,21 +1,14 @@
 import { earIcon } from '../../art/areas';
+import { COLOR_SHAPE as SHAPE, HEX } from '../../art/colors';
 import { SKETCHES } from '../../art/sketches';
 import { h, s, svgRoot } from '../../art/svg';
 import * as celebrate from '../../core/celebrate';
 import { onTap } from '../../core/tap';
 import { COLORS, type ColorId } from '../../content/lines';
+
+export { HEX };
 import type { GameContext } from '../types';
 import { createPaintState } from './logic';
-
-export const HEX: Record<ColorId, string> = { merah: '#E53935', kuning: '#FDD835', biru: '#1E88E5', hijau: '#43A047' };
-
-/** Each colour also has its own shape, so colour-blind children can tell buckets apart. */
-const SHAPE: Record<ColorId, string> = {
-  merah: 'M50 34 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0', // lingkaran
-  kuning: 'M50 18 L54 29 L66 30 L57 38 L60 50 L50 43 L40 50 L43 38 L34 30 L46 29 Z', // bintang
-  biru: 'M50 18 Q64 36 62 42 A12 12 0 0 1 38 42 Q36 36 50 18 Z', // tetes
-  hijau: 'M36 46 Q36 22 64 20 Q64 46 36 46 Z M38 44 L56 28', // daun
-};
 
 function bucket(color: ColorId): SVGSVGElement {
   const o = { stroke: '#4A3B3B', 'stroke-width': 4, 'stroke-linejoin': 'round' } as const;
