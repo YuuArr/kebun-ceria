@@ -35,3 +35,24 @@ test('Gelembung Huruf: bubbles fit on screen', async ({ page }) => {
     expect(box.y + box.height).toBeLessThanOrEqual(vp.height);
   }
 });
+
+test('Gelembung Huruf top level (4-5): syllable steps appear and the round completes', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('kc:progress', JSON.stringify({ huruf: 9 }));
+    localStorage.setItem('kc:settings', JSON.stringify({ age: '4-5' }));
+  });
+  await fastVoice(page);
+  await enterGarden(page);
+  await openGame(page, 'huruf', 'huruf');
+  let syllables = 0;
+  for (let step = 0; step < 5; step++) {
+    await expect(page.getByTestId('bubble')).toHaveCount(4);
+    if (await page.locator('.bubble.syllable').count()) syllables++;
+    const target = page.locator('[data-testid="bubble"][data-target]');
+    await target.dispatchEvent('pointerdown');
+    await expect(page.locator('.popped')).toHaveCount(1);
+    await expect(page.locator('.popped')).toHaveCount(0, { timeout: 10_000 });
+  }
+  expect(syllables).toBe(3);
+  await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '1', { timeout: 15_000 });
+});

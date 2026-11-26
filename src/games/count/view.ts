@@ -28,6 +28,7 @@ export function startCount(ctx: GameContext): () => void {
       field.replaceChildren();
       field.dataset.n = String(q.n);
       field.style.setProperty('--cols', String(q.n <= 4 ? q.n : Math.ceil(q.n / 2)));
+      field.style.setProperty('--cols-p', String(Math.min(q.n, 3)));
       bigNumber.textContent = '';
       bigNumber.classList.remove('show');
       for (let i = 0; i < q.n; i++) {

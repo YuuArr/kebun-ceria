@@ -32,3 +32,26 @@ describe('Gelembung Huruf logic', () => {
     }
   });
 });
+
+describe('Gelembung Huruf syllable stage', () => {
+  it('top level for 4-5 mixes 3 syllable steps and 2 letter steps', () => {
+    for (let seed = 0; seed < 200; seed++) {
+      const r = makeLetterRound('4-5', createRng(seed), 3);
+      expect(r.filter((s) => s.kind === 'suku')).toHaveLength(3);
+      for (const s of r.filter((x) => x.kind === 'suku')) {
+        expect(s.target).toMatch(/^[MBPSTKNLD][AIUEO]$/);
+        expect(s.bubbles).toHaveLength(4);
+        // distractors share the consonant: BA BI BU BE
+        for (const b of s.bubbles) expect(b[0]).toBe(s.target[0]);
+        expect(s.bubbles.filter((b) => b === s.target)).toHaveLength(1);
+      }
+    }
+  });
+  it('lower levels and age 2-3 never show syllables', () => {
+    for (let seed = 0; seed < 100; seed++) {
+      for (const [age, lvl] of [['4-5', 2], ['2-3', 3]] as const) {
+        expect(makeLetterRound(age, createRng(seed), lvl).every((s) => s.kind === 'huruf')).toBe(true);
+      }
+    }
+  });
+});

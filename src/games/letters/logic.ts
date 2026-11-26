@@ -1,23 +1,39 @@
-import { letterPool, type Letter } from '../../content/letters';
+import { letterPool } from '../../content/letters';
 import type { Rng } from '../../core/rng';
 import type { AgeGroup } from '../../core/settings';
 
 export interface LetterStep {
-  target: Letter;
-  bubbles: Letter[];
+  /** 'huruf' = a single letter; 'suku' = a consonant+vowel syllable like "BA". */
+  kind: 'huruf' | 'suku';
+  target: string;
+  bubbles: string[];
 }
 
 export const STEPS_PER_ROUND = 5;
+export const SYLLABLE_CONSONANTS = ['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'] as const;
+export const VOWELS = ['A', 'I', 'U', 'E', 'O'] as const;
+export const SYLLABLES = SYLLABLE_CONSONANTS.flatMap((c) => VOWELS.map((v) => c + v));
 const BUBBLES: Record<AgeGroup, number> = { '2-3': 3, '4-5': 4 };
 
-/** Five "find the letter" steps. Bubbles come from the same age pool, target exactly once. */
+/**
+ * Five "find it" steps. Letters come from the pool for this age/level.
+ * At the top level for 4–5, three steps are syllables (BA/BI/BU…): same consonant, different vowel.
+ */
 export function makeLetterRound(age: AgeGroup, rng: Rng, level = 0): LetterStep[] {
   const pool = letterPool(age, level);
+  const syllableSteps = age === '4-5' && level >= 3 ? new Set(rng.shuffle([0, 1, 2, 3, 4]).slice(0, 3)) : new Set<number>();
   const steps: LetterStep[] = [];
   for (let i = 0; i < STEPS_PER_ROUND; i++) {
-    const target = rng.pick(pool.filter((l) => l !== steps[i - 1]?.target));
-    const others = rng.shuffle(pool.filter((l) => l !== target)).slice(0, BUBBLES[age] - 1);
-    steps.push({ target, bubbles: rng.shuffle([target, ...others]) });
+    const prev = steps[i - 1]?.target;
+    if (syllableSteps.has(i)) {
+      const target = rng.pick(SYLLABLES.filter((s) => s !== prev));
+      const others = rng.shuffle(VOWELS.filter((v) => v !== target[1])).slice(0, 3).map((v) => target[0] + v);
+      steps.push({ kind: 'suku', target, bubbles: rng.shuffle([target, ...others]) });
+    } else {
+      const target = rng.pick(pool.filter((l) => l !== prev));
+      const others = rng.shuffle(pool.filter((l) => l !== target)).slice(0, BUBBLES[age] - 1);
+      steps.push({ kind: 'huruf', target, bubbles: rng.shuffle([target, ...others]) });
+    }
   }
   return steps;
 }

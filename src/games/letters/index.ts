@@ -7,7 +7,7 @@ GAMES.push({
   area: 'huruf',
   name: 'Gelembung Huruf',
   parentNote:
-    'Mengenal bentuk dan bunyi huruf (fonik). Narator menyebut bunyi huruf, anak mencari gelembungnya. Huruf dikenalkan dari yang paling mudah diucapkan (vokal dulu), bukan urut A–Z. Salah ketuk hanya membuat gelembung memantul, tanpa tanda salah. Usia 2–3: vokal saja, 3 gelembung; usia 4–5: 14 huruf, 4 gelembung.',
+    'Mengenal bentuk dan bunyi huruf (fonik). Narator menyebut bunyi huruf, anak mencari gelembungnya. Huruf dibuka bertahap dari yang paling mudah diucapkan (vokal dulu) sampai A–Z. Di level tertinggi usia 4–5, muncul suku kata (BA, BI, BU…) sebagai langkah menuju membaca. Salah ketuk hanya membuat gelembung memantul, tanpa tanda salah.',
   icon: () =>
     svgRoot('0 0 100 100', [
       ...[

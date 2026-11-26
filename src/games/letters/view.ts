@@ -21,8 +21,9 @@ export function startLetters(ctx: GameContext): () => void {
   let current: LetterStep | null = null;
   const sayPrompt = async () => {
     if (!current) return;
-    await audio.play('huruf_cari');
-    if (alive && current) await audio.play(`huruf_bunyi_${current.target.toLowerCase()}`);
+    const t = current.target.toLowerCase();
+    await audio.play(current.kind === 'suku' ? 'suku_cari' : 'huruf_cari');
+    if (alive && current) await audio.play(current.kind === 'suku' ? `suku_${t}` : `huruf_bunyi_${t}`);
   };
   ear.addEventListener('click', () => void sayPrompt());
   root.append(field, h('div', { class: 'corner-tr' }, [ear]));
@@ -47,7 +48,7 @@ export function startLetters(ctx: GameContext): () => void {
       let solved = false;
       step.bubbles.forEach((letter, i) => {
         const bubble = h('button', {
-          class: 'bubble', type: 'button', 'aria-label': `Huruf ${letter}`, 'data-letter': letter, 'data-testid': 'bubble',
+          class: `bubble${step.kind === 'suku' ? ' syllable' : ''}`, type: 'button', 'aria-label': `${step.kind === 'suku' ? 'Suku kata' : 'Huruf'} ${letter}`, 'data-letter': letter, 'data-testid': 'bubble',
           ...(letter === step.target ? { 'data-target': '1' } : {}),
         }, [h('span', { class: 'bubble-letter' }, [letter])]);
         bubble.style.setProperty('--tint', BUBBLE_TINTS[i % BUBBLE_TINTS.length]);
@@ -66,8 +67,12 @@ export function startLetters(ctx: GameContext): () => void {
           audio.sfx('pop');
           bubble.classList.add('popped');
           field.classList.add('solved');
-          await audio.play(`huruf_nama_${letter.toLowerCase()}`);
-          await audio.play(`huruf_bunyi_${letter.toLowerCase()}`);
+          if (step.kind === 'suku') {
+            await audio.play(`suku_${letter.toLowerCase()}`);
+          } else {
+            await audio.play(`huruf_nama_${letter.toLowerCase()}`);
+            await audio.play(`huruf_bunyi_${letter.toLowerCase()}`);
+          }
           await audio.play(rng.pick(PRAISE_IDS));
           await wait(300);
           field.classList.remove('solved');

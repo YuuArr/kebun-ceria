@@ -398,3 +398,7 @@ svg { display: block; }
   .sort-basket { width: clamp(80px, 21vw, 140px); }
   .letter-box { width: clamp(72px, 20vw, 110px); height: clamp(72px, 20vw, 110px); }
 }
+.bubble.syllable .bubble-letter { font-size: calc(var(--s) * .4); letter-spacing: 1px; }
+@media (orientation: portrait) {
+  .count-field { grid-template-columns: repeat(var(--cols-p, 3), auto); }
+}
