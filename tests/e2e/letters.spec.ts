@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test';
-import { enterGarden, fastVoice, openGame } from './helpers';
+import { enterGarden, fastVoice, openGame, setAge } from './helpers';
 
-test('Gelembung Huruf: wrong bubble stays, target pops once, 5 steps grow the garden', async ({ page }) => {
+test('Gelembung Huruf: wrong bubble stays, target pops once, 5 steps grow the garden (age 2-3)', async ({ page }) => {
+  await setAge(page, '2-3');
   await fastVoice(page);
   await enterGarden(page);
   await openGame(page, 'huruf', 'huruf');
@@ -55,4 +56,20 @@ test('Gelembung Huruf top level (4-5): syllable steps appear and the round compl
   }
   expect(syllables).toBe(3);
   await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '1', { timeout: 15_000 });
+});
+
+test('fresh install defaults to age 4-5 (4 bubbles, shown as selected for parents)', async ({ page }) => {
+  await fastVoice(page);
+  await enterGarden(page);
+  await openGame(page, 'huruf', 'huruf');
+  await expect(page.getByTestId('bubble')).toHaveCount(4);
+  await page.getByTestId('home-button').click();
+  await page.getByTestId('home-button').click();
+  const btn = page.getByTestId('parent-button');
+  const box = (await btn.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.waitForTimeout(3300);
+  await page.mouse.up();
+  await expect(page.getByTestId('age-4-5')).toHaveAttribute('aria-pressed', 'true');
 });

@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test';
-import { enterGarden, fastVoice, openGame } from './helpers';
+import { enterGarden, fastVoice, openGame, setAge } from './helpers';
 
-test('Sentuh & Hitung: each object counts once, round grows the garden', async ({ page }) => {
+test('Sentuh & Hitung: each object counts once, round grows the garden (age 2-3)', async ({ page }) => {
+  await setAge(page, '2-3');
   await fastVoice(page);
   await enterGarden(page);
   await expect(page.getByTestId('garden')).toHaveAttribute('data-growth', '0');

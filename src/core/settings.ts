@@ -10,7 +10,7 @@ export interface Settings {
   sfx: number;
 }
 
-const DEFAULTS: Settings = { age: '2-3', music: 0.4, voice: 1, sfx: 0.8 };
+const DEFAULTS: Settings = { age: '4-5', music: 0.4, voice: 1, sfx: 0.8 };
 const KEY = 'settings';
 
 const isVolume = (v: unknown): v is number => typeof v === 'number' && v >= 0 && v <= 1;

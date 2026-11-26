@@ -40,3 +40,8 @@ export async function dragTo(page: Page, source: import('@playwright/test').Loca
   await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 8 });
   await page.mouse.up();
 }
+
+/** Sets the age group before the app loads. */
+export async function setAge(page: Page, age: '2-3' | '4-5') {
+  await page.addInitScript((a) => localStorage.setItem('kc:settings', JSON.stringify({ age: a })), age);
+}
