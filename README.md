@@ -19,26 +19,19 @@ Bisa dipasang ke layar utama HP seperti aplikasi dan dimainkan tanpa internet.
 
 ## Isi
 
-Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area (13 permainan):
+Anak dipandu kelinci **Cici** di sebuah peta kebun dengan **7 area dan 32 permainan**:
 
-**Kolam Angka**
-- **Sentuh & Hitung**: ketuk benda satu per satu, narator ikut menghitung; benda yang sudah dihitung tidak terhitung dua kali.
-- **Kasih Makan Monyet**: geser pisang sebanyak yang diminta monyet; kelebihan ditolak dengan lucu.
-- **Banyak-Sedikit**: pilih keranjang yang lebih banyak/sedikit atau benda yang lebih besar/kecil.
-- **Sungai Angka**: pasang batu angka yang hilang supaya Cici bisa melompat menyeberang sambil menghitung.
+| Area | Permainan |
+|---|---|
+| **Kolam Angka** | Sentuh & Hitung · Kasih Makan Monyet · Banyak-Sedikit · Sungai Angka · Angka & Jumlah · Pola Berulang · Menulis Angka |
+| **Taman Warna** | Kuas Ajaib Warna · Kotak Pos Bentuk · Sortir Keranjang Warna · Rakit Roket · Cari Bayangan · Campur Warna · Puzzle Gambar · Gambar Bebas |
+| **Pondok Huruf** | Gelembung Huruf · Cocokkan Huruf Awal · Kartu Kata Berbicara · Huruf Besar-Kecil · Susun Suku Kata · Menulis Huruf · Cerita Bergambar |
+| **Taman Pikiran** | Cari Pasangan · Urutkan Kecil-Besar · Apa yang Hilang? |
+| **Rumah Cici** | Urutkan Kebiasaan (cuci tangan, gosok gigi, berpakaian) · Makanan Sehat |
+| **Panggung Musik** | Xilofon & Drum · Tiru Nada |
+| **Kandang Hewan** | Induk & Anak · Makanan Hewan · Suara Hewan |
 
-**Taman Warna**
-- **Kuas Ajaib Warna**: pilih ember, ketuk gambar, langsung berwarna penuh.
-- **Kotak Pos Bentuk**: masukkan donat, pizza, kado ke lubang yang bentuknya sama.
-- **Sortir Keranjang Warna**: kelompokkan benda ke keranjang berwarna sama.
-- **Rakit Roket**: susun bentuk dasar menjadi roket, kereta, atau rumah, lalu lihat hasilnya bergerak.
-
-**Pondok Huruf**
-- **Gelembung Huruf**: dengar bunyi huruf, ketuk gelembung yang cocok.
-- **Cocokkan Huruf Awal**: geser gambar ke kotak huruf depannya ("/b/… untuk bola").
-- **Kartu Kata Berbicara**: ketuk gambar untuk mendengar kata, ketuk huruf depan untuk mendengar bunyinya.
-- **Menulis Huruf**: telusuri huruf A–Z dengan jari, garis demi garis, mulai dari titik hijau.
-- **Cerita Bergambar**: cerita pendek yang katanya menyala mengikuti narator; benda di gambar bisa diketuk.
+Cara bermainnya beragam: mengetuk, menggeser magnetis, menelusuri dengan jari, menggambar bebas, menyusun puzzle, memori, dan bermain musik. Tidak ada permainan yang punya kondisi kalah.
 
 Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia di Pojok Orang Tua (bawaan 4–5 tahun; bisa diganti ke 2–3 tahun), dan punya **level otomatis**: setiap 3 ronde selesai, permainan itu naik satu level (maksimal 4) dan tidak pernah turun. Contohnya: angka hitung naik sampai 10, huruf dibuka bertahap dari vokal sampai A–Z, dan di level tertinggi Gelembung Huruf mulai memakai suku kata (BA, BI, BU…). Huruf tidak berulang dalam satu ronde dan huruf yang jarang muncul didahulukan; orang tua juga bisa langsung membuka semua huruf A–Z.
 

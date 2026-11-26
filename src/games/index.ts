@@ -28,3 +28,6 @@ import './kebiasaan';
 import './sehat';
 import './xilofon';
 import './ritme';
+import './induk';
+import './makanan';
+import './suara';

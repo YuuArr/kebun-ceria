@@ -3,6 +3,7 @@ import { WORDS, wordLine } from './words';
 import { STORIES } from './stories';
 import { ALL_SYLLABLE_WORDS } from './syllables';
 import { ROUTINES } from './routines';
+import { ANIMALS } from './animals';
 
 /** One narrator line. The owner records `text` as public/audio/<id>.mp3. */
 export interface Line {
@@ -110,6 +111,14 @@ export const LINES: readonly Line[] = [
   { id: 'ritme_dengar', text: 'Dengarkan Cici, ya!' },
   { id: 'ritme_ulang', text: 'Dengarkan sekali lagi, ya.' },
   { id: 'ritme_giliran', text: 'Sekarang giliranmu!' },
+  ...ANIMALS.flatMap((a) => [
+    { id: `hewan_${a.id}`, text: `${a.name}!` },
+    ...(a.sound ? [{ id: `suara_${a.id}`, text: a.sound, note: 'tirukan suara hewan dengan lucu' }] : []),
+    ...(a.food ? [{ id: `makan_${a.id}`, text: `${a.name} suka ${a.food === 'daun' ? 'rumput dan daun' : a.food}!` }] : []),
+  ]),
+  { id: 'induk_ajak', text: 'Anak hewan mencari ibunya. Ayo bantu!' },
+  { id: 'makanan_ajak', text: 'Hewan-hewan lapar! Berikan makanan kesukaannya.' },
+  { id: 'suara_tanya', text: 'Hewan apa yang bunyinya begini?' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   ...[...new Set(ALL_SYLLABLE_WORDS.flatMap((w) => w.parts.map((x) => x.toLowerCase())))]

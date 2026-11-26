@@ -636,3 +636,18 @@ svg { display: block; }
 .ritme-dots { bottom: 6px; }
 .icon-ritme { width: 100%; height: 100%; display: grid; place-items: center; font-size: clamp(30px, 10vmin, 56px); color: #5C6BC0; }
 @media (orientation: landscape) { .music-layout { flex-direction: column; } }
+
+/* Kandang Hewan */
+.pair-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.pair-targets, .pair-tray { display: flex; gap: clamp(10px, 3vw, 28px); flex-wrap: wrap; justify-content: center; }
+.pair-target { width: clamp(84px, 24vmin, 130px); height: clamp(84px, 24vmin, 130px); background: #fff; border-radius: 24px; border: 4px dashed #AED581; padding: 8px; display: grid; place-items: center; }
+.pair-target svg { width: 100%; height: 100%; }
+.pair-target.matched { border-style: solid; border-color: var(--hijau); background: #F1F8E9; }
+.pair-tile { width: clamp(64px, 17vmin, 92px); height: clamp(64px, 17vmin, 92px); background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 6px; touch-action: none; cursor: grab; }
+.pair-tile svg { width: 100%; height: 100%; pointer-events: none; }
+.pair-tile.baby svg { transform: scale(.72); }
+.pair-tile.used { opacity: 0; }
+.suara-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.sound-speaker { width: clamp(96px, 28vmin, 150px); height: clamp(96px, 28vmin, 150px); border-radius: 50%; background: #fff; box-shadow: var(--shadow); padding: 20px; border: 6px solid #AED581; }
+.sound-speaker svg { width: 100%; height: 100%; }
+.sound-speaker.ring { animation: pulse .6s ease-in-out 2; }
