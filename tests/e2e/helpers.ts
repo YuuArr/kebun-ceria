@@ -19,3 +19,14 @@ export async function openGame(page: Page, area: string, game: string) {
   await page.getByTestId(`game-${game}`).click();
   await expect(page.getByTestId('game-stage')).toBeVisible();
 }
+
+/** Replace speech with an instant fake so voice lines don't slow tests down. */
+export async function fastVoice(page: Page) {
+  await page.addInitScript(() => {
+    const fake = {
+      speak: (u: SpeechSynthesisUtterance) => setTimeout(() => u.onend?.(new Event('end') as SpeechSynthesisEvent), 5),
+      cancel: () => {},
+    };
+    Object.defineProperty(window, 'speechSynthesis', { value: fake, configurable: true });
+  });
+}
