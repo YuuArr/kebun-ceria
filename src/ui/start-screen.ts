@@ -1,4 +1,5 @@
 import { cici } from '../art/cici';
+import { backdrop } from '../art/backdrops';
 import { h, s } from '../art/svg';
 import { go, type Screen } from '../core/router';
 import { access, audio } from '../services';
@@ -13,6 +14,7 @@ export const startScreen: Screen = (root) => {
   });
   root.append(
     h('div', { class: 'screen start-screen' }, [
+      backdrop('warna'),
       h('div', { class: 'start-mascot' }, [cici('cheer')]),
       h('h1', { class: 'logo' }, ['Kebun ', h('span', {}, ['Ceria'])]),
       play,

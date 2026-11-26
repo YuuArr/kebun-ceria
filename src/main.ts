@@ -1,6 +1,8 @@
 import '@fontsource/andika/latin-400.css';
 import '@fontsource/andika/latin-700.css';
+import '@fontsource/fredoka/latin-600.css';
 import './styles/base.css';
+import './styles/paper.css';
 import { initRouter, registerScreen, go } from './core/router';
 import { startScreen } from './ui/start-screen';
 import { accessScreen } from './ui/access-screen';

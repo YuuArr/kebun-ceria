@@ -1,3 +1,4 @@
+import { backdrop } from '../art/backdrops';
 import { h } from '../art/svg';
 import * as celebrate from '../core/celebrate';
 import { grow } from '../core/garden';
@@ -22,6 +23,7 @@ export const gameScreen: Screen = (root, params) => {
   const stage = h('div', { class: `game-stage game-${game.id}`, 'data-testid': 'game-stage' });
   root.append(
     h('div', { class: `screen game-screen bg-${area}` }, [
+      backdrop(area),
       stage,
       h('div', { class: 'corner-tl' }, [homeButton(() => go('area', { area }))]),
     ]),

@@ -1,0 +1,89 @@
+/*
+ * "Buku Cerita Kertas" theme: everything looks like layered cut paper.
+ * Loaded after base.css; only restyles surfaces, never layout.
+ */
+:root {
+  --paper: #FFFDF5;
+  --paper-edge: #EADFC8;
+  --paper-ink: #5D4037;
+  /* stacked cut-paper shadow: a thin paper edge, then a soft lift */
+  --paper-shadow: 0 2px 0 var(--paper-edge), 0 5px 0 rgba(93, 64, 55, .10), 0 10px 16px rgba(93, 64, 55, .10);
+  --paper-shadow-press: 0 1px 0 var(--paper-edge), 0 2px 4px rgba(93, 64, 55, .12);
+  /* slightly uneven corners, like scissors */
+  --cut: 22px 18px 24px 16px / 18px 24px 16px 22px;
+  --cut-sm: 14px 11px 15px 10px / 11px 15px 10px 14px;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Paper grain over the whole book (one cheap layer). */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 150;
+  background-image: var(--grain); mix-blend-mode: multiply; opacity: .9;
+}
+
+/* Scenery sits behind everything on its screen without changing any layout. */
+.screen { isolation: isolate; }
+.backdrop { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+
+/* Display font for titles and tile labels; Andika stays for the letters children learn. */
+.logo, .card h2, .parent-scroll h2, .parent-scroll h3, .btn-primary { font-family: 'Fredoka', 'Andika', system-ui, sans-serif; font-weight: 600; letter-spacing: .5px; }
+.logo { color: #fff; text-shadow: 0 3px 0 #C0612B, 0 6px 0 rgba(93, 64, 55, .25); font-size: clamp(40px, 10vmin, 80px); }
+.logo span { color: #FFE082; }
+
+/* Paper surfaces */
+.home-button, .hold-button, .ear-button, .card, .game-tile, .area-button, .choice, .post-item, .picture-card, .sort-item,
+.banana, .count-badge, .bucket, .word-card, .story-text, .susun-pic, .shadow-subject, .pair-tile, .pair-target, .sehat-item,
+.routine-card, .routine-slot, .letter-box, .syllable-slot, .puzzle-piece, .puzzle-board, .paint-picture, .trace-board,
+.draw-paper, .tool-btn, .sticker-btn, .memory-front, .memory-back, .order-slot, .missing-stage, .compare-side,
+.parent-scroll section, .sound-speaker, .amount-group, .pattern-card, .game-tile, .post-hole {
+  background-color: var(--paper);
+  background-image: var(--grain);
+  border-radius: var(--cut);
+  box-shadow: var(--paper-shadow);
+}
+.home-button, .hold-button, .ear-button, .sound-speaker, .count-badge { border-radius: 50% 46% 52% 48% / 48% 52% 46% 50%; }
+.choice, .post-item, .picture-card, .sort-item, .pair-tile, .sehat-item, .routine-card, .puzzle-piece, .sticker-btn, .tool-btn, .pattern-card { border-radius: var(--cut-sm); }
+
+/* A little tilt, like pieces laid on a table by hand */
+.game-tile:nth-child(odd), .choice:nth-child(odd), .picture-card:nth-child(odd), .post-item:nth-child(3n), .pair-tile:nth-child(odd), .routine-card:nth-child(odd), .sort-item:nth-child(odd) { rotate: -1.5deg; }
+.game-tile:nth-child(even), .choice:nth-child(even), .picture-card:nth-child(even), .post-item:nth-child(3n+1), .pair-tile:nth-child(even), .routine-card:nth-child(even), .sort-item:nth-child(even) { rotate: 1.2deg; }
+.area-button:nth-child(odd) { rotate: -2deg; } .area-button:nth-child(even) { rotate: 2deg; }
+
+/* Pressing pushes the paper down */
+button:active:not(:disabled) { box-shadow: var(--paper-shadow-press); translate: 0 3px; }
+
+/* Coloured paper pieces keep their colour but gain grain and a cut edge */
+.numeral-tile, .lower-tile, .syllable-tile, .btn-primary, .play-button, .paint-pot, .drum-pad, .xylo-bar, .bubble, .next-button.ready, .done-btn.ready {
+  background-image: var(--grain), linear-gradient(transparent, transparent);
+}
+.numeral-tile, .lower-tile, .syllable-tile { border-radius: var(--cut-sm); }
+.btn-primary { border-radius: var(--cut-sm); }
+
+/* Drop targets look like dotted pencil lines on paper */
+.letter-box, .syllable-slot, .routine-slot, .pair-target, .amount-group, .order-slot { border-color: #C9B79C; }
+.letter-box.filled, .syllable-slot.filled, .routine-slot.filled, .pair-target.matched, .amount-group.matched { border-color: var(--hijau); background-color: #F1F8E9; }
+
+/* The garden map gets cut-paper depth */
+.garden .garden-item { filter: drop-shadow(0 3px 0 rgba(93, 64, 55, .18)); }
+.area-button { border: 3px solid #fff; }
+
+/* Start screen: a book cover */
+.start-screen { background: none; }
+.start-mascot svg { filter: drop-shadow(0 6px 0 rgba(93, 64, 55, .2)); }
+
+/* Page-turn when screens change */
+.screen { animation: page-in .45s cubic-bezier(.2, .8, .3, 1) both; transform-origin: left center; }
+@keyframes page-in {
+  from { transform: perspective(1400px) rotateY(-14deg) translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Effects in paper colours */
+.fx-star { text-shadow: 0 2px 0 rgba(93, 64, 55, .25); }
+
+/* Parent corner reads like a notebook page */
+.parent-screen { background: #FFFDF5 var(--grain); }
+.parent-scroll section { padding: 14px 18px; }
+.backdrop-band { position: absolute; left: 0; width: 100%; }
+.band-top { top: 0; height: min(34%, 180px); }
+.band-bottom { bottom: 0; height: min(36%, 190px); }

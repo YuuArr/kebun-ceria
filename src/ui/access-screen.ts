@@ -1,4 +1,5 @@
 import { cici } from '../art/cici';
+import { backdrop } from '../art/backdrops';
 import { h } from '../art/svg';
 import { go, type Screen } from '../core/router';
 import { access, audio } from '../services';
@@ -26,6 +27,7 @@ export const accessScreen: Screen = (root, params) => {
   });
   root.append(
     h('div', { class: 'screen access-screen' }, [
+      backdrop('hewan'),
       h('div', { class: 'card' }, [
         h('div', { class: 'card-mascot' }, [cici()]),
         h('h2', {}, ['Masukkan Kode']),

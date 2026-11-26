@@ -64,7 +64,10 @@ test('fresh install defaults to age 4-5 (4 bubbles, shown as selected for parent
   await openGame(page, 'huruf', 'huruf');
   await expect(page.getByTestId('bubble')).toHaveCount(4);
   await page.getByTestId('home-button').click();
+  await expect(page.locator('.area-screen')).toBeVisible();
   await page.getByTestId('home-button').click();
+  await expect(page.getByTestId('garden')).toBeVisible();
+  await page.waitForTimeout(300);
   const btn = page.getByTestId('parent-button');
   const box = (await btn.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);

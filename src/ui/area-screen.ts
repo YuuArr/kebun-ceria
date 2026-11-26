@@ -1,3 +1,4 @@
+import { backdrop } from '../art/backdrops';
 import { h } from '../art/svg';
 import { go, type Screen } from '../core/router';
 import { gamesIn } from '../games/registry';
@@ -14,6 +15,7 @@ export const areaScreen: Screen = (root, params) => {
   });
   root.append(
     h('div', { class: `screen area-screen bg-${area}` }, [
+      backdrop(area),
       h('div', { class: 'corner-tl' }, [homeButton(() => go('map'))]),
       h('div', { class: `tile-row${tiles.length > 4 ? ' many' : ''}` }, tiles),
     ]),
