@@ -56,6 +56,8 @@ export function makeDraggable(el: HTMLElement, opts: DragOptions): () => void {
   const down = (e: PointerEvent) => {
     if (locked || pointerId !== null) return;
     pointerId = e.pointerId;
+    // A fly-home animation still running would override our translate.
+    if (typeof el.getAnimations === 'function') el.getAnimations().forEach((a) => a.cancel());
     try { el.setPointerCapture(e.pointerId); } catch { /* synthetic events */ }
     start = { x: e.clientX, y: e.clientY };
     el.classList.add('dragging');
@@ -65,7 +67,7 @@ export function makeDraggable(el: HTMLElement, opts: DragOptions): () => void {
   const move = (e: PointerEvent) => {
     if (e.pointerId !== pointerId) return;
     setOffset(e.clientX - start.x, e.clientY - start.y);
-    const t = nearestTarget(centre(), targetsWithRects(), radius);
+    const t = nearestTarget({ x: e.clientX, y: e.clientY }, targetsWithRects(), radius);
     if (t?.el !== hover) {
       hover?.classList.remove('drop-hover');
       hover = t?.el ?? null;
@@ -88,7 +90,8 @@ export function makeDraggable(el: HTMLElement, opts: DragOptions): () => void {
     hover?.classList.remove('drop-hover');
     hover = null;
     if (e.type === 'pointercancel') return goHome();
-    const t = nearestTarget(centre(), targetsWithRects(), radius);
+    // Where the finger is decides the target (more forgiving than the item's centre).
+    const t = nearestTarget({ x: e.clientX, y: e.clientY }, targetsWithRects(), radius);
     if (!t) return goHome();
     locked = true;
     const ok = await opts.onDrop(t.el);

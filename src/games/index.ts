@@ -2,4 +2,6 @@
 import './count';
 import './monyet';
 import './paint';
+import './kotakpos';
 import './letters';
+import './awal';

@@ -21,7 +21,7 @@ export interface GameDef {
   name: string;
   /** What it trains and which method, shown to parents. */
   parentNote: string;
-  icon: () => SVGElement;
+  icon: () => Element;
   /** Starts the game in ctx.root; returns cleanup. */
   start(ctx: GameContext): () => void;
 }
