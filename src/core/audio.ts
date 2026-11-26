@@ -25,6 +25,10 @@ export interface AudioService {
   play(id: string): Promise<void>;
   /** Short synthesized sound effect; never blocks. */
   sfx(name: Sfx): void;
+  /** A xylophone-like note at `freq` Hz. */
+  tone(freq: number): void;
+  /** Synthesized drum hit. */
+  drum(kind: 'kick' | 'tambourine'): void;
   stop(): void;
 }
 
@@ -164,8 +168,74 @@ export function createAudio({ Howl, speech = globalThis.speechSynthesis ?? null,
       } catch { /* no Web Audio: stay silent */ }
     },
 
+    tone(freq) {
+      try {
+        ctx ??= new AudioContext();
+        playTone(ctx, freq, getSettings().sfx);
+      } catch { /* no Web Audio */ }
+    },
+
+    drum(kind) {
+      try {
+        ctx ??= new AudioContext();
+        playDrum(ctx, kind, getSettings().sfx);
+      } catch { /* no Web Audio */ }
+    },
+
     stop: stopVoice,
   };
+}
+
+/** Bell-like xylophone tone: fundamental + soft overtone, quick decay. */
+function playTone(ctx: AudioContext, freq: number, volume: number) {
+  if (volume <= 0) return;
+  const t = ctx.currentTime;
+  const out = ctx.createGain();
+  out.connect(ctx.destination);
+  out.gain.setValueAtTime(0.0001, t);
+  out.gain.exponentialRampToValueAtTime(0.35 * volume, t + 0.005);
+  out.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+  for (const [mult, amp] of [[1, 1], [4, 0.15]] as const) {
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq * mult;
+    g.gain.value = amp;
+    osc.connect(g).connect(out);
+    osc.start(t);
+    osc.stop(t + 1);
+  }
+}
+
+function playDrum(ctx: AudioContext, kind: 'kick' | 'tambourine', volume: number) {
+  if (volume <= 0) return;
+  const t = ctx.currentTime;
+  const g = ctx.createGain();
+  g.connect(ctx.destination);
+  if (kind === 'kick') {
+    const osc = ctx.createOscillator();
+    osc.frequency.setValueAtTime(150, t);
+    osc.frequency.exponentialRampToValueAtTime(45, t + 0.25);
+    g.gain.setValueAtTime(0.6 * volume, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+    osc.connect(g);
+    osc.start(t);
+    osc.stop(t + 0.4);
+    return;
+  }
+  const len = Math.floor(ctx.sampleRate * 0.25);
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const hp = ctx.createBiquadFilter();
+  hp.type = 'highpass';
+  hp.frequency.value = 5000;
+  g.gain.setValueAtTime(0.4 * volume, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+  src.connect(hp).connect(g);
+  src.start(t);
 }
 
 interface UtteranceLike {

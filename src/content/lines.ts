@@ -105,6 +105,11 @@ export const LINES: readonly Line[] = [
   { id: 'sehat_ajak', text: 'Cici lapar! Pilih makanan sehat untuk piringnya.' },
   { id: 'sehat_nyam', text: 'Nyam! Makanan sehat bikin kuat!' },
   { id: 'sehat_kurang', text: 'Itu manis sekali. Pilih yang sehat, ya!' },
+  { id: 'musik_ajak', text: 'Ayo main musik! Ketuk xilofon dan drumnya. Kalau sudah, ketuk tanda centang.' },
+  { id: 'musik_selesai', text: 'Wah, musikmu indah sekali!' },
+  { id: 'ritme_dengar', text: 'Dengarkan Cici, ya!' },
+  { id: 'ritme_ulang', text: 'Dengarkan sekali lagi, ya.' },
+  { id: 'ritme_giliran', text: 'Sekarang giliranmu!' },
   { id: 'suku_cari', text: 'Cari suku kata…', note: 'nada menggantung, disusul suku kata' },
   ...['M', 'B', 'P', 'S', 'T', 'K', 'N', 'L', 'D'].flatMap((c) => ['a', 'i', 'u', 'e', 'o'].map((v) => ({ id: `suku_${c.toLowerCase()}${v}`, text: `${c.toLowerCase()}${v}`, note: 'ucapkan jelas sebagai satu suku kata' }))),
   ...[...new Set(ALL_SYLLABLE_WORDS.flatMap((w) => w.parts.map((x) => x.toLowerCase())))]

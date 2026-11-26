@@ -610,3 +610,29 @@ svg { display: block; }
 .sehat-item svg { width: 100%; height: 100%; pointer-events: none; }
 .sehat-item.used { opacity: 0; }
 @media (orientation: portrait) { .sehat-layout { flex-direction: column; } .sehat-tray { grid-template-columns: repeat(4, auto); } }
+
+/* Musik */
+.music-layout, .ritme-layout { position: absolute; inset: 80px 12px 12px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.xylophone { display: flex; align-items: center; gap: clamp(4px, 1.4vw, 12px); height: clamp(150px, 46vmin, 260px); padding: 10px 14px; background: #8D5A33; border-radius: 18px; box-shadow: var(--shadow); }
+.xylo-bar { width: clamp(30px, 8.6vw, 64px); height: var(--h); border-radius: 10px; background: linear-gradient(90deg, #fff4 0 12%, transparent 13%), var(--c); border: 3px solid #4A3B3B; position: relative; touch-action: none; }
+.xylo-bar::before, .xylo-bar::after { content: ''; position: absolute; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #CFD8DC; }
+.xylo-bar::before { top: 8px; } .xylo-bar::after { bottom: 8px; }
+.xylo-bar.hit { animation: bar-hit .3s ease-out; }
+@keyframes bar-hit { 30% { transform: translateY(6px) scale(.96); filter: brightness(1.3); } }
+.xylophone.demo .xylo-bar { pointer-events: none; }
+.xylophone.your-turn { outline: 5px solid var(--hijau); outline-offset: 4px; }
+.drum-row { display: flex; gap: 16px; align-items: center; }
+.drum-pad { width: clamp(70px, 20vmin, 100px); height: clamp(70px, 20vmin, 100px); border-radius: 50%; border: 5px solid #4A3B3B; box-shadow: var(--shadow); touch-action: none; }
+.drum-kick { background: radial-gradient(circle, #fff 0 45%, #E53935 46%); }
+.drum-tambourine { background: radial-gradient(circle, #FFF8E1 0 55%, #FFB300 56%); }
+.drum-pad.hit { animation: bar-hit .25s ease-out; }
+.drum-row .done-btn { width: 72px; flex: none; }
+.note-sky { position: absolute; inset: 0 0 50%; pointer-events: none; overflow: hidden; }
+.flying-note { position: absolute; bottom: 0; font-size: 34px; color: #5C6BC0; animation: note-fly 1.2s ease-out forwards; }
+@keyframes note-fly { to { transform: translateY(-160px) rotate(20deg); opacity: 0; } }
+.ritme-cici { width: clamp(70px, 22vmin, 120px); }
+.ritme-cici svg { width: 100%; height: auto; }
+.ritme-cici.playing svg { animation: bob .5s ease-in-out infinite; }
+.ritme-dots { bottom: 6px; }
+.icon-ritme { width: 100%; height: 100%; display: grid; place-items: center; font-size: clamp(30px, 10vmin, 56px); color: #5C6BC0; }
+@media (orientation: landscape) { .music-layout { flex-direction: column; } }

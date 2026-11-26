@@ -26,3 +26,5 @@ import './urutkan';
 import './hilang';
 import './kebiasaan';
 import './sehat';
+import './xilofon';
+import './ritme';
