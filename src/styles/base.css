@@ -225,3 +225,33 @@ svg { display: block; }
 @media (orientation: portrait) {
   .bubble-field { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* shared drag bits */
+.dragging { z-index: 50; position: relative; scale: 1.12; filter: drop-shadow(0 8px 6px rgba(0,0,0,.2)); cursor: grabbing; }
+.drop-hover { outline: 6px dashed var(--orange); outline-offset: 4px; }
+.placed { pointer-events: none; }
+
+/* Kasih Makan Monyet */
+.monyet-layout { position: absolute; inset: 80px 16px 12px; display: flex; align-items: center; justify-content: space-around; gap: 16px; }
+.monyet-side { position: relative; display: flex; flex-direction: column; align-items: center; }
+.monyet-wrap { position: relative; width: clamp(160px, 46vmin, 280px); }
+.monyet-wrap svg { width: 100%; height: auto; }
+.monyet-mouth-target { position: absolute; left: 50%; top: 52%; width: 44%; height: 26%; transform: translate(-50%, -50%); border-radius: 50%; }
+.monyet-wrap.chew svg { animation: chew .5s ease-in-out 2; }
+.monyet-wrap.shake svg { animation: shake .5s ease-in-out; }
+.thought { position: absolute; top: -12px; right: -64px; background: #fff; border-radius: 24px; padding: 6px 12px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 8px; z-index: 2; }
+.thought::after { content: ''; position: absolute; left: 8px; bottom: -14px; width: 16px; height: 16px; background: #fff; border-radius: 50%; }
+.thought-num { font-size: 44px; font-weight: 700; color: var(--merah); line-height: 1; }
+.thought-dots { display: grid; grid-template-columns: repeat(3, 22px); gap: 2px; }
+.thought-banana svg { width: 22px; height: 22px; }
+.banana-basket { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 10px; max-width: min(46vw, 360px); padding: 14px; border-radius: 28px; background: #D7A36B; box-shadow: inset 0 -8px 0 rgba(0,0,0,.12), var(--shadow); }
+.banana { width: clamp(64px, 16vmin, 88px); height: clamp(64px, 16vmin, 88px); background: #fff3; border-radius: 18px; touch-action: none; cursor: grab; }
+.banana svg { width: 100%; height: 100%; pointer-events: none; }
+.banana.eaten { opacity: 0; scale: .2; transition: opacity .25s, scale .25s; }
+@keyframes chew { 50% { transform: scaleY(.94) translateY(4px); } }
+@keyframes shake { 20% { transform: rotate(-8deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(5deg); } }
+@media (orientation: portrait) {
+  .monyet-layout { flex-direction: column; justify-content: space-evenly; }
+  .banana-basket { max-width: 92vw; }
+  .thought { right: -30px; }
+}

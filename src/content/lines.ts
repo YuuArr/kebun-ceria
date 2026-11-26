@@ -1,4 +1,6 @@
 import { LETTER_NAMES, LETTER_ORDER, LETTER_SOUNDS } from './letters';
+import { WORDS } from './words';
+import { STORIES } from './stories';
 
 /** One narrator line. The owner records `text` as public/audio/<id>.mp3. */
 export interface Line {
@@ -24,6 +26,12 @@ const NUMBER_WORDS = ['satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', '
 export const PRAISE_IDS = ['pujian_1', 'pujian_2', 'pujian_3', 'pujian_4', 'pujian_5', 'pujian_6'] as const;
 
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+
+export const SHAPES = ['lingkaran', 'segitiga', 'persegi', 'persegi-panjang', 'bintang', 'hati'] as const;
+export type Shape = (typeof SHAPES)[number];
+const SHAPE_WORDS: Record<Shape, string> = {
+  lingkaran: 'Lingkaran', segitiga: 'Segitiga', persegi: 'Persegi', 'persegi-panjang': 'Persegi panjang', bintang: 'Bintang', hati: 'Hati',
+};
 
 export const LINES: readonly Line[] = [
   { id: 'umum_halo', text: 'Halo! Aku Cici. Ayo main di Kebun Ceria!', note: 'ceria, hangat' },
@@ -58,6 +66,27 @@ export const LINES: readonly Line[] = [
     note: LETTER_SOUNDS[l].note,
     tts: LETTER_SOUNDS[l].tts,
   })),
+  // Phase 2–4
+  { id: 'kata_untuk', text: 'untuk', note: 'datar, penghubung: "A… untuk apel"' },
+  ...WORDS.map((w) => ({ id: `kata_${w.word}`, text: cap(w.word) + '!' })),
+  ...SHAPES.map((sh) => ({ id: `bentuk_${sh.replace('-', '_')}`, text: SHAPE_WORDS[sh] + '!' })),
+  ...NUMBER_WORDS.slice(0, 6).map((w, i) => ({ id: `monyet_ajak_${i + 1}`, text: `Monyet mau ${w} pisang!` })),
+  { id: 'monyet_kenyang', text: 'Nyam, nyam… kenyang!', note: 'puas, lucu' },
+  { id: 'monyet_sudah_kenyang', text: 'Sudah kenyang!', note: 'lucu, sambil menggeleng' },
+  { id: 'pos_ajak', text: 'Masukkan bendanya ke lubang yang cocok!' },
+  { id: 'awal_ajak', text: 'Geser gambarnya ke huruf depannya!' },
+  { id: 'kartu_ajak', text: 'Ketuk gambarnya, ya!' },
+  { id: 'sortir_ajak', text: 'Masukkan ke keranjang yang warnanya sama!' },
+  { id: 'sortir_benar', text: 'Benar!' },
+  { id: 'banding_banyak', text: 'Mana yang lebih banyak?' },
+  { id: 'banding_sedikit', text: 'Mana yang lebih sedikit?' },
+  { id: 'banding_besar', text: 'Mana yang lebih besar?' },
+  { id: 'banding_kecil', text: 'Mana yang lebih kecil?' },
+  { id: 'sungai_ajak', text: 'Batu mana yang hilang? Bantu Cici menyeberang!' },
+  { id: 'rakit_ajak', text: 'Pasang bentuknya di tempat yang cocok!' },
+  { id: 'rakit_meluncur', text: 'Meluncuuur!', note: 'seru sekali' },
+  { id: 'rakit_jadi', text: 'Wah, sudah jadi!' },
+  ...STORIES.flatMap((st) => st.pages.map((pg, i) => ({ id: `cerita_${st.id}_${i + 1}`, text: pg.text, note: 'pelan dan jelas, kata per kata' }))),
 ];
 
 const byId = new Map(LINES.map((l) => [l.id, l]));
