@@ -533,3 +533,52 @@ svg { display: block; }
 .syllable-tray { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .syllable-tile { min-width: clamp(70px, 18vmin, 100px); height: clamp(56px, 15vmin, 78px); padding: 0 10px; border-radius: 16px; background: var(--biru); color: #fff; font-size: clamp(24px, 7.5vmin, 40px); font-weight: 700; display: grid; place-items: center; box-shadow: 0 6px 0 #1565C0; touch-action: none; cursor: grab; }
 .syllable-tile.used { opacity: 0; }
+
+/* seven areas on the map */
+.area-button { --s: clamp(68px, 19vmin, 140px); }
+.area-row { gap: clamp(8px, 2vw, 22px); flex-wrap: wrap; }
+@media (orientation: portrait) {
+  .area-row { display: grid; grid-template-columns: repeat(3, auto); justify-content: center; }
+  .area-button { --s: clamp(80px, 25vw, 130px); }
+}
+.bg-pikiran { background: linear-gradient(#F3E5F5, #E1BEE7); }
+.bg-rumah { background: linear-gradient(#FFF3E0, #FFE0B2); }
+.bg-musik { background: linear-gradient(#E8EAF6, #C5CAE9); }
+.bg-hewan { background: linear-gradient(#F1F8E9, #DCEDC8); }
+
+/* Cari Pasangan */
+.memory-layout { position: absolute; inset: 80px 12px 10px; display: grid; place-items: center; }
+.memory-grid { height: 100%; max-width: 100%; aspect-ratio: calc(var(--cols) * 0.82) / var(--rows); display: grid; grid-template: repeat(var(--rows), 1fr) / repeat(var(--cols), 1fr); gap: 8px; }
+.memory-card { position: relative; perspective: 600px; min-width: 0; min-height: 0; }
+.memory-back, .memory-front { position: absolute; inset: 0; border-radius: 14px; display: grid; place-items: center; padding: 10%; backface-visibility: hidden; transition: transform .35s; box-shadow: var(--shadow); }
+.memory-back { background: #CE93D8; }
+.memory-front { background: #fff; transform: rotateY(180deg); }
+.memory-back svg, .memory-front svg { width: 100%; height: 100%; }
+.memory-card.open .memory-back { transform: rotateY(180deg); }
+.memory-card.open .memory-front { transform: rotateY(0deg); }
+.memory-card.matched .memory-front { background: #E8F5E9; outline: 4px solid var(--hijau); }
+@media (orientation: portrait) { .memory-grid { height: auto; width: 100%; } }
+
+/* Urutkan */
+.order-layout { position: absolute; inset: 80px 12px 10px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.order-stairs { display: flex; align-items: flex-end; gap: 8px; height: 42%; }
+.order-slot { width: clamp(64px, 17vmin, 100px); height: 100%; display: flex; align-items: flex-end; justify-content: center; border-bottom: calc(var(--h) * .5) solid #A5D6A7; border-radius: 0 0 10px 10px; background: linear-gradient(transparent 0, #fff8 0); outline: 3px dashed #CE93D8; outline-offset: -3px; }
+.order-slot svg { width: 100%; height: auto; }
+.order-slot.filled { outline-color: transparent; }
+.order-tray { display: flex; gap: 10px; align-items: flex-end; }
+.order-item { width: clamp(64px, 17vmin, 100px); height: clamp(64px, 17vmin, 100px); display: flex; align-items: flex-end; justify-content: center; touch-action: none; cursor: grab; }
+.order-item svg { width: 100%; height: 100%; pointer-events: none; transform-origin: 50% 100%; }
+.order-item.used { opacity: 0; }
+.icon-order { width: 100%; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4%; }
+.icon-order svg:nth-child(1) { width: 18%; } .icon-order svg:nth-child(2) { width: 28%; } .icon-order svg:nth-child(3) { width: 40%; }
+
+/* Apa yang Hilang */
+.missing-layout { position: absolute; inset: 80px 12px 10px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+.missing-stage { position: relative; padding: 12px 16px; background: #fff9; border-radius: 24px; }
+.missing-shelf { display: flex; gap: 10px; }
+.missing-item { width: clamp(56px, 15vmin, 90px); height: clamp(56px, 15vmin, 90px); transition: opacity .3s; }
+.missing-item svg { width: 100%; height: 100%; }
+.missing-item.gone { opacity: 0; }
+.missing-curtain { position: absolute; inset: 0; border-radius: 24px; background: #CE93D8; display: grid; place-items: center; transform: scaleY(0); transform-origin: top; transition: transform .35s; }
+.missing-curtain svg { height: 90%; }
+.missing-curtain.closed { transform: scaleY(1); }

@@ -21,3 +21,6 @@ import './besarkecil';
 import './susun';
 import './tulis';
 import './cerita';
+import './memori';
+import './urutkan';
+import './hilang';

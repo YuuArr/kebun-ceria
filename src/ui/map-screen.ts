@@ -1,4 +1,4 @@
-import { flowerbedIcon, houseIcon, pondIcon } from '../art/areas';
+import { barnIcon, cottageIcon, flowerbedIcon, houseIcon, mindIcon, musicIcon, pondIcon } from '../art/areas';
 import { cici } from '../art/cici';
 import { gardenBackdrop } from '../art/garden-items';
 import { gardenScene } from '../art/garden-more';
@@ -13,6 +13,10 @@ const AREAS: { id: AreaId; label: string; icon: () => SVGSVGElement }[] = [
   { id: 'huruf', label: 'Pondok Huruf', icon: houseIcon },
   { id: 'angka', label: 'Kolam Angka', icon: pondIcon },
   { id: 'warna', label: 'Taman Warna', icon: flowerbedIcon },
+  { id: 'pikiran', label: 'Taman Pikiran', icon: mindIcon },
+  { id: 'rumah', label: 'Rumah Cici', icon: cottageIcon },
+  { id: 'musik', label: 'Panggung Musik', icon: musicIcon },
+  { id: 'hewan', label: 'Kandang Hewan', icon: barnIcon },
 ];
 
 export const mapScreen: Screen = (root, params) => {

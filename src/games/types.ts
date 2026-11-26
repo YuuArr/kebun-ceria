@@ -2,8 +2,9 @@ import type { AudioService } from '../core/audio';
 import type { Rng } from '../core/rng';
 import type { Settings } from '../core/settings';
 
-export type GameId = 'hitung' | 'kuas' | 'huruf' | 'monyet' | 'banding' | 'sungai' | 'kotakpos' | 'sortir' | 'rakit' | 'awal' | 'kartu' | 'cerita' | 'tulis' | 'tulisangka' | 'pola' | 'jumlah' | 'bayangan' | 'campur' | 'puzzle' | 'gambar' | 'besarkecil' | 'susun';
-export type AreaId = 'angka' | 'warna' | 'huruf';
+export type GameId = 'hitung' | 'kuas' | 'huruf' | 'monyet' | 'banding' | 'sungai' | 'kotakpos' | 'sortir' | 'rakit' | 'awal' | 'kartu' | 'cerita' | 'tulis' | 'tulisangka' | 'pola' | 'jumlah' | 'bayangan' | 'campur' | 'puzzle' | 'gambar' | 'besarkecil' | 'susun'
+  | 'memori' | 'urutkan' | 'hilang' | 'kebiasaan' | 'sehat' | 'xilofon' | 'ritme' | 'induk' | 'makanan' | 'suara';
+export type AreaId = 'angka' | 'warna' | 'huruf' | 'pikiran' | 'rumah' | 'musik' | 'hewan';
 
 export interface GameContext {
   root: HTMLElement;
