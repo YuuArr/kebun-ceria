@@ -1,5 +1,6 @@
 import { h } from '../art/svg';
-import { getGrowth, GARDEN_STAGES } from '../core/garden';
+import { getAlbum, getGrowth, getSeason, GARDEN_STAGES } from '../core/garden';
+import { themeName } from '../art/themes';
 import { go, type Screen } from '../core/router';
 import { getSettings, updateSettings, type AgeGroup, type LetterMode, type Settings } from '../core/settings';
 import { GAMES } from '../games/registry';
@@ -54,7 +55,7 @@ export const parentScreen: Screen = (root) => {
         h('section', {}, [h('h3', {}, ['Suara']), slider('voice', 'Suara narator'), slider('sfx', 'Efek suara')]),
         h('section', {}, [
           h('h3', {}, ['Kebun']),
-          h('p', {}, [`Kebun sudah tumbuh ${getGrowth()} dari ${GARDEN_STAGES} tahap. Setiap satu ronde selesai, kebun bertambah satu. Kebun tidak pernah layu atau berkurang.`]),
+          h('p', {}, [`Musim ke-${getSeason().season + 1}: ${themeName(getSeason().theme)}, sudah ${getGrowth()} dari ${GARDEN_STAGES} ronde. Setiap ronde selesai, kebun bertambah; setelah ${GARDEN_STAGES} ronde kebun dipanen, disimpan di Album Kebun, lalu tema berganti (Kebun Bunga, Kebun Buah, Taman Laut, Hutan Ajaib). Kebun yang sudah dipanen: ${getAlbum().length}.`]),
         ]),
         h('section', {}, [
           h('h3', {}, ['Tentang permainan']),

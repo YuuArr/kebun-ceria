@@ -10,6 +10,7 @@ import { mapScreen } from './ui/map-screen';
 import { areaScreen } from './ui/area-screen';
 import { gameScreen } from './ui/game-screen';
 import { parentScreen } from './ui/parent-screen';
+import { albumScreen } from './ui/album-screen';
 import './games';
 
 initRouter(document.getElementById('app')!);
@@ -19,6 +20,7 @@ registerScreen('map', mapScreen);
 registerScreen('area', areaScreen);
 registerScreen('game', gameScreen);
 registerScreen('parent', parentScreen);
+registerScreen('album', albumScreen);
 go('start');
 
 // Block pinch-zoom and long-press menus that confuse small children.

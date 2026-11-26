@@ -1,4 +1,4 @@
-export type ScreenName = 'start' | 'access' | 'map' | 'area' | 'game' | 'parent';
+export type ScreenName = 'start' | 'access' | 'map' | 'area' | 'game' | 'parent' | 'album';
 export type Params = Record<string, string>;
 /** Renders into root and returns a cleanup function. */
 export type Screen = (root: HTMLElement, params: Params) => () => void;
