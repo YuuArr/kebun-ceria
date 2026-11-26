@@ -1,6 +1,7 @@
 import { flowerbedIcon, houseIcon, pondIcon } from '../art/areas';
 import { cici } from '../art/cici';
-import { GARDEN_ITEMS, gardenBackdrop, gardenItem } from '../art/garden-items';
+import { gardenBackdrop } from '../art/garden-items';
+import { gardenScene } from '../art/garden-more';
 import { h, svgRoot } from '../art/svg';
 import { getGrowth, getUnseen, markSeen } from '../core/garden';
 import { go, type Screen } from '../core/router';
@@ -17,14 +18,14 @@ const AREAS: { id: AreaId; label: string; icon: () => SVGSVGElement }[] = [
 export const mapScreen: Screen = (root, params) => {
   let alive = true;
   const growth = getGrowth();
+  // Animate at most the last 3 new stages; older ones just appear (avoids long waits after many rounds).
+  const allUnseen = getUnseen();
+  if (allUnseen.length > 6) markSeen(allUnseen[allUnseen.length - 4]);
   const unseen = new Set(getUnseen());
-  const items = GARDEN_ITEMS.filter((i) => i.stage <= growth)
-    .sort((a, b) => (a.kind === 'rainbow' ? -1 : b.kind === 'rainbow' ? 1 : a.y - b.y))
-    .map((i) => {
-      const g = gardenItem(i);
-      if (unseen.has(i.stage)) g.classList.add('hidden-until-grow');
-      return g;
-    });
+  const items = gardenScene(growth).map((it) => {
+    if (unseen.has(it.stage)) it.el.classList.add('hidden-until-grow');
+    return it.el;
+  });
   const garden = svgRoot('0 0 1000 560', [gardenBackdrop(), ...items], { class: 'garden', preserveAspectRatio: 'xMidYMid slice', 'data-testid': 'garden', 'data-growth': growth });
 
   const areaButtons = AREAS.map((a) => {

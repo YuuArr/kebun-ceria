@@ -1,7 +1,7 @@
 import { loadJSON, saveJSON } from './storage';
 
-/** Number of growth stages drawn on the garden map. The garden never shrinks. */
-export const GARDEN_STAGES = 40;
+/** Number of growth stages: 40 arrivals, 40 grow-ups, 40 decorations. The garden never shrinks. */
+export const GARDEN_STAGES = 120;
 
 interface GardenState {
   growth: number;

@@ -1,7 +1,7 @@
 import { createRng } from '../core/rng';
 import { s } from './svg';
 
-type Kind =
+export type Kind =
   | 'grass' | 'flower' | 'bush' | 'berrybush' | 'tree' | 'fruittree' | 'mushroom' | 'sunflower'
   | 'butterfly' | 'bird' | 'bee' | 'rainbow'
   | 'duck' | 'cat' | 'snail' | 'ladybug' | 'chick' | 'frog';
@@ -58,7 +58,7 @@ function flowerHead(color: string, r = 9) {
   ]);
 }
 
-function draw(kind: Kind, color: string): SVGGElement {
+export function draw(kind: Kind, color: string): SVGGElement {
   switch (kind) {
     case 'grass':
       return s('g', {}, [s('path', { d: 'M-20 0 Q-16 -30 -8 -6 Q-2 -40 4 -6 Q12 -32 20 0 Z', fill: '#4E9F50' })]);

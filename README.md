@@ -43,7 +43,7 @@ Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area (13 permaina
 Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia di Pojok Orang Tua (bawaan 4–5 tahun; bisa diganti ke 2–3 tahun), dan punya **level otomatis**: setiap 3 ronde selesai, permainan itu naik satu level (maksimal 4) dan tidak pernah turun. Contohnya: angka hitung naik sampai 10, huruf dibuka bertahap dari vokal sampai A–Z, dan di level tertinggi Gelembung Huruf mulai memakai suku kata (BA, BI, BU…). Huruf tidak berulang dalam satu ronde dan huruf yang jarang muncul didahulukan; orang tua juga bisa langsung membuka semua huruf A–Z.
 
 Isi saat ini: 26 huruf dengan 56 kata bergambar (2–3 kata untuk sebagian besar huruf), 15 benda hitung, 10 gambar mewarnai, 5 bangunan untuk dirakit, dan 3 cerita bergambar.
-Setiap ronde yang selesai membuat kebun di peta bertambah satu tahap (40 tahap): bunga mekar, pohon berbuah, hewan berdatangan. Kebun tidak pernah layu.
+Setiap ronde yang selesai membuat kebun di peta bertambah satu tahap (120 tahap): mula-mula tanaman dan hewan berdatangan, lalu semuanya "naik kelas" (bunga serumpun, pohon berbuah, hewan punya anak), lalu hiasan seperti rumah Cici, kolam, ayunan, dan kincir angin. Kebun tidak pernah layu.
 
 ## Prinsip desain
 
