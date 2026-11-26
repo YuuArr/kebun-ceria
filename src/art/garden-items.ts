@@ -197,3 +197,10 @@ export function gardenBackdrop(): SVGGElement {
     s('path', { d: 'M420 560 Q480 460 520 420 T560 330', fill: 'none', stroke: '#E8C9A0', 'stroke-width': 40, 'stroke-linecap': 'round' }),
   ]);
 }
+
+/** A single garden drawing as its own <svg> (used by the story scenes). */
+export function gardenArt(kind: 'tree' | 'flower', color = '#E53935'): SVGSVGElement {
+  const vb = kind === 'tree' ? '-70 -128 140 132' : '-24 -60 48 64';
+  const root = s('svg', { viewBox: vb, 'aria-hidden': 'true' }, [draw(kind, color)]);
+  return root;
+}

@@ -4,7 +4,7 @@ Panduan langkah demi langkah untuk mengelola dan menjual Kebun Ceria.
 
 ## 1. Membuat suara narator
 
-1. Buka `audio/naskah.csv` (bisa dibuka di Excel atau Google Sheets). Isinya 66 baris: `id`, `teks`, dan `catatan`.
+1. Buka `audio/naskah.csv` (bisa dibuka di Excel atau Google Sheets). Isinya 114 baris: `id`, `teks`, dan `catatan`.
 2. Untuk setiap baris, buat atau rekam suara sesuai kolom `teks`. Gunakan **satu suara yang sama** untuk semua baris, dengan nada hangat dan ceria.
 3. Simpan setiap file sebagai **`<id>.mp3`**. Contoh: baris `angka_3` disimpan sebagai `angka_3.mp3`.
 4. Perhatikan kolom `catatan`, terutama untuk baris `huruf_bunyi_*`. Yang direkam adalah **bunyi** huruf, bukan nama hurufnya. Contoh: `huruf_bunyi_b` diucapkan "/b/" pendek, bukan "be". Suara AI sering kesulitan dengan bunyi ini; merekam suara sendiri biasanya lebih tepat.

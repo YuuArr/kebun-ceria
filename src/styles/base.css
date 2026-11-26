@@ -335,3 +335,57 @@ svg { display: block; }
   .compare-field { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
   .kartu-layout { flex-direction: column; }
 }
+
+/* Sungai Angka */
+.sungai-layout { position: absolute; inset: 80px 12px 10px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 10px; }
+.river-wrap { position: relative; width: min(100%, 760px); height: clamp(130px, 40vmin, 220px); }
+.river { position: absolute; inset: 30% 0 0; background: linear-gradient(#6EC6F0, #4FA9DD); border-radius: 30px; box-shadow: inset 0 8px 0 rgba(255,255,255,.3); }
+.stone-path { position: absolute; inset: 30% 12% 0 16%; display: flex; justify-content: space-evenly; align-items: center; }
+.stone { width: clamp(58px, 15vmin, 84px); height: clamp(48px, 12vmin, 68px); border-radius: 50%; background: #B0A79E; border: 4px solid #4A3B3B; display: grid; place-items: center; box-shadow: 0 6px 0 rgba(0,0,0,.2); }
+.stone span { font-size: clamp(26px, 7vmin, 40px); font-weight: 700; color: #fff; text-shadow: 0 2px 0 #4A3B3B; }
+.stone.gap { background: rgba(255,255,255,.35); border-style: dashed; }
+.stone.filled { background: #8BC34A; }
+.stone.choice { width: clamp(70px, 18vmin, 96px); height: clamp(60px, 15vmin, 80px); touch-action: none; cursor: grab; }
+.stone.choice.used { opacity: 0; }
+.stone-tray { display: flex; gap: 20px; }
+.river-cici { position: absolute; left: 0; top: 0; width: clamp(56px, 16vmin, 90px); transition: translate .38s cubic-bezier(.3,1.6,.5,1); z-index: 2; }
+.river-cici.across { left: auto; right: 0; }
+.icon-stones { width: 100%; height: 100%; background: linear-gradient(transparent 30%, #6EC6F0 30%); border-radius: 14px; display: flex; align-items: center; justify-content: space-evenly; }
+.icon-stones span { width: 28%; aspect-ratio: 1.2; border-radius: 50%; background: #B0A79E; border: 3px solid #4A3B3B; display: grid; place-items: center; font-weight: 700; font-size: clamp(16px, 5vmin, 30px); color: #fff; }
+
+/* Rakit */
+.rakit-layout { position: absolute; inset: 80px 16px 12px; display: flex; align-items: center; justify-content: space-around; gap: 16px; }
+.build-area { position: relative; height: 100%; max-height: 100%; aspect-ratio: 4 / 3; max-width: 60%; background: #fff8; border-radius: 24px; }
+.build-slot { position: absolute; }
+.build-slot svg, .build-piece svg { width: 100%; height: 100%; }
+.build-slot.drop-hover { outline-offset: 0; }
+.build-tray { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; max-width: 36%; }
+.build-piece { height: clamp(56px, 15vmin, 84px); max-width: clamp(64px, 20vmin, 110px); touch-action: none; cursor: grab; }
+.build-piece.used { opacity: 0; }
+.build-area.launch { animation: launch 1.6s cubic-bezier(.5,0,.8,.4) forwards; }
+.build-area.drive { animation: drive 1.6s ease-in forwards; }
+.build-area.glow { animation: pulse .8s ease-in-out 2; }
+@keyframes launch { 20% { transform: translateY(6px); } to { transform: translateY(-140vh); } }
+@keyframes drive { to { transform: translateX(120vw); } }
+@media (orientation: portrait) {
+  .rakit-layout { flex-direction: column; }
+  .build-area { height: auto; width: 100%; max-width: 100%; }
+  .build-tray { max-width: 100%; }
+}
+
+/* Cerita */
+.story-layout { position: absolute; inset: 80px 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.story-scene { position: relative; flex: 1; min-height: 0; aspect-ratio: 400 / 240; max-width: 100%; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); }
+.story-thing { position: absolute; translate: -50% -50%; }
+.story-thing svg { width: 100%; height: auto; }
+.story-thing.play.motion-hop svg { animation: hop .5s ease-out; }
+.story-thing.play.motion-wiggle svg { animation: shake .5s ease-in-out; }
+.story-thing.play.motion-spin svg { animation: spin .7s ease-in-out; }
+.story-thing.play.motion-fly svg { animation: float .8s ease-in-out 2; }
+.story-bottom { display: flex; align-items: center; gap: 16px; }
+.story-text { margin: 0; font-size: clamp(26px, 7vmin, 44px); font-weight: 700; background: #fff; padding: 6px 20px; border-radius: 20px; box-shadow: var(--shadow); }
+.story-text span { transition: color .15s; color: #b9aeae; }
+.story-text span.lit { color: var(--ink); }
+.icon-book { width: 100%; height: 100%; background: #FFE9B8; border-radius: 12px; border-left: 8px solid #E57373; padding: 8%; }
+.icon-book svg { width: 100%; height: 100%; }
+@keyframes spin { to { transform: rotate(360deg); } }

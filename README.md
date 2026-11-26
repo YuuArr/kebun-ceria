@@ -19,12 +19,27 @@ Bisa dipasang ke layar utama HP seperti aplikasi dan dimainkan tanpa internet.
 
 ## Isi
 
-Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area:
+Anak dipandu kelinci **Cici** di sebuah peta kebun dengan tiga area, masing-masing berisi 4 permainan (12 total):
 
-- **Kolam Angka — Sentuh & Hitung.** Ketuk benda satu per satu; angka muncul dan narator ikut menghitung. Benda yang sudah dihitung bersinar dan tidak terhitung dua kali.
-- **Taman Warna — Kuas Ajaib Warna.** Pilih ember warna, ketuk bagian gambar, langsung terisi penuh. Tidak ada warna yang "salah".
-- **Pondok Huruf — Gelembung Huruf.** Dengar bunyi huruf, ketuk gelembung yang cocok. Gelembung yang salah hanya memantul lembut.
+**Kolam Angka**
+- **Sentuh & Hitung**: ketuk benda satu per satu, narator ikut menghitung; benda yang sudah dihitung tidak terhitung dua kali.
+- **Kasih Makan Monyet**: geser pisang sebanyak yang diminta monyet; kelebihan ditolak dengan lucu.
+- **Banyak-Sedikit**: pilih keranjang yang lebih banyak/sedikit atau benda yang lebih besar/kecil.
+- **Sungai Angka**: pasang batu angka yang hilang supaya Cici bisa melompat menyeberang sambil menghitung.
 
+**Taman Warna**
+- **Kuas Ajaib Warna**: pilih ember, ketuk gambar, langsung berwarna penuh.
+- **Kotak Pos Bentuk**: masukkan donat, pizza, kado ke lubang yang bentuknya sama.
+- **Sortir Keranjang Warna**: kelompokkan benda ke keranjang berwarna sama.
+- **Rakit Roket**: susun bentuk dasar menjadi roket, kereta, atau rumah, lalu lihat hasilnya bergerak.
+
+**Pondok Huruf**
+- **Gelembung Huruf**: dengar bunyi huruf, ketuk gelembung yang cocok.
+- **Cocokkan Huruf Awal**: geser gambar ke kotak huruf depannya ("/b/… untuk bola").
+- **Kartu Kata Berbicara**: ketuk gambar untuk mendengar kata, ketuk huruf depan untuk mendengar bunyinya.
+- **Cerita Bergambar**: cerita pendek yang katanya menyala mengikuti narator; benda di gambar bisa diketuk.
+
+Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia (2–3 atau 4–5 tahun) di Pojok Orang Tua.
 Setiap ronde yang selesai membuat kebun di peta bertambah satu tahap (40 tahap): bunga mekar, pohon berbuah, hewan berdatangan. Kebun tidak pernah layu.
 
 ## Prinsip desain
@@ -46,8 +61,8 @@ Aturan yang berlaku di semua permainan:
 ```
 kebun-ceria/
 ├─ src/
-│  ├─ core/       logika murni & layanan: storage, access, settings, garden, rng, audio, router, tap, celebrate
-│  ├─ content/    naskah suara (lines.ts) dan urutan huruf fonik (letters.ts)
+│  ├─ core/       logika murni & layanan: storage, access, settings, garden, rng, audio, router, tap, drag, celebrate
+│  ├─ content/    naskah suara (lines.ts), urutan huruf fonik, daftar kata, cerita
 │  ├─ art/        semua gambar sebagai fungsi SVG: maskot, benda, kebun, sketsa, ikon area
 │  ├─ ui/         layar: mulai, kode akses, peta, area, permainan, Pojok Orang Tua
 │  ├─ games/      satu folder per permainan: logic.ts (murni, diuji) + view.ts (DOM/SVG) + index.ts (pendaftaran)
@@ -70,6 +85,7 @@ kebun-ceria/
 - Logika permainan terpisah dari tampilan sehingga bisa diuji tanpa browser.
 - **Suara:** `AudioService.play(id)` memutar `public/audio/<id>.mp3`; jika file belum ada, memakai suara browser (`id-ID`); selalu selesai dalam 8 detik sehingga permainan tidak pernah macet. Efek suara disintesis dengan Web Audio.
 - **Kode akses:** satu kode untuk semua pembeli, hanya hash SHA-256 yang disimpan di kode. Di balik antarmuka `AccessProvider` sehingga bisa diganti ke kode unik per pembeli tanpa mengubah permainan.
+- **Geser-lepas magnetis:** `makeDraggable` di `src/core/drag.ts` dipakai 6 permainan; target dipilih dari posisi jari dengan radius tarik 90 px, benda yang salah terbang pulang dengan lembut.
 - **PWA:** `vite-plugin-pwa` (Workbox) menyimpan semua file untuk dipakai offline.
 
 ## Menjalankan
