@@ -10,6 +10,8 @@ export interface GameContext {
   audio: AudioService;
   settings: Settings;
   rng: Rng;
+  /** 0–3: rises every few finished rounds of this game, never drops. */
+  level: number;
   /** Call once when the round is complete: celebrates, grows the garden, returns to the area. */
   finishRound(): void;
 }

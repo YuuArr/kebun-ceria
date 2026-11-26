@@ -13,7 +13,7 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export function startCount(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const questions = makeCountRound(ctx.settings.age, rng);
+  const questions = makeCountRound(ctx.settings.age, rng, ctx.level);
   const field = h('div', { class: 'count-field', 'data-testid': 'count-field' });
   const bigNumber = h('div', { class: 'count-big', 'aria-hidden': 'true', 'data-testid': 'count-big' });
   const ear = h('button', { class: 'ear-button', type: 'button', 'aria-label': 'Dengar lagi' }, [earIcon()]);

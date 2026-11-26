@@ -1,5 +1,5 @@
-import { LETTER_ORDER, type Letter } from '../../content/letters';
-import { wordFor, type Word } from '../../content/words';
+import type { Letter } from '../../content/letters';
+import { wordPool, type Word } from '../../content/words';
 import type { Rng } from '../../core/rng';
 import type { AgeGroup } from '../../core/settings';
 
@@ -8,12 +8,12 @@ export interface InitialStep {
   pictures: Word[];
 }
 
-/** Three steps: drag each picture to the box with its first letter. */
-export function makeInitialRound(age: AgeGroup, rng: Rng): InitialStep[] {
-  const pool: readonly Letter[] = age === '2-3' ? LETTER_ORDER.slice(0, 5) : LETTER_ORDER;
-  const k = age === '2-3' ? 2 : 3;
+/** Three steps: drag each picture to the box with its first letter. Pool widens with level. */
+export function makeInitialRound(age: AgeGroup, rng: Rng, level = 0): InitialStep[] {
+  const pool = wordPool(age, level);
+  const k = age === '2-3' ? 2 : level >= 3 ? 4 : 3;
   return Array.from({ length: 3 }, () => {
-    const letters = rng.shuffle(pool).slice(0, k);
-    return { letters, pictures: rng.shuffle(letters.map(wordFor)) };
+    const words = rng.shuffle(pool).slice(0, k);
+    return { letters: words.map((w) => w.letter), pictures: rng.shuffle(words) };
   });
 }

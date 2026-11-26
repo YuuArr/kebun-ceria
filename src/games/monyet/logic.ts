@@ -1,11 +1,14 @@
 import type { Rng } from '../../core/rng';
 import type { AgeGroup } from '../../core/settings';
 
-const RANGE: Record<AgeGroup, [number, number]> = { '2-3': [1, 3], '4-5': [2, 6] };
+const RANGE: Record<AgeGroup, [number, number][]> = {
+  '2-3': [[1, 3], [1, 3], [1, 4], [1, 5]],
+  '4-5': [[2, 5], [2, 6], [3, 7], [3, 8]],
+};
 
 /** Three feedings; how many bananas the monkey wants each time. */
-export function makeFeedRound(age: AgeGroup, rng: Rng): number[] {
-  const [min, max] = RANGE[age];
+export function makeFeedRound(age: AgeGroup, rng: Rng, level = 0): number[] {
+  const [min, max] = RANGE[age][Math.min(3, level)];
   const out: number[] = [];
   for (let i = 0; i < 3; i++) {
     let n = rng.int(min, max);

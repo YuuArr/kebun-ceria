@@ -152,6 +152,65 @@ const DRAW = {
     s('path', { d: 'M50 26 L40 4 M50 26 L50 2 M50 26 L62 6', stroke: '#43A047', 'stroke-width': 6, 'stroke-linecap': 'round' }),
     s('path', { d: 'M38 46 h8 M52 60 h8 M42 74 h6', stroke: '#E07B1F', 'stroke-width': 3, 'stroke-linecap': 'round' }),
   ],
+  gajah: () => [
+    s('ellipse', { cx: 54, cy: 60, rx: 32, ry: 24, fill: '#90A4AE', ...o }),
+    s('path', { d: 'M28 50 Q10 56 12 80 Q12 88 18 86 Q22 70 30 66', fill: '#90A4AE', ...o }),
+    s('ellipse', { cx: 40, cy: 48, rx: 14, ry: 18, fill: '#B0BEC5', ...o }),
+    s('rect', { x: 40, y: 76, width: 12, height: 16, fill: '#90A4AE', ...o, 'stroke-width': 3 }),
+    s('rect', { x: 66, y: 76, width: 12, height: 16, fill: '#90A4AE', ...o, 'stroke-width': 3 }),
+    eye(28, 46, 3),
+  ],
+  roti: () => [
+    s('path', { d: 'M16 50 Q12 22 50 22 Q88 22 84 50 V82 Q84 88 78 88 H22 Q16 88 16 82 Z', fill: '#E0A96D', ...o }),
+    s('path', { d: 'M24 52 Q22 32 50 32 Q78 32 76 52 V80 H24 Z', fill: '#FFE0B2' }),
+  ],
+  hati: () => [
+    s('path', { d: 'M50 88 C8 60 10 18 32 16 Q46 16 50 30 Q54 16 68 16 C90 18 92 60 50 88 Z', fill: '#E53935', ...o }),
+    s('ellipse', { cx: 32, cy: 32, rx: 6, ry: 9, fill: '#fff', opacity: 0.5 }),
+  ],
+  jeruk: () => [
+    s('circle', { cx: 50, cy: 56, r: 34, fill: '#FFA94D', ...o }),
+    s('ellipse', { cx: 60, cy: 18, rx: 12, ry: 6, fill: '#43A047', transform: 'rotate(-20 60 18)', ...o, 'stroke-width': 3 }),
+    ...[[38, 46], [58, 40], [46, 66], [66, 62]].map(([x, y]) => s('circle', { cx: x, cy: y, r: 2, fill: '#E07B1F' })),
+  ],
+  cicak: () => [
+    s('path', { d: 'M50 14 Q62 14 60 30 L58 66 Q56 80 70 90', fill: 'none', stroke: '#A5D6A7', 'stroke-width': 14, 'stroke-linecap': 'round' }),
+    s('ellipse', { cx: 52, cy: 46, rx: 10, ry: 24, fill: '#A5D6A7', ...o }),
+    s('ellipse', { cx: 52, cy: 16, rx: 10, ry: 12, fill: '#A5D6A7', ...o }),
+    s('path', { d: 'M42 36 L26 26 M62 36 L78 26 M44 60 L28 72 M60 60 L76 72', ...o, 'stroke-width': 5 }),
+    eye(47, 12, 2.5), eye(57, 12, 2.5),
+  ],
+  yoyo: () => [
+    s('circle', { cx: 50, cy: 62, r: 30, fill: '#AB47BC', ...o }),
+    s('circle', { cx: 50, cy: 62, r: 12, fill: '#FDD835', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M50 50 V6', ...o, 'stroke-width': 2.5 }),
+    s('circle', { cx: 50, cy: 6, r: 4, fill: '#4A3B3B' }),
+  ],
+  foto: () => [
+    s('rect', { x: 10, y: 30, width: 80, height: 56, rx: 8, fill: '#546E7A', ...o }),
+    s('rect', { x: 30, y: 20, width: 24, height: 14, rx: 3, fill: '#546E7A', ...o, 'stroke-width': 3 }),
+    s('circle', { cx: 50, cy: 58, r: 18, fill: '#90CAF9', ...o }),
+    s('circle', { cx: 50, cy: 58, r: 8, fill: '#1E88E5' }),
+    s('circle', { cx: 78, cy: 40, r: 4, fill: '#FDD835' }),
+  ],
+  zebra: () => [
+    s('ellipse', { cx: 56, cy: 54, rx: 30, ry: 20, fill: '#fff', ...o }),
+    s('path', { d: 'M30 46 Q18 30 22 16 Q34 14 38 34', fill: '#fff', ...o }),
+    s('path', { d: 'M44 38 V70 M56 34 V74 M68 36 V72 M24 24 H34 M22 32 H36', stroke: '#4A3B3B', 'stroke-width': 5 }),
+    s('path', { d: 'M38 70 V90 M50 72 V90 M66 72 V90 M78 68 V88', ...o, 'stroke-width': 6, 'stroke-linecap': 'round' }),
+    eye(28, 22, 2.5),
+  ],
+  vas: () => [
+    s('path', { d: 'M36 40 Q20 60 30 86 H70 Q80 60 64 40 Q60 34 64 28 H36 Q40 34 36 40 Z', fill: '#4FC3F7', ...o }),
+    s('path', { d: 'M44 28 Q40 10 30 8 M56 28 Q62 12 70 10 M50 28 V6', stroke: '#43A047', 'stroke-width': 4, fill: 'none' }),
+    s('circle', { cx: 30, cy: 8, r: 6, fill: '#E53935' }), s('circle', { cx: 70, cy: 10, r: 6, fill: '#FDD835' }), s('circle', { cx: 50, cy: 6, r: 6, fill: '#FF8FB1' }),
+  ],
+  xilofon: () => [
+    ...['#E53935', '#FFA94D', '#FDD835', '#43A047', '#1E88E5'].map((c, i) =>
+      s('rect', { x: 12 + i * 16, y: 24 + i * 6, width: 12, height: 64 - i * 12, rx: 3, fill: c, ...o, 'stroke-width': 3 }),
+    ),
+    s('path', { d: 'M70 20 L90 6 M88 4 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0', ...o, 'stroke-width': 3, fill: '#A0673D' }),
+  ],
 } satisfies Record<string, () => SVGElement[]>;
 
 export type ArtId = CountObject | keyof typeof DRAW;

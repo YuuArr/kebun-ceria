@@ -14,7 +14,7 @@ export function startSungai(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
   let cleanups: (() => void)[] = [];
-  const crossings = makePathRound(ctx.settings.age, rng);
+  const crossings = makePathRound(ctx.settings.age, rng, ctx.level);
   const river = h('div', { class: 'river' });
   const path = h('div', { class: 'stone-path' });
   const rabbit = h('div', { class: 'river-cici' }, [cici()]);

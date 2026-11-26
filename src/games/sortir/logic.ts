@@ -16,8 +16,10 @@ export interface SortRound {
   items: { art: ArtId; color: ColorId }[];
 }
 
-export function makeSortRound(age: AgeGroup, rng: Rng): SortRound {
-  const colors = rng.shuffle(COLORS).slice(0, age === '2-3' ? 2 : 3);
-  const items = colors.flatMap((c) => rng.shuffle(COLOR_ITEMS[c]).slice(0, 2).map((art) => ({ art, color: c })));
+export function makeSortRound(age: AgeGroup, rng: Rng, level = 0): SortRound {
+  const big = level >= 2;
+  const colors = rng.shuffle(COLORS).slice(0, age === '2-3' ? 2 : big ? 4 : 3);
+  const per = age === '2-3' && big ? 3 : 2;
+  const items = colors.flatMap((c) => rng.shuffle(COLOR_ITEMS[c]).slice(0, per).map((art) => ({ art, color: c })));
   return { colors, items: rng.shuffle(items) };
 }

@@ -10,7 +10,7 @@ import { makeCardDeck } from './logic';
 export function startKartu(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const deck = makeCardDeck(ctx.settings.age, rng);
+  const deck = makeCardDeck(ctx.settings.age, rng, ctx.level);
   let index = 0;
   const card = h('div', { class: 'word-card' });
   const next = h('button', { class: 'next-button', type: 'button', 'aria-label': 'Kartu berikutnya', 'data-testid': 'card-next' }, [

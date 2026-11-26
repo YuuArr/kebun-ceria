@@ -4,6 +4,7 @@ import { go, type Screen } from '../core/router';
 import { getSettings, updateSettings, type AgeGroup, type Settings } from '../core/settings';
 import { GAMES } from '../games/registry';
 import { APP_VERSION } from '../config';
+import { getLevel, MAX_LEVEL } from '../core/progress';
 
 /** Parent corner: age group, volumes, what each game teaches, install help, privacy. */
 export const parentScreen: Screen = (root) => {
@@ -46,9 +47,9 @@ export const parentScreen: Screen = (root) => {
           h('p', {}, [
             'Kebun Ceria disusun berdasarkan prinsip Montessori (benda konkret, anak mengoreksi diri tanpa dihukum, satu konsep per aktivitas), ',
             'pendekatan Konkret–Gambar–Abstrak untuk berhitung, fonik menuju suku kata untuk membaca, dan belajar sambil bermain sesuai semangat Kurikulum Merdeka PAUD. ',
-            'Tidak ada skor, waktu, atau kalah.',
+            'Tidak ada skor, waktu, atau kalah. Setiap 3 ronde yang selesai, permainan itu naik satu level sedikit lebih menantang, dan level tidak pernah turun.',
           ]),
-          h('ul', { class: 'game-notes' }, GAMES.map((g) => h('li', {}, [h('strong', {}, [g.name]), ' — ', g.parentNote]))),
+          h('ul', { class: 'game-notes' }, GAMES.map((g) => h('li', {}, [h('strong', {}, [g.name]), ` (level ${getLevel(g.id) + 1} dari ${MAX_LEVEL + 1})`, ' — ', g.parentNote]))),
         ]),
         h('section', {}, [
           h('h3', {}, ['Pasang di layar utama']),

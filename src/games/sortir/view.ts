@@ -12,7 +12,7 @@ import { makeSortRound } from './logic';
 export function startSortir(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const round = makeSortRound(ctx.settings.age, rng);
+  const round = makeSortRound(ctx.settings.age, rng, ctx.level);
   const baskets = round.colors.map((c) => h('div', { class: 'sort-basket', 'data-color': c, 'data-testid': `basket-${c}`, 'aria-label': c }, [basket(c)]));
   const tray = h('div', { class: 'sort-tray' });
   let sorted = 0;

@@ -14,7 +14,7 @@ export function startAwal(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
   let cleanups: (() => void)[] = [];
-  const steps = makeInitialRound(ctx.settings.age, rng);
+  const steps = makeInitialRound(ctx.settings.age, rng, ctx.level);
   const boxes = h('div', { class: 'letter-boxes' });
   const tray = h('div', { class: 'picture-tray' });
   const ear = h('button', { class: 'ear-button', type: 'button', 'aria-label': 'Dengar lagi' }, [earIcon()]);

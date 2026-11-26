@@ -20,11 +20,12 @@ export interface PostRound {
 
 const BASIC: Shape[] = ['lingkaran', 'segitiga', 'persegi'];
 
-export function makePostRound(age: AgeGroup, rng: Rng): PostRound {
+export function makePostRound(age: AgeGroup, rng: Rng, level = 0): PostRound {
   if (age === '2-3') {
     const holes = rng.shuffle(BASIC);
+    if (level >= 2) return { holes, items: rng.shuffle(holes.flatMap((sh) => SHAPE_ITEMS[sh].map((art) => ({ art, shape: sh })))) };
     return { holes, items: rng.shuffle(holes.map((sh) => ({ art: rng.pick(SHAPE_ITEMS[sh]), shape: sh }))) };
   }
-  const holes = rng.shuffle(SHAPES).slice(0, 3);
+  const holes = rng.shuffle(SHAPES).slice(0, level >= 2 ? 4 : 3);
   return { holes, items: rng.shuffle(holes.flatMap((sh) => SHAPE_ITEMS[sh].map((art) => ({ art, shape: sh })))) };
 }

@@ -15,7 +15,7 @@ export function startMonyet(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
   const cleanups: (() => void)[] = [];
-  const rounds = makeFeedRound(ctx.settings.age, rng);
+  const rounds = makeFeedRound(ctx.settings.age, rng, ctx.level);
 
   const monkey = h('div', { class: 'monyet-wrap' }, [monyet()]);
   const mouth = h('div', { class: 'monyet-mouth-target drop-target', 'data-testid': 'monyet-mouth' });

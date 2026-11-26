@@ -4,8 +4,8 @@ import { LETTER_ORDER } from '../../src/content/letters';
 import { ART_IDS, thing } from '../../src/art/things';
 
 describe('words & art', () => {
-  it('one word per letter, starting with that letter', () => {
-    expect(WORDS.map((w) => w.letter)).toEqual([...LETTER_ORDER]);
+  it('one word per letter except Q, starting with that letter', () => {
+    expect(WORDS.map((w) => w.letter)).toEqual(LETTER_ORDER.filter((l) => l !== 'Q'));
     for (const w of WORDS) expect(w.word[0].toUpperCase()).toBe(w.letter);
   });
   it('every art id renders an svg', () => {

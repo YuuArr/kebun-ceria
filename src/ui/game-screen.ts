@@ -1,6 +1,7 @@
 import { h } from '../art/svg';
 import * as celebrate from '../core/celebrate';
 import { grow } from '../core/garden';
+import { addRound, getLevel } from '../core/progress';
 import { createRng } from '../core/rng';
 import { go, type Screen } from '../core/router';
 import { getSettings } from '../core/settings';
@@ -31,10 +32,12 @@ export const gameScreen: Screen = (root, params) => {
     audio,
     settings: getSettings(),
     rng,
+    level: getLevel(game.id),
     finishRound: async () => {
       if (finished || !alive) return;
       finished = true;
       grow();
+      addRound(game.id);
       root.dataset.roundDone = '1';
       audio.sfx('chime');
       await Promise.all([celebrate.big(), audio.play(rng.pick(PRAISE_IDS))]);

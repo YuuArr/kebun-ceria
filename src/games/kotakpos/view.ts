@@ -12,12 +12,12 @@ import { makePostRound } from './logic';
 export function startKotakPos(ctx: GameContext): () => void {
   const { root, audio, rng } = ctx;
   let alive = true;
-  const round = makePostRound(ctx.settings.age, rng);
+  const round = makePostRound(ctx.settings.age, rng, ctx.level);
   const holes = round.holes.map((sh) =>
     h('div', { class: 'post-hole', 'data-shape': sh, 'data-testid': `hole-${sh}` }, [shapeSvg(sh, '#3E2C2C', '#2A1E1E')]),
   );
-  const box = h('div', { class: 'postbox' }, [h('div', { class: 'postbox-roof' }), h('div', { class: 'postbox-body' }, holes)]);
-  const tray = h('div', { class: 'post-tray' });
+  const box = h('div', { class: 'postbox', style: `--holes:${holes.length}` }, [h('div', { class: 'postbox-roof' }), h('div', { class: 'postbox-body' }, holes)]);
+  const tray = h('div', { class: 'post-tray', style: `--cols:${round.items.length > 6 ? 4 : 3}` });
   let posted = 0;
   const cleanups = round.items.map((item) => {
     const el = h('div', { class: 'post-item', 'data-shape': item.shape, 'data-testid': 'post-item' }, [thing(item.art)]);

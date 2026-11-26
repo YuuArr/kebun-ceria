@@ -10,11 +10,14 @@ export interface CountQuestion {
 }
 
 export const QUESTIONS_PER_ROUND = 3;
-const RANGE: Record<AgeGroup, [number, number]> = { '2-3': [1, 3], '4-5': [3, 8] };
+const RANGE: Record<AgeGroup, [number, number][]> = {
+  '2-3': [[1, 3], [1, 4], [1, 5], [1, 5]],
+  '4-5': [[3, 6], [3, 8], [4, 9], [5, 10]],
+};
 
 /** Three questions; the object changes every question, the amount stays in the age range. */
-export function makeCountRound(age: AgeGroup, rng: Rng): CountQuestion[] {
-  const [min, max] = RANGE[age];
+export function makeCountRound(age: AgeGroup, rng: Rng, level = 0): CountQuestion[] {
+  const [min, max] = RANGE[age][Math.min(3, level)];
   const out: CountQuestion[] = [];
   for (let i = 0; i < QUESTIONS_PER_ROUND; i++) {
     const choices = ALL.filter((o) => o !== out[i - 1]?.object);
