@@ -1,7 +1,7 @@
 import { createRng } from '../core/rng';
 import type { ThemeId } from '../core/garden';
 import { gardenBackdrop } from './garden-items';
-import { gardenScene, type SceneItem } from './garden-more';
+import { gardenScene, itemGroup, type SceneItem } from './garden-more';
 import { ART, DECOR_ART, garden, thingAt } from './theme-art';
 import { s } from './svg';
 
@@ -158,8 +158,8 @@ function layout(id: Exclude<ThemeId, 'bunga'>) {
   return out;
 }
 
-const wrap = (stage: number, x: number, y: number, scale: number, art: SVGGElement) =>
-  s('g', { class: 'garden-item', 'data-stage': stage, transform: `translate(${x} ${y}) scale(${scale})` }, [s('g', { class: 'garden-item-inner' }, [art])]);
+const wrap = (stage: number, x: number, y: number, scale: number, art: SVGGElement, kind: string, zone: 'sky' | 'ground') =>
+  itemGroup({ stage, x, y, scale, kind, zone }, art);
 
 /** Everything to draw for a theme at a visual step (0–120), back to front. */
 export function themeScene(theme: ThemeId, visual: number): SceneItem[] {
@@ -172,13 +172,13 @@ export function themeScene(theme: ThemeId, visual: number): SceneItem[] {
     if (stage > visual) return;
     const up = visual >= stage + 40;
     const p = lay.base[i];
-    out.push({ stage: up ? stage + 40 : stage, y: p.y, el: wrap(up ? stage + 40 : stage, p.x, p.y, p.scale, up ? upgradeOf(spot) : spot.make()) });
+    out.push({ stage: up ? stage + 40 : stage, y: p.y, el: wrap(up ? stage + 40 : stage, p.x, p.y, p.scale, up ? upgradeOf(spot) : spot.make(), spot.type, spot.type === 'sky' ? 'sky' : 'ground') });
   });
   def.decor.forEach((d, i) => {
     const stage = 81 + i;
     if (stage > visual) return;
     const p = lay.decor[i];
-    out.push({ stage, y: p.y, el: wrap(stage, p.x, p.y, p.scale, d.make()) });
+    out.push({ stage, y: p.y, el: wrap(stage, p.x, p.y, p.scale, d.make(), 'decor', d.place === 'sky' ? 'sky' : 'ground') });
   });
   return out.sort((a, b) => a.y - b.y);
 }

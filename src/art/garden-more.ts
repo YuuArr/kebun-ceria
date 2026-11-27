@@ -193,8 +193,18 @@ function place(it: GardenItem, art: SVGGElement, stage: number): SVGGElement {
   return wrap(stage, it.x, it.y, it.scale, art, it.kind);
 }
 
+const SKY_KINDS = ['butterfly', 'bird', 'bee', 'rainbow', 'cloud', 'kite'];
+
 function wrap(stage: number, x: number, y: number, scale: number, art: SVGGElement, kind: string): SVGGElement {
-  return s('g', { class: 'garden-item', 'data-stage': stage, 'data-kind': kind, transform: `translate(${x} ${y}) scale(${scale})` }, [
-    s('g', { class: 'garden-item-inner' }, [art]),
-  ]);
+  return itemGroup({ stage, x, y, scale, kind, zone: SKY_KINDS.includes(kind) ? 'sky' : 'ground' }, art);
+}
+
+/** A placed garden thing with everything the map needs to react to it and move it. */
+export function itemGroup(o: { stage: number; x: number; y: number; scale: number; kind: string; zone: 'sky' | 'ground' }, art: SVGGElement): SVGGElement {
+  // Base things and their grown-up versions share one key, so a moved thing stays put after it grows.
+  const key = o.stage > 80 ? o.stage : ((o.stage - 1) % 40) + 1;
+  return s('g', {
+    class: 'garden-item', 'data-stage': o.stage, 'data-key': key, 'data-kind': o.kind, 'data-zone': o.zone,
+    'data-x': o.x, 'data-y': o.y, 'data-scale': o.scale, transform: `translate(${o.x} ${o.y}) scale(${o.scale})`,
+  }, [s('g', { class: 'garden-item-inner' }, [art])]);
 }

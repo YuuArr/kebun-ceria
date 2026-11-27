@@ -68,3 +68,21 @@
 @media (orientation: portrait) {
   .game-tile, .tile-row.many .game-tile, .tile-row:not(.many) .game-tile { height: 170px; }
 }
+
+/* —— Touchable garden —— */
+.map-screen .garden { touch-action: none; }
+.garden .garden-item { cursor: grab; }
+.garden .garden-item.moving { cursor: grabbing; filter: drop-shadow(0 10px 6px rgba(93, 64, 55, .3)); }
+.garden .garden-item-inner { transform-box: fill-box; transform-origin: 50% 100%; }
+.react-sway { animation: react-sway .8s ease-in-out; }
+.react-shake { animation: react-shake .6s ease-in-out; }
+.react-hop { animation: react-hop .6s cubic-bezier(.3, 1.6, .5, 1); }
+.react-fly { animation: react-fly .8s ease-in-out; }
+.react-wiggle { animation: react-wiggle .5s ease-in-out; }
+@keyframes react-sway { 25% { transform: rotate(-12deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-5deg); } }
+@keyframes react-shake { 20% { transform: rotate(-4deg); } 40% { transform: rotate(4deg); } 60% { transform: rotate(-3deg); } 80% { transform: rotate(2deg); } }
+@keyframes react-hop { 40% { transform: translateY(-28px) scale(1.05, .95); } 70% { transform: translateY(0) scale(1.1, .9); } }
+@keyframes react-fly { 30% { transform: translate(30px, -30px) rotate(12deg); } 60% { transform: translate(-20px, -14px) rotate(-10deg); } }
+@keyframes react-wiggle { 25% { transform: scale(1.08) rotate(-4deg); } 75% { transform: scale(1.04) rotate(3deg); } }
+.falling-fruit { animation: fruit-fall .9s cubic-bezier(.5, 0, .7, 1) forwards; }
+@keyframes fruit-fall { 70% { transform: translateY(70px); } 85% { transform: translateY(58px); } to { transform: translateY(70px); opacity: 0; } }

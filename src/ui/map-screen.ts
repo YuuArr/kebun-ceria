@@ -8,6 +8,7 @@ import { go, type Screen } from '../core/router';
 import { audio } from '../services';
 import type { AreaId } from '../games/types';
 import { createHoldButton } from './hold-button';
+import { applyLayout, enableGardenTouch } from './garden-touch';
 import { themeName as themeNameFor } from '../art/themes';
 
 const AREAS: { id: AreaId; label: string; icon: () => SVGSVGElement }[] = [
@@ -37,6 +38,9 @@ export const mapScreen: Screen = (root, params) => {
   const garden = svgRoot('0 0 1000 560', [scene], {
     class: 'garden', preserveAspectRatio: 'xMidYMid slice', 'data-testid': 'garden', 'data-growth': growth, 'data-theme': theme,
   });
+  garden.removeAttribute('aria-hidden');
+  applyLayout(scene, getSeason().season);
+  const stopTouch = enableGardenTouch(garden, scene, getSeason().season, audio);
 
   const areaButtons = AREAS.map((a) => {
     const b = h('button', { class: `area-button area-${a.id}`, type: 'button', 'aria-label': a.label, 'data-testid': `area-${a.id}` }, [a.icon(), h('span', { class: 'area-label' }, [a.label])]);
@@ -111,6 +115,7 @@ export const mapScreen: Screen = (root, params) => {
 
   return () => {
     alive = false;
+    stopTouch();
     audio.stop();
   };
 };
