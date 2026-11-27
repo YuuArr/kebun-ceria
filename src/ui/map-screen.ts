@@ -9,6 +9,7 @@ import { audio } from '../services';
 import type { AreaId } from '../games/types';
 import { createHoldButton } from './hold-button';
 import { applyLayout, enableGardenTouch } from './garden-touch';
+import { ciciWalker } from './cici-walker';
 import { themeName as themeNameFor } from '../art/themes';
 
 const AREAS: { id: AreaId; label: string; icon: () => SVGSVGElement }[] = [
@@ -52,7 +53,8 @@ export const mapScreen: Screen = (root, params) => {
     return b;
   });
 
-  const mascot = h('div', { class: 'map-mascot' }, [cici()]);
+  const walker = ciciWalker(audio);
+  const mascot = h('div', { class: 'map-cici-track' }, [walker.el]);
   const albumButton = h('button', { class: 'home-button album-button', type: 'button', 'aria-label': 'Album Kebun', 'data-testid': 'album-button' }, [
     svgRoot('0 0 64 64', [
       s('rect', { x: 12, y: 10, width: 40, height: 46, rx: 4, fill: '#E57373', stroke: '#4A3B3B', 'stroke-width': 3 }),
@@ -116,6 +118,7 @@ export const mapScreen: Screen = (root, params) => {
   return () => {
     alive = false;
     stopTouch();
+    walker.stop();
     audio.stop();
   };
 };

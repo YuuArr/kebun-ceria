@@ -55,7 +55,7 @@ export const parentScreen: Screen = (root) => {
         h('section', {}, [h('h3', {}, ['Suara']), slider('voice', 'Suara narator'), slider('sfx', 'Efek suara')]),
         h('section', {}, [
           h('h3', {}, ['Kebun']),
-          h('p', {}, [`Musim ke-${getSeason().season + 1}: ${themeName(getSeason().theme)}, sudah ${getGrowth()} dari ${GARDEN_STAGES} ronde. Setiap ronde selesai, kebun bertambah; setelah ${GARDEN_STAGES} ronde kebun dipanen, disimpan di Album Kebun, lalu tema berganti (Kebun Bunga, Kebun Buah, Taman Laut, Hutan Ajaib). Kebun yang sudah dipanen: ${getAlbum().length}.`]),
+          h('p', {}, [`Musim ke-${getSeason().season + 1}: ${themeName(getSeason().theme)}, sudah ${getGrowth()} dari ${GARDEN_STAGES} ronde. Setiap ronde selesai, kebun bertambah; setelah ${GARDEN_STAGES} ronde kebun dipanen, disimpan di Album Kebun, lalu tema berganti (Kebun Bunga, Kebun Buah, Taman Laut, Hutan Ajaib, Luar Angkasa). Kebun yang sudah dipanen: ${getAlbum().length}.`]),
         ]),
         h('section', {}, [
           h('h3', {}, ['Tentang permainan']),

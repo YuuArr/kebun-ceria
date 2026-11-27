@@ -114,6 +114,35 @@ export const THEME_DEFS: Record<Exclude<ThemeId, 'bunga'>, ThemeDef> = {
       D(() => ART.kunang()), D(() => DECOR_ART.lentera()), D(() => ART.pakis()), D(() => DECOR_ART.rumah_pohon(), 'ground', true),
     ]),
   },
+  angkasa: {
+    name: 'Luar Angkasa',
+    seed: 1969,
+    backdrop: () => s('g', {}, [
+      s('defs', {}, [s('linearGradient', { id: 'space', x1: 0, y1: 0, x2: 0, y2: 1 }, [s('stop', { offset: 0, 'stop-color': '#0D1B4C' }), s('stop', { offset: 1, 'stop-color': '#3949AB' })])]),
+      s('rect', { width: 1000, height: 560, fill: 'url(#space)' }),
+      ...Array.from({ length: 40 }, (_, i) => s('circle', { cx: (i * 263) % 1000, cy: (i * 97) % 280, r: (i % 3) + 1, fill: '#FFF9C4', opacity: 0.8 })),
+      s('circle', { cx: 860, cy: 110, r: 70, fill: '#FFAB91' }), s('ellipse', { cx: 860, cy: 110, rx: 120, ry: 20, fill: 'none', stroke: '#FFE082', 'stroke-width': 8, transform: 'rotate(-12 860 110)' }),
+      s('path', { d: 'M0 300 Q250 250 500 290 T1000 280 V560 H0 Z', fill: '#B0BEC5' }),
+      s('path', { d: 'M0 340 Q300 300 600 330 T1000 320 V560 H0 Z', fill: '#CFD8DC' }),
+      ...[[160, 420, 40], [700, 460, 50], [420, 510, 30], [880, 380, 26]].map(([x, y, r]) => s('ellipse', { cx: x, cy: y, rx: r, ry: r * 0.3, fill: '#B0BEC5' })),
+    ]),
+    base: cycle([
+      P(() => thingAt('roket', 70), true), SKY(() => ART.planet('#FF8A65')), A(() => ART.alien()), SKY(() => ART.bintang_terang()),
+      P(() => ART.batu_bulan()), SKY(() => ART.satelit()), A(() => ART.astronaut()), SKY(() => ART.ufo()),
+      P(() => DECOR_ART.antena()), SKY(() => ART.komet()), A(() => ART.alien()), SKY(() => ART.planet('#4FC3F7', '#CE93D8')),
+      P(() => ART.batu_bulan()), SKY(() => ART.bintang_terang()), A(() => ART.astronaut()),
+    ], 40),
+    decor: forty([
+      ...cycle([D(() => DECOR_ART.bendera('#E53935'), 'border'), D(() => DECOR_ART.bendera('#FDD835'), 'border')], 8),
+      ...cycle([D(() => DECOR_ART.kawah(), 'path')], 6),
+      ...cycle([D(() => ART.bintang_terang(), 'sky')], 4),
+      D(() => DECOR_ART.antena()), D(() => ART.batu_bulan()), D(() => thingAt('roket', 60)), D(() => DECOR_ART.kawah()),
+      D(() => ART.alien()), D(() => DECOR_ART.lentera()), D(() => ART.astronaut()), D(() => DECOR_ART.antena()),
+      D(() => ART.batu_bulan()), D(() => DECOR_ART.kawah()), D(() => DECOR_ART.bendera('#43A047')), D(() => ART.alien()),
+      D(() => DECOR_ART.lentera()), D(() => ART.batu_bulan()), D(() => DECOR_ART.antena()), D(() => thingAt('roket', 50)),
+      D(() => DECOR_ART.kawah()), D(() => ART.astronaut()), D(() => DECOR_ART.lentera()), D(() => DECOR_ART.stasiun(), 'ground', true),
+    ]),
+  },
 };
 
 export const themeName = (t: ThemeId) => (t === 'bunga' ? 'Kebun Bunga' : THEME_DEFS[t].name);

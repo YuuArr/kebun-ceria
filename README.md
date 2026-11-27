@@ -36,7 +36,9 @@ Cara bermainnya beragam: mengetuk, menggeser magnetis, menelusuri dengan jari, m
 Semua permainan menyesuaikan tingkat kesulitan dengan pilihan usia di Pojok Orang Tua (bawaan 4–5 tahun; bisa diganti ke 2–3 tahun), dan punya **level otomatis**: setiap 3 ronde selesai, permainan itu naik satu level (maksimal 4) dan tidak pernah turun. Contohnya: angka hitung naik sampai 10, huruf dibuka bertahap dari vokal sampai A–Z, dan di level tertinggi Gelembung Huruf mulai memakai suku kata (BA, BI, BU…). Huruf tidak berulang dalam satu ronde dan huruf yang jarang muncul didahulukan; orang tua juga bisa langsung membuka semua huruf A–Z.
 
 Isi saat ini: 26 huruf dengan 56 kata bergambar (2–3 kata untuk sebagian besar huruf), 15 benda hitung, 10 gambar mewarnai, 5 bangunan untuk dirakit, dan 3 cerita bergambar.
-Setiap ronde yang selesai membuat kebun di peta tumbuh. Setelah 20 ronde kebun penuh dan **dipanen**: fotonya disimpan di **Album Kebun**, lalu peta berganti tema (Kebun Bunga, Kebun Buah, Taman Laut, Hutan Ajaib, lalu berulang dengan variasi warna). Kebun tidak pernah layu.
+Setiap ronde yang selesai membuat kebun di peta tumbuh. Setelah 20 ronde kebun penuh dan **dipanen**: fotonya disimpan di **Album Kebun**, lalu peta berganti tema (Kebun Bunga, Kebun Buah, Taman Laut, Hutan Ajaib, Luar Angkasa, lalu berulang dengan variasi warna). Kebun tidak pernah layu.
+
+Kebun juga bisa dimainkan: setiap benda bereaksi saat disentuh (bunga bergoyang, bebek melompat dan berbunyi, pohon menjatuhkan buah) dan bisa digeser ke tempat lain (benda darat tetap di darat, benda langit tetap di langit; posisinya diingat). Cici berjalan-jalan, berkedip, tertawa saat disentuh, dan memakai kostum sesuai tema. Permainan dirancang untuk HP miring: di Android layar otomatis penuh dan terkunci horizontal; di iPhone muncul ajakan memutar HP.
 
 ## Prinsip desain
 

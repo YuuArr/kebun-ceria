@@ -26,9 +26,11 @@ describe('garden seasons', () => {
     expect(getSeason()).toMatchObject({ season: 1, theme: 'buah', cycle: 0 });
     expect(getAlbum().map((a) => a.theme)).toEqual(['bunga']);
   });
-  it('themes repeat with a new colour cycle after the fourth', () => {
-    for (let s = 0; s < 4; s++) { for (let i = 0; i < 20; i++) grow(); harvest(); }
-    expect(getSeason()).toMatchObject({ season: 4, theme: 'bunga', cycle: 1 });
+  it('five themes, then they repeat with a new colour cycle', () => {
+    const seen: string[] = [];
+    for (let s = 0; s < 5; s++) { seen.push(getSeason().theme); for (let i = 0; i < 20; i++) grow(); harvest(); }
+    expect(seen).toEqual(['bunga', 'buah', 'laut', 'hutan', 'angkasa']);
+    expect(getSeason()).toMatchObject({ season: 5, theme: 'bunga', cycle: 1 });
   });
   it('converts the old 120-step garden', () => {
     localStorage.setItem('kc:garden', JSON.stringify({ growth: 40, seen: 40 }));

@@ -110,6 +110,45 @@ export const ART = {
     s('circle', { cx: 22, cy: -26, r: 3, fill: '#FFEB3B' }),
   ]),
   pakis: () => s('g', {}, [-50, -25, 0, 25, 50].map((a) => s('path', { d: 'M0 0 Q4 -24 0 -44', fill: 'none', stroke: '#388E3C', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-dasharray': '6 3', transform: `rotate(${a})` }))),
+  // —— Luar Angkasa ——
+  planet: (c = '#FF8A65', ring = '#FFE082') => s('g', { class: 'float' }, [
+    s('ellipse', { cx: 0, cy: -26, rx: 40, ry: 9, fill: 'none', stroke: ring, 'stroke-width': 5, transform: 'rotate(-14 0 -26)' }),
+    s('circle', { cx: 0, cy: -26, r: 20, fill: c, ...o }),
+    s('path', { d: 'M-38 -16 Q0 -2 38 -36', fill: 'none', stroke: ring, 'stroke-width': 5, transform: 'rotate(-4 0 -26)' }),
+  ]),
+  satelit: () => s('g', { class: 'float' }, [
+    s('rect', { x: -40, y: -30, width: 26, height: 14, fill: '#42A5F5', ...o, 'stroke-width': 2 }),
+    s('rect', { x: 14, y: -30, width: 26, height: 14, fill: '#42A5F5', ...o, 'stroke-width': 2 }),
+    s('rect', { x: -12, y: -34, width: 24, height: 22, rx: 4, fill: '#CFD8DC', ...o, 'stroke-width': 2 }),
+    s('path', { d: 'M0 -34 V-46', stroke: '#4A3B3B', 'stroke-width': 2 }), s('circle', { cx: 0, cy: -48, r: 3, fill: '#E53935' }),
+  ]),
+  ufo: () => s('g', { class: 'float' }, [
+    s('ellipse', { cx: 0, cy: -30, rx: 16, ry: 14, fill: '#B2EBF2', opacity: 0.85, ...o, 'stroke-width': 2 }),
+    s('ellipse', { cx: 0, cy: -20, rx: 36, ry: 10, fill: '#9575CD', ...o }),
+    ...[-20, 0, 20].map((x) => s('circle', { cx: x, cy: -20, r: 3, fill: '#FFEB3B' })),
+    s('circle', { cx: 0, cy: -34, r: 6, fill: '#AED581' }),
+  ]),
+  alien: () => s('g', {}, [
+    s('ellipse', { cx: 0, cy: -16, rx: 14, ry: 16, fill: '#9CCC65', ...o }),
+    s('circle', { cx: 0, cy: -40, r: 14, fill: '#9CCC65', ...o }),
+    s('circle', { cx: 0, cy: -42, r: 6, fill: '#fff', ...o, 'stroke-width': 2 }), s('circle', { cx: 0, cy: -42, r: 2.5, fill: '#4A3B3B' }),
+    s('path', { d: 'M-8 -52 l-6 -12 M8 -52 l6 -12', stroke: '#689F38', 'stroke-width': 3 }),
+    s('circle', { cx: -14, cy: -64, r: 3, fill: '#FDD835' }), s('circle', { cx: 14, cy: -64, r: 3, fill: '#FDD835' }),
+    s('path', { d: 'M-5 -33 q5 4 10 0', fill: 'none', stroke: '#4A3B3B', 'stroke-width': 2 }),
+  ]),
+  astronaut: () => s('g', {}, [
+    s('rect', { x: -14, y: -34, width: 28, height: 30, rx: 10, fill: '#ECEFF1', ...o, 'stroke-width': 3 }),
+    s('path', { d: 'M-8 -4 V4 M8 -4 V4', stroke: '#ECEFF1', 'stroke-width': 8, 'stroke-linecap': 'round' }),
+    s('circle', { cx: 0, cy: -46, r: 15, fill: '#ECEFF1', ...o, 'stroke-width': 3 }),
+    s('rect', { x: -10, y: -52, width: 20, height: 12, rx: 6, fill: '#4FC3F7' }),
+    s('rect', { x: -6, y: -26, width: 12, height: 8, rx: 2, fill: '#E53935' }),
+  ]),
+  bintang_terang: () => s('g', { class: 'float' }, [s('path', { d: 'M0 -40 L6 -26 L22 -26 L9 -16 L14 0 L0 -9 L-14 0 L-9 -16 L-22 -26 L-6 -26 Z', fill: '#FFEB3B', ...o, 'stroke-width': 2 })]),
+  komet: () => s('g', { class: 'float' }, [
+    s('path', { d: 'M-50 -40 Q-20 -30 0 -20', fill: 'none', stroke: '#FFF59D', 'stroke-width': 10, 'stroke-linecap': 'round', opacity: 0.6 }),
+    s('circle', { cx: 2, cy: -20, r: 9, fill: '#FFCC80', ...o, 'stroke-width': 2 }),
+  ]),
+  batu_bulan: () => s('g', {}, [s('path', { d: 'M-24 0 Q-26 -20 -8 -24 Q8 -32 20 -18 Q30 -8 24 0 Z', fill: '#B0BEC5', ...o, 'stroke-width': 3 }), s('circle', { cx: -4, cy: -12, r: 4, fill: '#90A4AE' })]),
 };
 
 /** Decorations for the new themes (bottom-centre anchored). */
@@ -152,6 +191,18 @@ export const DECOR_ART = {
     s('path', { d: 'M-50 0 Q0 -30 50 0', fill: 'none', stroke: '#8D6E63', 'stroke-width': 8 }),
     s('path', { d: 'M-50 -16 Q0 -46 50 -16', fill: 'none', stroke: '#A1887F', 'stroke-width': 3 }),
     ...[-36, -18, 0, 18, 36].map((x) => s('path', { d: `M${x} ${-Math.abs(x) * 0.4 - 4} V${-Math.abs(x) * 0.4 - 24}`, stroke: '#A1887F', 'stroke-width': 3 })),
+  ]),
+  bendera: (c = '#E53935') => s('g', {}, [s('path', { d: 'M0 0 V-60', stroke: '#B0BEC5', 'stroke-width': 4 }), s('path', { d: 'M0 -60 H26 L20 -50 L26 -40 H0 Z', fill: c, stroke: '#4A3B3B', 'stroke-width': 2 })]),
+  kawah: () => s('g', {}, [s('ellipse', { cx: 0, cy: -6, rx: 34, ry: 9, fill: '#78909C' }), s('ellipse', { cx: 0, cy: -8, rx: 26, ry: 6, fill: '#607D8B' })]),
+  antena: () => s('g', {}, [
+    s('path', { d: 'M-14 0 L0 -30 L14 0', fill: 'none', stroke: '#90A4AE', 'stroke-width': 4 }),
+    s('path', { d: 'M-22 -44 Q0 -20 22 -44 Z', fill: '#ECEFF1', stroke: '#4A3B3B', 'stroke-width': 2, transform: 'rotate(-20 0 -34)' }),
+    s('circle', { cx: 0, cy: -40, r: 3, fill: '#E53935' }),
+  ]),
+  stasiun: () => s('g', {}, [
+    s('rect', { x: -50, y: -34, width: 100, height: 34, rx: 16, fill: '#CFD8DC', stroke: '#4A3B3B', 'stroke-width': 3 }),
+    ...[-30, -10, 10, 30].map((x) => s('circle', { cx: x, cy: -17, r: 7, fill: '#81D4FA', stroke: '#4A3B3B', 'stroke-width': 2 })),
+    s('path', { d: 'M0 -34 V-60 L-10 -50 M0 -60 L10 -50', fill: 'none', stroke: '#90A4AE', 'stroke-width': 3 }),
   ]),
   pintu_peri: () => s('g', {}, [
     s('path', { d: 'M-14 0 V-24 Q0 -40 14 -24 V0 Z', fill: '#AB47BC', ...o }),

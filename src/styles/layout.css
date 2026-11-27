@@ -86,3 +86,17 @@
 @keyframes react-wiggle { 25% { transform: scale(1.08) rotate(-4deg); } 75% { transform: scale(1.04) rotate(3deg); } }
 .falling-fruit { animation: fruit-fall .9s cubic-bezier(.5, 0, .7, 1) forwards; }
 @keyframes fruit-fall { 70% { transform: translateY(70px); } 85% { transform: translateY(58px); } to { transform: translateY(70px); opacity: 0; } }
+
+/* —— Cici on the map —— */
+.map-cici-track { position: absolute; left: var(--panel); right: 0; bottom: 3vh; height: min(22vmin, 140px); pointer-events: none; z-index: 3; }
+.map-cici { position: absolute; bottom: 0; left: var(--x, 8%); width: min(18vmin, 120px); height: auto; background: none; padding: 0; pointer-events: auto; transition: left var(--walk-ms, 1500ms) linear; box-shadow: none !important; translate: 0 0 !important; }
+.map-cici svg { width: 100%; height: auto; transform-origin: 50% 100%; filter: drop-shadow(0 4px 0 rgba(93, 64, 55, .2)); }
+.map-cici.face-left svg { scale: -1 1; }
+.map-cici.walking svg { animation: cici-hop .45s ease-in-out infinite; }
+.map-cici.jump svg { animation: cici-jump .7s cubic-bezier(.3, 1.6, .5, 1); }
+.cici .cici-eyes { transform-box: fill-box; transform-origin: center; animation: blink 4.5s infinite; }
+.cici .cici-ears { transform-box: fill-box; transform-origin: 50% 100%; animation: ear-wiggle 6s ease-in-out infinite; }
+@keyframes cici-hop { 50% { transform: translateY(-10px) rotate(-3deg); } }
+@keyframes cici-jump { 40% { transform: translateY(-40px) rotate(-8deg) scale(1.05); } 70% { transform: translateY(0) scale(1.08, .92); } }
+@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+@keyframes ear-wiggle { 0%, 88%, 100% { transform: rotate(0); } 92% { transform: rotate(-4deg); } 96% { transform: rotate(3deg); } }

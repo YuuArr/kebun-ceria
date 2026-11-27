@@ -5,7 +5,7 @@ export const GARDEN_STAGES = 20;
 /** Drawn things revealed per round (the scenery has 120 steps). */
 export const VISUAL_PER_ROUND = 6;
 /** Theme order; after the last one the order repeats with a colour variation. */
-export const THEMES = ['bunga', 'buah', 'laut', 'hutan'] as const;
+export const THEMES = ['bunga', 'buah', 'laut', 'hutan', 'angkasa'] as const;
 export type ThemeId = (typeof THEMES)[number];
 
 export interface AlbumEntry {
