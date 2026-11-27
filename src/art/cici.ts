@@ -76,8 +76,11 @@ export function cici(mood: CiciMood = 'happy', costume: Costume = currentCostume
   const arms =
     mood === 'cheer'
       ? [
-          s('path', { d: 'M62 150 Q40 120 44 98', stroke: line, 'stroke-width': 5, fill: fur, 'stroke-linecap': 'round' }),
-          s('path', { d: 'M138 150 Q160 120 156 98', stroke: line, 'stroke-width': 5, fill: fur, 'stroke-linecap': 'round' }),
+          // raised arms: same chubby shape as the resting arms, tilted up beside the head, with paw pads
+          s('ellipse', { cx: 52, cy: 140, rx: 13, ry: 26, fill: fur, stroke: line, 'stroke-width': 4, transform: 'rotate(-32 52 140)' }),
+          s('ellipse', { cx: 148, cy: 140, rx: 13, ry: 26, fill: fur, stroke: line, 'stroke-width': 4, transform: 'rotate(32 148 140)' }),
+          s('ellipse', { cx: 40, cy: 120, rx: 6, ry: 5, fill: pink, transform: 'rotate(-32 40 120)' }),
+          s('ellipse', { cx: 160, cy: 120, rx: 6, ry: 5, fill: pink, transform: 'rotate(32 160 120)' }),
         ]
       : [
           s('ellipse', { cx: 66, cy: 170, rx: 12, ry: 18, fill: fur, stroke: line, 'stroke-width': 4 }),
