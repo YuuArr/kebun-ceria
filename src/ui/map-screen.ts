@@ -39,7 +39,7 @@ export const mapScreen: Screen = (root, params) => {
   });
 
   const areaButtons = AREAS.map((a) => {
-    const b = h('button', { class: `area-button area-${a.id}`, type: 'button', 'aria-label': a.label, 'data-testid': `area-${a.id}` }, [a.icon()]);
+    const b = h('button', { class: `area-button area-${a.id}`, type: 'button', 'aria-label': a.label, 'data-testid': `area-${a.id}` }, [a.icon(), h('span', { class: 'area-label' }, [a.label])]);
     b.addEventListener('click', async () => {
       b.classList.add('pressed');
       await audio.play(`area_${a.id}`);
@@ -61,9 +61,8 @@ export const mapScreen: Screen = (root, params) => {
     h('div', { class: 'screen map-screen' }, [
       garden,
       mascot,
-      h('nav', { class: 'area-row' }, areaButtons),
-      h('div', { class: 'corner-tr' }, [createHoldButton(() => go('parent'))]),
-      h('div', { class: 'corner-tl' }, [albumButton]),
+      h('nav', { class: 'area-panel', 'aria-label': 'Pilih tempat bermain' }, areaButtons),
+      h('div', { class: 'corner-tr corner-row' }, [albumButton, createHoldButton(() => go('parent'))]),
     ]),
   );
 

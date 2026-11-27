@@ -35,7 +35,7 @@ export default defineConfig({
         start_url: '/kebun-ceria/',
         scope: '/kebun-ceria/',
         display: 'fullscreen',
-        orientation: 'any',
+        orientation: 'landscape',
         theme_color: '#7CC36E',
         background_color: '#FFF8E7',
         icons: [

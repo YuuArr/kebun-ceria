@@ -1,0 +1,70 @@
+/* Landscape-first layout: side menu on the map, named game cards, rotate hint. Loaded last. */
+
+/* —— Map: labelled area menu on the left, garden fills the rest —— */
+.map-screen { --panel: clamp(150px, 22vw, 200px); }
+.map-screen .garden { left: var(--panel); width: calc(100% - var(--panel)); }
+.area-panel {
+  position: absolute; left: 0; top: 0; bottom: 0; width: var(--panel); z-index: 5;
+  display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 6px; padding: 8px;
+  background: #FFF3E0 var(--grain); box-shadow: 4px 0 0 #EADFC8, 8px 0 14px rgba(93, 64, 55, .12);
+  overflow-y: auto;
+}
+.area-panel .area-button {
+  --s: auto; width: auto; height: auto; min-height: 64px; padding: 4px 2px 3px; rotate: 0deg !important;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-width: 2px;
+}
+.area-panel .area-button svg { width: 72%; height: auto; max-height: 60px; flex: 1; min-height: 0; }
+.area-label { font-family: 'Fredoka', 'Andika', sans-serif; font-weight: 600; font-size: clamp(9px, 1.45vw, 13px); line-height: 1.05; color: var(--paper-ink); text-align: center; }
+.area-panel .area-button:last-child:nth-child(odd) { grid-column: span 2; flex-direction: row; gap: 6px; }
+.area-panel .area-button:last-child:nth-child(odd) svg { width: auto; height: 100%; max-height: 52px; flex: none; }
+.map-screen .area-row { display: none; }
+.map-mascot { left: calc(var(--panel) + 2vw); }
+.corner-row { display: flex; gap: 10px; }
+
+/* —— Area screen: named game cards —— */
+.area-title { position: absolute; top: max(14px, env(safe-area-inset-top)); left: 0; right: 0; margin: 0; text-align: center; font-family: 'Fredoka', 'Andika', sans-serif; font-weight: 600; font-size: clamp(22px, 5.5vmin, 34px); color: var(--paper-ink); text-shadow: 0 2px 0 #fff; pointer-events: none; }
+.tile-row, .tile-row.many { padding: 76px 16px 14px; gap: 12px; align-content: center; }
+.game-tile, .tile-row.many .game-tile {
+  --s: auto; width: clamp(118px, 19vw, 176px); height: auto; aspect-ratio: auto; padding: 8px 8px 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.tile-art { width: 100%; aspect-ratio: 1.25; display: grid; place-items: center; }
+.tile-art > * { width: 82%; height: 100%; }
+.tile-art svg { width: 100%; height: 100%; }
+.tile-name { font-family: 'Fredoka', 'Andika', sans-serif; font-weight: 600; font-size: clamp(11px, 1.7vw, 15px); line-height: 1.1; color: var(--paper-ink); text-align: center; min-height: 2.2em; display: grid; place-items: center; }
+.tile-row.many .game-tile { width: clamp(104px, 16vw, 160px); }
+.tile-row.many .tile-art { aspect-ratio: 1.45; }
+
+/* —— Rotate hint (phones held upright) —— */
+.rotate-hint { display: none; }
+@media (orientation: portrait) and (pointer: coarse) {
+  body:not(.rotate-dismissed) .rotate-hint {
+    display: flex; position: fixed; inset: 0; z-index: 300; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+    background: #FFF3E0 var(--grain); text-align: center; padding: 24px;
+  }
+}
+.rotate-phone { width: 90px; height: 150px; border-radius: 18px; border: 8px solid var(--paper-ink); background: #BDE6FF; animation: rotate-me 2.4s ease-in-out infinite; position: relative; }
+.rotate-phone::after { content: ''; position: absolute; left: 50%; bottom: 6px; width: 16px; height: 6px; margin-left: -8px; border-radius: 3px; background: var(--paper-ink); }
+@keyframes rotate-me { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
+.rotate-hint h2 { margin: 0; font-family: 'Fredoka', sans-serif; color: var(--paper-ink); }
+.rotate-hint p { margin: 0; color: #8d7f7f; }
+.rotate-skip { background: none; text-decoration: underline; color: #8d7f7f; font-size: 15px; padding: 10px; }
+
+/* Portrait fallback (desktop or dismissed hint): menu along the bottom */
+@media (orientation: portrait) {
+  .map-screen { --panel: 0px; }
+  .area-panel { top: auto; width: 100%; height: auto; grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; box-shadow: 0 -4px 0 #EADFC8; }
+  .area-panel .area-button:last-child:nth-child(odd) { grid-column: auto; flex-direction: column; }
+  .area-label { font-size: 11px; }
+  .game-tile, .tile-row.many .game-tile { width: clamp(110px, 40vw, 170px); }
+}
+
+/* Cards always fit: two rows in landscape */
+.game-tile, .tile-row.many .game-tile { height: min(calc((100vh - 120px) / 2), 190px); min-height: 96px; }
+.tile-row:not(.many) .game-tile { height: min(calc(100vh - 140px), 220px); }
+.tile-art { flex: 1; min-height: 0; aspect-ratio: auto; }
+.tile-row.many .tile-art { aspect-ratio: auto; }
+.tile-name { min-height: 2.2em; flex: none; }
+@media (orientation: portrait) {
+  .game-tile, .tile-row.many .game-tile, .tile-row:not(.many) .game-tile { height: 170px; }
+}

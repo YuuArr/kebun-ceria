@@ -3,6 +3,7 @@ import { backdrop } from '../art/backdrops';
 import { h, s } from '../art/svg';
 import { go, type Screen } from '../core/router';
 import { access, audio } from '../services';
+import { preferLandscape } from '../core/orientation';
 
 export const startScreen: Screen = (root) => {
   const play = h('button', { class: 'play-button', type: 'button', 'aria-label': 'Mulai main', 'data-testid': 'play-button' }, [
@@ -10,6 +11,7 @@ export const startScreen: Screen = (root) => {
   ]);
   play.addEventListener('click', () => {
     audio.unlock();
+    void preferLandscape();
     go(access.isUnlocked() ? 'map' : 'access', { greet: '1' });
   });
   root.append(

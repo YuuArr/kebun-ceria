@@ -49,6 +49,7 @@ test('area buttons stay inside the viewport after rotation', async ({ page }) =>
   await enterGarden(page);
   for (const size of [{ width: 844, height: 390 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(size);
+    await page.waitForTimeout(300); // let the grid settle after rotating
     for (const a of ['huruf', 'angka', 'warna']) {
       const b = (await page.getByTestId(`area-${a}`).boundingBox())!;
       expect(b.x).toBeGreaterThanOrEqual(0);
@@ -58,4 +59,15 @@ test('area buttons stay inside the viewport after rotation', async ({ page }) =>
       expect(b.width).toBeGreaterThanOrEqual(64);
     }
   }
+});
+
+test('upright phones see the rotate hint, which can be skipped', async ({ page }) => {
+  test.skip(page.viewportSize()!.width > page.viewportSize()!.height, 'portrait only');
+  await page.goto('./?rotate=1');
+  const hint = page.locator('.rotate-hint');
+  const coarse = await page.evaluate(() => matchMedia('(pointer: coarse)').matches);
+  test.skip(!coarse, 'needs a touch screen');
+  await expect(hint).toBeVisible();
+  await page.getByText('Lanjut tanpa memutar').click();
+  await expect(hint).toBeHidden();
 });
